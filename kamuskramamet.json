@@ -266,6 +266,26 @@
     "variant_count": 1
   },
   {
+    "indonesia": "[bagongan] aku",
+    "krama": "manira",
+    "krama_inggil": "manira",
+    "ngoko": "manira",
+    "ngoko_alus": "manira",
+    "all_krama": [
+      "manira"
+    ],
+    "all_krama_inggil": [
+      "manira"
+    ],
+    "all_ngoko": [
+      "manira"
+    ],
+    "all_ngoko_alus": [
+      "manira"
+    ],
+    "variant_count": 1
+  },
+  {
     "indonesia": "[bagongan] sekarang",
     "krama": "samen",
     "krama_inggil": "samen",
