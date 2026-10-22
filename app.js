@@ -4,8 +4,9 @@
  * - Analisis morfologi Bahasa Indonesia (awalan me-/di-, akhiran -kan/-i/-nya)
  * - Pemisahan & pemulihan kata dasar luluh/tidak luluh
  * - Pencarian multi-tingkat tutur pada kamuskramamet.json
- * - Synchronized Cross-Card Lookup: Edit kata di 1 kartu standar -> Semua kartu otomatis menyesuaikan!
- * - Pembentukan morfologi Bahasa Jawa via sriwedari.js & live-editing Aksara Jawa
+ * - Tampilan UI Bersih: Tanda hubung (-) dihilangkan pada tampilan Latin UI, 
+ *   namun tetap dipakai sistem untuk transliterasi Aksara Jawa kaidah Sriwedari.
+ * - Synchronized Cross-Card Lookup & Live-Editing Aksara Jawa
  */
 
 let kamusData = [];
@@ -250,7 +251,6 @@ function cariKamusStandard(kata) {
     let clean = kata.toLowerCase().trim().replace(/[^a-z\-]/g, "");
     if (!clean) return null;
 
-    // 1. Match persis
     let match = kamusData.find(item => {
         let ind = item.indonesia ? item.indonesia.toLowerCase() : "";
         if (ind.startsWith("[bagongan]")) return false;
@@ -272,7 +272,6 @@ function cariKamusStandard(kata) {
 
     if (match) return match;
 
-    // 2. Jika berimbuhan Jawa, coba lepaskan awalan/akhiran Jawa untuk mencari kata dasarnya
     let stemsToTry = [];
     let s = clean;
 
@@ -420,19 +419,23 @@ function tampilkanHasil(idLatin, idJawa, kataItems, isBagonganCard = false) {
         return;
     }
 
+    // 1. Tampilan Latin UI tanpa tanda hubung (-)
     let htmlContent = kataItems.map(item => {
         let isRed = item.isMissing ? "missing-word" : "";
-        return `<span class="word-span ${isRed}" contenteditable="true" spellcheck="false" data-index="${item.wordIndex}">${item.text}</span>`;
+        let displayText = item.text ? item.text.replace(/-/g, "") : "";
+        return `<span class="word-span ${isRed}" contenteditable="true" spellcheck="false" data-index="${item.wordIndex}">${displayText}</span>`;
     }).join(" ");
 
     elLatin.innerHTML = htmlContent;
 
-    let plainText = elLatin.innerText;
+    // 2. Transliterasi Aksara Jawa tetap menggunakan teks sistem berpenghubung (-)
+    let systemTextWithHyphens = kataItems.map(item => item.text).join(" ");
 
     if (elJawa && typeof window.transliterasiKalimat === 'function') {
-        elJawa.innerText = window.transliterasiKalimat(plainText);
+        elJawa.innerText = window.transliterasiKalimat(systemTextWithHyphens);
     }
 
+    // 3. Event Listener untuk Live Editing & Synchronized Cross-Card Lookup
     elLatin.querySelectorAll(".word-span").forEach(span => {
         span.addEventListener("input", () => {
             let updatedText = elLatin.innerText;
@@ -458,7 +461,6 @@ function tampilkanHasil(idLatin, idJawa, kataItems, isBagonganCard = false) {
                         currentWordsData[wordIndex].analisis.kataDasar = matched.indonesia;
                         currentWordsData[wordIndex].bagonganEntry = cariKamusBagongan(matched.indonesia);
                     } else {
-                        // Jika kata belum ada di JSON, perbarui kata dasarnya secara langsung
                         currentWordsData[wordIndex].customStandardEntry = null;
                         currentWordsData[wordIndex].analisis.kataDasar = typedText;
                         currentWordsData[wordIndex].bagonganEntry = cariKamusBagongan(typedText);
