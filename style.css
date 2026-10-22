@@ -1,0 +1,169 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    color: #333;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 15px;
+}
+
+header h1 {
+    color: #1b4332;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+header p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.input-section {
+    margin-bottom: 30px;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    resize: vertical;
+    margin-top: 8px;
+    margin-bottom: 20px;
+}
+
+.morphology-controls {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 20px;
+}
+
+.morphology-controls h3 {
+    font-size: 1rem;
+    color: #2d3748;
+    margin-bottom: 12px;
+}
+
+.control-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 15px;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.control-group label {
+    font-size: 0.85rem;
+    color: #4a5568;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+select {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e0;
+    background: white;
+    font-size: 0.9rem;
+}
+
+button#btnTerjemah {
+    width: 100%;
+    padding: 12px;
+    background-color: #2d6a4f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button#btnTerjemah:hover {
+    background-color: #1b4332;
+}
+
+.output-section h2 {
+    font-size: 1.3rem;
+    color: #1a202c;
+    margin-bottom: 15px;
+}
+
+.output-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.card {
+    padding: 15px;
+    border-radius: 8px;
+    background: #fff;
+    border-left: 5px solid #ccc;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card.ngoko { border-left-color: #e63946; }
+.card.ngoko h3 { color: #e63946; }
+
+.card.ngoko-alus { border-left-color: #f77f00; }
+.card.ngoko-alus h3 { color: #f77f00; }
+
+.card.krama { border-left-color: #457b9d; }
+.card.krama h3 { color: #457b9d; }
+
+.card.krama-inggil { border-left-color: #1d3557; }
+.card.krama-inggil h3 { color: #1d3557; }
+
+.card.bagongan { border-left-color: #6a0572; }
+.card.bagongan h3 { color: #6a0572; }
+
+.latin-result {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #2b2d42;
+    margin-bottom: 6px;
+    min-height: 24px;
+}
+
+.jawa-result {
+    font-size: 1.4rem;
+    color: #4a5568;
+    line-height: 1.4;
+    word-break: break-all;
+}
