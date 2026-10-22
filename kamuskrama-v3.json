@@ -3927,6 +3927,314 @@
     "krama_inggil": "dhawuh"
   },
   {
+    "indonesia": "cangkul",
+    "ngoko": "pacul",
+    "ngoko_alus": "pacul",
+    "krama": "pacul",
+    "krama_inggil": "pacul"
+  },
+  {
+    "indonesia": "meminjam / pinjam",
+    "ngoko": "silih / nyilih",
+    "ngoko_alus": "sambut",
+    "krama": "sambut / nyambut",
+    "krama_inggil": "ampil / ngampil"
+  },
+  {
+    "indonesia": "hidup",
+    "ngoko": "urip",
+    "ngoko_alus": "gesang",
+    "krama": "gesang",
+    "krama_inggil": "sugeng"
+  },
+  {
+    "indonesia": "menjenguk",
+    "ngoko": "tilik",
+    "ngoko_alus": "tuwi",
+    "krama": "tuwi",
+    "krama_inggil": "tinjo"
+  },
+  {
+    "indonesia": "tombak",
+    "ngoko": "tumbak",
+    "ngoko_alus": "waos",
+    "krama": "waos",
+    "krama_inggil": "watangan"
+  },
+  {
+    "indonesia": "haus",
+    "ngoko": "ngelak",
+    "ngoko_alus": "salit",
+    "krama": "ngelak",
+    "krama_inggil": "salit"
+  },
+  {
+    "indonesia": "mayat",
+    "ngoko": "mayit",
+    "ngoko_alus": "layon",
+    "krama": "mayit",
+    "krama_inggil": "layon"
+  },
+  {
+    "indonesia": "bunga",
+    "ngoko": "kembang",
+    "ngoko_alus": "sekar",
+    "krama": "sekar",
+    "krama_inggil": "sekar"
+  },
+  {
+    "indonesia": "tembakau",
+    "ngoko": "bako",
+    "ngoko_alus": "sata",
+    "krama": "sata",
+    "krama_inggil": "sata"
+  },
+  {
+    "indonesia": "pingsan",
+    "ngoko": "klenger",
+    "ngoko_alus": "kantu",
+    "krama": "kantu",
+    "krama_inggil": "kantu"
+  },
+  {
+    "indonesia": "terbakar",
+    "ngoko": "kobong",
+    "ngoko_alus": "kabesmi",
+    "krama": "kabesmi",
+    "krama_inggil": "kabesmi"
+  },
+  {
+    "indonesia": "kedelai",
+    "ngoko": "dhele",
+    "ngoko_alus": "dhangsul",
+    "krama": "dhangsul",
+    "krama_inggil": "dhangsul"
+  },
+  {
+    "indonesia": "jarum",
+    "ngoko": "dom",
+    "ngoko_alus": "jarum",
+    "krama": "jarum",
+    "krama_inggil": "jarum"
+  },
+  {
+    "indonesia": "betis",
+    "ngoko": "kempol",
+    "ngoko_alus": "wengkelan",
+    "krama": "kempol",
+    "krama_inggil": "wengkelan"
+  },
+  {
+    "indonesia": "ompong / tanggal gigi",
+    "ngoko": "ompong / pupak",
+    "ngoko_alus": "dhaut",
+    "krama": "ompong",
+    "krama_inggil": "dhaut"
+  },
+  {
+    "indonesia": "[Bagongan] sekarang",
+    "ngoko": "samen",
+    "ngoko_alus": "samen",
+    "krama": "samen",
+    "krama_inggil": "samen"
+  },
+  {
+    "indonesia": "[Bagongan] nanti / besok",
+    "ngoko": "besuk",
+    "ngoko_alus": "besuk",
+    "krama": "besuk",
+    "krama_inggil": "besuk"
+  },
+  {
+    "indonesia": "[Bagongan] apa",
+    "ngoko": "paran",
+    "ngoko_alus": "paran",
+    "krama": "paran",
+    "krama_inggil": "paran"
+  },
+  {
+    "indonesia": "[Bagongan] mana",
+    "ngoko": "pundi",
+    "ngoko_alus": "pundi",
+    "krama": "pundi",
+    "krama_inggil": "pundi"
+  },
+  {
+    "indonesia": "[Bagongan] berapa",
+    "ngoko": "santen",
+    "ngoko_alus": "santen",
+    "krama": "santen",
+    "krama_inggil": "santen"
+  },
+  {
+    "indonesia": "saya / aku",
+    "ngoko": "aku",
+    "ngoko_alus": "aku / kawula",
+    "krama": "kula",
+    "krama_inggil": "dalem / kawula"
+  },
+  {
+    "indonesia": "kamu / anda",
+    "ngoko": "kowe",
+    "ngoko_alus": "panjenengan",
+    "krama": "sampeyan",
+    "krama_inggil": "panjenengan"
+  },
+  {
+    "indonesia": "dia / beliau",
+    "ngoko": "dheweke",
+    "ngoko_alus": "panjenengane",
+    "krama": "piyambakipun",
+    "krama_inggil": "panjenenganipun"
+  },
+  {
+    "indonesia": "kami / kita",
+    "ngoko": "awakdhewe",
+    "ngoko_alus": "awakdhewe",
+    "krama": "kita",
+    "krama_inggil": "kita"
+  },
+  {
+    "indonesia": "kalian",
+    "ngoko": "kabeh",
+    "ngoko_alus": "panjenengan kabeh",
+    "krama": "sampeyan sedaya",
+    "krama_inggil": "panjenengan sedaya"
+  },
+  {
+    "indonesia": "bapak / ayah",
+    "ngoko": "bapak",
+    "ngoko_alus": "rama",
+    "krama": "bapak",
+    "krama_inggil": "rama"
+  },
+  {
+    "indonesia": "ibu",
+    "ngoko": "ibu / embok",
+    "ngoko_alus": "ibu",
+    "krama": "ibu",
+    "krama_inggil": "ibu"
+  },
+  {
+    "indonesia": "anak",
+    "ngoko": "anak",
+    "ngoko_alus": "putra",
+    "krama": "anak / yoga",
+    "krama_inggil": "putra"
+  },
+  {
+    "indonesia": "makan",
+    "ngoko": "mangan",
+    "ngoko_alus": "dhahar",
+    "krama": "nedha",
+    "krama_inggil": "dhahar"
+  },
+  {
+    "indonesia": "minum",
+    "ngoko": "ngombe",
+    "ngoko_alus": "ngunjuk",
+    "krama": "ngombe",
+    "krama_inggil": "ngunjuk"
+  },
+  {
+    "indonesia": "tidur",
+    "ngoko": "turu",
+    "ngoko_alus": "sare",
+    "krama": "tilem",
+    "krama_inggil": "sare"
+  },
+  {
+    "indonesia": "pergi",
+    "ngoko": "lunga",
+    "ngoko_alus": "tindak",
+    "krama": "kesah",
+    "krama_inggil": "tindak"
+  },
+  {
+    "indonesia": "rumah",
+    "ngoko": "omah",
+    "ngoko_alus": "dalem",
+    "krama": "griya",
+    "krama_inggil": "dalem"
+  },
+  {
+    "indonesia": "[Bagongan] saya",
+    "ngoko": "manira",
+    "ngoko_alus": "manira",
+    "krama": "manira",
+    "krama_inggil": "manira"
+  },
+  {
+    "indonesia": "[Bagongan] kamu",
+    "ngoko": "pakenira",
+    "ngoko_alus": "pakenira",
+    "krama": "pakenira",
+    "krama_inggil": "pakenira"
+  },
+  {
+    "indonesia": "[Bagongan] apakah",
+    "ngoko": "punapi",
+    "ngoko_alus": "punapi",
+    "krama": "punapi",
+    "krama_inggil": "punapi"
+  },
+  {
+    "indonesia": "[Bagongan] ini",
+    "ngoko": "puniki",
+    "ngoko_alus": "puniki",
+    "krama": "puniki",
+    "krama_inggil": "puniki"
+  },
+  {
+    "indonesia": "[Bagongan] itu",
+    "ngoko": "puniku",
+    "ngoko_alus": "puniku",
+    "krama": "puniku",
+    "krama_inggil": "puniku"
+  },
+  {
+    "indonesia": "[Bagongan] ya",
+    "ngoko": "henggeh",
+    "ngoko_alus": "henggeh",
+    "krama": "henggeh",
+    "krama_inggil": "henggeh"
+  },
+  {
+    "indonesia": "[Bagongan] tidak",
+    "ngoko": "mboya",
+    "ngoko_alus": "mboya",
+    "krama": "mboya",
+    "krama_inggil": "mboya"
+  },
+  {
+    "indonesia": "[Bagongan] ada",
+    "ngoko": "wenten",
+    "ngoko_alus": "wenten",
+    "krama": "wenten",
+    "krama_inggil": "wenten"
+  },
+  {
+    "indonesia": "[Bagongan] silakan / ayo",
+    "ngoko": "nedha",
+    "ngoko_alus": "nedha",
+    "krama": "nedha",
+    "krama_inggil": "nedha"
+  },
+  {
+    "indonesia": "[Bagongan] saja",
+    "ngoko": "besaos",
+    "ngoko_alus": "besaos",
+    "krama": "besaos",
+    "krama_inggil": "besaos"
+  },
+  {
+    "indonesia": "[Bagongan] lain",
+    "ngoko": "seyos",
+    "ngoko_alus": "seyos",
+    "krama": "seyos",
+    "krama_inggil": "seyos"
+  },
+  {
     "indonesia": "indonesia",
     "ngoko": "ngoko",
     "ngoko_alus": "ngoko_alus",
