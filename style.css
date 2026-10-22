@@ -168,7 +168,6 @@ button#btnTerjemah:hover {
     word-break: break-all;
 }
 
-/* Gaya Kata yang Tidak Ditemukan dalam Kamus */
 .missing-word {
     color: #e53e3e;
     font-weight: bold;
