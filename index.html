@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penerjemah Bahasa Indonesia - Basa Jawa Multi-Tingkat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Penerjemah & Paramasastra Basa Jawa</h1>
+            <p>Penerjemahan Bahasa Indonesia ke Ngoko, Ngoko Alus, Krama, Krama Inggil, dan Bagongan beserta Aksara Jawa</p>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <label for="inputIndonesia"><strong>Teks Bahasa Indonesia:</strong></label>
+                <textarea id="inputIndonesia" placeholder="Masukkan kata atau kalimat dalam Bahasa Indonesia..."></textarea>
+
+                <div class="morphology-controls">
+                    <h3>Pengaturan Imbuhan (Paramasastra):</h3>
+                    <div class="control-grid">
+                        <div class="control-group">
+                            <label for="selAwalan">Awalan (Ater-ater):</label>
+                            <select id="selAwalan">
+                                <option value="">-- Tanpa Awalan --</option>
+                                <option value="N">Aktif (N- / Anuswara)</option>
+                                <option value="pasif">Pasif (di- / dipun- / ka-)</option>
+                                <option value="pelaku1">Pelaku I / Saya (tak- / kula- / di-)</option>
+                                <option value="pelaku2">Pelaku II / Kamu (kok- / sampeyan- / panjenengan-)</option>
+                                <option value="sa">sa-</option>
+                                <option value="pa">pa-</option>
+                                <option value="pi">pi-</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="selAkhiran">Akhiran (Panambang):</label>
+                            <select id="selAkhiran">
+                                <option value="">-- Tanpa Akhiran --</option>
+                                <option value="pemilikan">Kepemilikan (-e / -ne / -ipun / -nipun)</option>
+                                <option value="kausatif">Kausatif / -kan (-ake / -aken)</option>
+                                <option value="lokatif">Lokatif (-i)</option>
+                                <option value="imperatif_aktif">Perintah Aktif (-a)</option>
+                                <option value="imperatif_pasif">Perintah Pasif (-en / -ana / -na)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="btnTerjemah" onclick="prosesTerjemahan()">Terjemahkan</button>
+            </section>
+
+            <section class="output-section">
+                <h2>Hasil Terjemahan</h2>
+                <div id="outputContainer" class="output-grid">
+                    <div class="card ngoko">
+                        <h3>Ngoko Lugu</h3>
+                        <div class="latin-result" id="outNgokoLatin">-</div>
+                        <div class="jawa-result" id="outNgokoJawa"></div>
+                    </div>
+
+                    <div class="card ngoko-alus">
+                        <h3>Ngoko Alus</h3>
+                        <div class="latin-result" id="outNgokoAlusLatin">-</div>
+                        <div class="jawa-result" id="outNgokoAlusJawa"></div>
+                    </div>
+
+                    <div class="card krama">
+                        <h3>Krama Lugu</h3>
+                        <div class="latin-result" id="outKramaLatin">-</div>
+                        <div class="jawa-result" id="outKramaJawa"></div>
+                    </div>
+
+                    <div class="card krama-inggil">
+                        <h3>Krama Inggil (Alus)</h3>
+                        <div class="latin-result" id="outKramaInggilLatin">-</div>
+                        <div class="jawa-result" id="outKramaInggilJawa"></div>
+                    </div>
+
+                    <div class="card bagongan">
+                        <h3>Bagongan (Basa Kraton)</h3>
+                        <div class="latin-result" id="outBagonganLatin">-</div>
+                        <div class="jawa-result" id="outBagonganJawa"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="sriwedari.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
