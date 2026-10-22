@@ -1,5 +1,5 @@
 /**
- * APP.JS - Mesin Penerjemah & Transformasi Morfologi Basa Jawa
+ * APP.JS - Mesin Penerjemah & Transformasi Morfologi Bahasa Indonesia - Basa Jawa
  */
 
 let kamusData = [];
@@ -35,6 +35,9 @@ function debounce(func, wait) {
     };
 }
 
+/**
+ * Alur Utama Penerjemahan
+ */
 function prosesTerjemahan() {
     const inputTeks = document.getElementById("inputIndonesia").value.trim();
     if (!inputTeks) {
@@ -42,8 +45,9 @@ function prosesTerjemahan() {
         return;
     }
 
-    const awalanOp = document.getElementById("selAwalan").value;
-    const akhiranOp = document.getElementById("selAkhiran").value;
+    // Ambil opsi manual dari UI jika pengguna memilih imbuhan secara terpisah
+    const awalanUi = document.getElementById("selAwalan").value;
+    const akhiranUi = document.getElementById("selAkhiran").value;
 
     const kataList = inputTeks.toLowerCase().split(/\s+/);
 
@@ -54,19 +58,28 @@ function prosesTerjemahan() {
     let hasilBagongan = [];
 
     kataList.forEach(kata => {
-        let entry = cariKamus(kata);
+        // 1. Urai Morfologi Bahasa Indonesia (Awalan + Kata Dasar + Akhiran)
+        let analisisId = uraiMorfologiIndonesia(kata);
 
-        let stemNgoko = entry ? entry.ngoko : kata;
-        let stemNgokoAlus = entry ? entry.ngoko_alus : kata;
-        let stemKrama = entry ? entry.krama : kata;
-        let stemKramaInggil = entry ? entry.krama_inggil : kata;
-        let stemBagongan = entry ? (entry.bagongan || entry.krama) : kata;
+        // Gabungkan deteksi otomatis dari teks input dengan preferensi manual dari UI (jika ada)
+        let awalanFinal = awalanUi || analisisId.awalan;
+        let akhiranFinal = akhiranUi || analisisId.akhiran;
 
-        hasilNgoko.push(terapkanMorfologi(stemNgoko, "ngoko", awalanOp, akhiranOp));
-        hasilNgokoAlus.push(terapkanMorfologi(stemNgokoAlus, "ngoko_alus", awalanOp, akhiranOp));
-        hasilKrama.push(terapkanMorfologi(stemKrama, "krama", awalanOp, akhiranOp));
-        hasilKramaInggil.push(terapkanMorfologi(stemKramaInggil, "krama_inggil", awalanOp, akhiranOp));
-        hasilBagongan.push(terapkanMorfologi(stemBagongan, "bagongan", awalanOp, akhiranOp));
+        let entry = analisisId.entry;
+
+        // Ambil kata dasar terjemahan untuk masing-masing tingkatan
+        let stemNgoko = entry ? entry.ngoko : analisisId.kataDasar;
+        let stemNgokoAlus = entry ? entry.ngoko_alus : analisisId.kataDasar;
+        let stemKrama = entry ? entry.krama : analisisId.kataDasar;
+        let stemKramaInggil = entry ? entry.krama_inggil : analisisId.kataDasar;
+        let stemBagongan = entry ? (entry.bagongan || entry.krama) : analisisId.kataDasar;
+
+        // 2. Bentuk Morfologi Bahasa Jawa melalui Mesin Sriwedari
+        hasilNgoko.push(terapkanMorfologi(stemNgoko, "ngoko", awalanFinal, akhiranFinal));
+        hasilNgokoAlus.push(terapkanMorfologi(stemNgokoAlus, "ngoko_alus", awalanFinal, akhiranFinal));
+        hasilKrama.push(terapkanMorfologi(stemKrama, "krama", awalanFinal, akhiranFinal));
+        hasilKramaInggil.push(terapkanMorfologi(stemKramaInggil, "krama_inggil", awalanFinal, akhiranFinal));
+        hasilBagongan.push(terapkanMorfologi(stemBagongan, "bagongan", awalanFinal, akhiranFinal));
     });
 
     let teksNgoko = hasilNgoko.join(" ");
@@ -82,25 +95,143 @@ function prosesTerjemahan() {
     tampilkanHasil("outBagonganLatin", "outBagonganJawa", teksBagongan);
 }
 
+/**
+ * 1. LOGIKA PENGURAIAN MORFOLOGI BAHASA INDONESIA
+ * Memecah input kata menjadi Awalan, Kata Dasar (Luluh/Tidak Luluh), dan Akhiran.
+ */
+function uraiMorfologiIndonesia(kata) {
+    let clean = kata.toLowerCase().replace(/[^a-z\-]/g, "");
+    let awalan = "";
+    let akhiran = "";
+    let stem = clean;
+
+    // A. Cek Entri Langsung di Kamus
+    let directEntry = cariKamus(clean);
+    if (directEntry) {
+        return { kataDasar: clean, awalan: "", akhiran: "", entry: directEntry };
+    }
+
+    // B. Deteksi Akhiran Bahasa Indonesia (-kan, -i, -nya)
+    if (stem.endsWith("nya") && stem.length > 4) {
+        akhiran = "pemilikan";
+        stem = stem.slice(0, -3);
+    } else if (stem.endsWith("kan") && stem.length > 4) {
+        akhiran = "kausatif";
+        stem = stem.slice(0, -3);
+    } else if (stem.endsWith("i") && stem.length > 3) {
+        let tempStem = stem.slice(0, -1);
+        if (cariKataDasarIndonesia(tempStem) || stem.startsWith("me") || stem.startsWith("di")) {
+            akhiran = "lokatif";
+            stem = tempStem;
+        }
+    }
+
+    // C. Deteksi Awalan Pasif Bahasa Indonesia: di-
+    if (stem.startsWith("di") && stem.length > 3) {
+        awalan = "pasif";
+        stem = stem.slice(2);
+    }
+    // D. Deteksi Awalan Aktif Bahasa Indonesia: me-, mem-, men-, meng-, meny-
+    else if (stem.startsWith("me")) {
+        awalan = "N"; // Awalan aktif / Nasalisasi Anuswara
+
+        if (stem.startsWith("mem")) {
+            let rest = stem.slice(3);
+            // Luluh p- (misal: memotong -> potong, memilih -> pilih)
+            if (cariKataDasarIndonesia("p" + rest)) stem = "p" + rest;
+            // Tidak luluh b, f, v (misal: membuat -> buat, membawa -> bawa)
+            else if (cariKataDasarIndonesia(rest)) stem = rest;
+            else stem = "p" + rest;
+        } else if (stem.startsWith("men")) {
+            let rest = stem.slice(3);
+            // Luluh t- (misal: menulis -> tulis)
+            if (cariKataDasarIndonesia("t" + rest)) stem = "t" + rest;
+            // Tidak luluh d, j, c, z (misal: mendengar -> dengar, mencari -> cari)
+            else if (cariKataDasarIndonesia(rest)) stem = rest;
+            else stem = "t" + rest;
+        } else if (stem.startsWith("meny")) {
+            let rest = stem.slice(4);
+            // Luluh s- (misal: menyapu -> sapu, menyiram -> siram)
+            stem = "s" + rest;
+        } else if (stem.startsWith("meng")) {
+            let rest = stem.slice(4);
+            // Luluh k- (misal: mengirim -> kirim)
+            if (cariKataDasarIndonesia("k" + rest)) stem = "k" + rest;
+            // Awalan Vokal atau g, h (misal: mengambil -> ambil, menggoreng -> goreng)
+            else if (cariKataDasarIndonesia(rest)) stem = rest;
+            else stem = rest;
+        } else if (stem.startsWith("me")) {
+            let rest = stem.slice(2);
+            // Tidak luluh l, r, m, n, w, y (misal: melihat -> lihat)
+            stem = rest;
+        }
+    }
+
+    // E. Pencarian Kata Dasar di JSON
+    let entry = cariKataDasarIndonesia(stem);
+
+    return {
+        kataDasar: stem,
+        awalan: awalan,
+        akhiran: akhiran,
+        entry: entry
+    };
+}
+
+/**
+ * Mencari kata dasar dalam kamus, termasuk mencocokkan kata dasar
+ * dengan variasi kata berawalan yang tersimpan di kamuskramamet.json
+ */
+function cariKataDasarIndonesia(stem) {
+    if (!stem) return null;
+    let clean = stem.toLowerCase();
+
+    // 1. Pencarian Langsung
+    let direct = cariKamus(clean);
+    if (direct) return direct;
+
+    // 2. Pencarian Variasi Bentuk Berawalan me- (karena beberapa entri JSON ditulis dalam bentuk verba aktif)
+    let meForms = [
+        "me" + clean,
+        "mem" + clean,
+        "men" + clean,
+        "meng" + clean,
+        "meny" + clean
+    ];
+
+    if (clean.startsWith('t')) meForms.push("men" + clean.slice(1));
+    if (clean.startsWith('p')) meForms.push("mem" + clean.slice(1));
+    if (clean.startsWith('k')) meForms.push("meng" + clean.slice(1));
+    if (clean.startsWith('s')) meForms.push("meny" + clean.slice(1));
+
+    for (let form of meForms) {
+        let found = cariKamus(form);
+        if (found) return found;
+    }
+
+    return null;
+}
+
 function cariKamus(kata) {
     if (!kamusData || kamusData.length === 0) return null;
 
-    // 1. Pencarian persis pada bidang indonesia
     let found = kamusData.find(item => item.indonesia.toLowerCase() === kata);
     if (found) return found;
 
-    // 2. Pencarian pencocokan entri bagongan bertag [bagongan]
     found = kamusData.find(item => item.indonesia.toLowerCase() === `[bagongan] ${kata}`);
     if (found) return found;
 
-    // 3. Pencarian substring/kata dasar
-    found = kamusData.find(item => item.indonesia.toLowerCase().split(", ").includes(kata));
+    found = kamusData.find(item => {
+        let parts = item.indonesia.toLowerCase().split(", ");
+        return parts.includes(kata);
+    });
+
     return found || null;
 }
 
 /**
- * Menerapkan aturan awalan, akhiran, dan peluluhan/perubahan vokal terbuka
- * berdasarkan logika paramasastra terintegrasi sriwedari.js & ruleawalakhir.txt
+ * 2. LOGIKA PEMBENTUKAN MORFOLOGI BAHASA JAWA
+ * Menggabungkan aturan tingkat tutur (ruleawalakhir.txt) dengan mesin paramasastra sriwedari.js.
  */
 function terapkanMorfologi(kataDasar, tingkat, awalanType, akhiranType) {
     if (!kataDasar) return "";
@@ -108,9 +239,9 @@ function terapkanMorfologi(kataDasar, tingkat, awalanType, akhiranType) {
     let aterAter = "";
     let panambang = "";
 
-    // A. Penentuan Awalan (Ater-ater) berdasarkan tingkat tutur
+    // Pemetaan Awalan (Ater-ater) berdasarkan Tingkat Tutur
     if (awalanType === "N") {
-        aterAter = "N"; // Mengaktifkan ater-ater anuswara di sriwedari
+        aterAter = "N"; // Anuswara (Peluluhan diproses di sriwedari.js)
     } else if (awalanType === "pasif") {
         if (tingkat === "ngoko" || tingkat === "ngoko_alus") aterAter = "di";
         else if (tingkat === "krama" || tingkat === "krama_inggil") aterAter = "dipun";
@@ -121,15 +252,14 @@ function terapkanMorfologi(kataDasar, tingkat, awalanType, akhiranType) {
         else if (tingkat === "bagongan") aterAter = "di";
     } else if (awalanType === "pelaku2") {
         if (tingkat === "ngoko") aterAter = "kok";
-        else if (tingkat === "ngoko_alus") aterAter = "panjenengan";
+        else if (tingkat === "ngoko_alus" || tingkat === "krama_inggil") aterAter = "panjenengan";
         else if (tingkat === "krama") aterAter = "sampeyan";
-        else if (tingkat === "krama_inggil") aterAter = "panjenengan";
         else if (tingkat === "bagongan") aterAter = "di";
     } else if (["sa", "pa", "pi"].includes(awalanType)) {
         aterAter = awalanType;
     }
 
-    // B. Penentuan Akhiran (Panambang) berdasarkan tingkat tutur
+    // Pemetaan Akhiran (Panambang) berdasarkan Tingkat Tutur
     if (akhiranType === "pemilikan") {
         if (tingkat === "krama" || tingkat === "krama_inggil") panambang = "ipun";
         else panambang = "e";
@@ -144,17 +274,18 @@ function terapkanMorfologi(kataDasar, tingkat, awalanType, akhiranType) {
         panambang = "en";
     }
 
-    // C. Jika tanpa imbuhan, kembalikan kata dasar
     if (!aterAter && !panambang) {
         return kataDasar;
     }
 
-    // D. Gunakan mesin transformasi Paramasastra sriwedari.js lewat DOM Mock/Simulasi
+    // Eksekusi perubahan vokal & luluh kata melalui mesin sriwedari.js
     return jalankanParamasastraSriwedari(aterAter, kataDasar, panambang);
 }
 
+/**
+ * Menjalankan mesin pemrosesan Paramasastra dari sriwedari.js
+ */
 function jalankanParamasastraSriwedari(ater, dasar, panam) {
-    // Membuat elemen mock jika tidak berada pada konteks DOM terpasang
     let mockAter = { value: ater };
     let mockDasar = { value: dasar };
     let mockPanam = { value: panam };
@@ -177,7 +308,7 @@ function jalankanParamasastraSriwedari(ater, dasar, panam) {
         window.prosesParamasastra();
     }
 
-    document.getElementById = getEl; // Restore getElementById
+    document.getElementById = getEl;
     return mockOutLat.value || dasar;
 }
 
