@@ -13039,22 +13039,38 @@
     "ngoko": "mangan",
     "ngoko_alus": "dhahar",
     "all_krama": [
-      "kuburan",
       "nedha"
     ],
     "all_krama_inggil": [
-      "dhahar",
-      "pasareyan"
+      "dhahar"
     ],
     "all_ngoko": [
-      "kuburan",
       "mangan"
     ],
     "all_ngoko_alus": [
-      "dhahar",
+      "dhahar"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "makam",
+    "krama": "kuburan",
+    "krama_inggil": "pasareyan",
+    "ngoko": "kuburan",
+    "ngoko_alus": "pasareyan",
+    "all_krama": [
+      "kuburan"
+    ],
+    "all_krama_inggil": [
       "pasareyan"
     ],
-    "variant_count": 2
+    "all_ngoko": [
+      "kuburan"
+    ],
+    "all_ngoko_alus": [
+      "pasareyan"
+    ],
+    "variant_count": 1
   },
   {
     "indonesia": "makanan",
