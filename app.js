@@ -1,10 +1,11 @@
 /**
  * APP.JS - Mesin Penerjemah & Transformasi Morfologi Bahasa Indonesia ke Basa Jawa
  * Fitur Utama:
+ * - Pemisahan Ketat: Kamus Bagongan khusus untuk Bagongan, Kamus Standar untuk Ngoko/Krama.
  * - Analisis morfologi Bahasa Indonesia (awalan me-/di-, akhiran -kan/-i/-nya)
  * - Pemisahan & pemulihan kata dasar luluh/tidak luluh
- * - Pencarian multi-tingkat tutur pada kamuskramamet.json (termasuk tag [bagongan])
- * - Pencarian Silang Otomatis (Cross-Card Lookup): Edit di 1 kartu -> Semua kartu menyesuaikan entri JSON
+ * - Pencarian multi-tingkat tutur pada kamuskramamet.json
+ * - Pencarian Silang Otomatis (Cross-Card Lookup): Edit kartu standar -> memperbarui kartu standar lainnya. Edit kartu Bagongan -> khusus Bagongan.
  * - Pembentukan morfologi Bahasa Jawa via sriwedari.js & live-editing Aksara Jawa
  */
 
@@ -54,7 +55,6 @@ function prosesTerjemahan() {
 
     const kataList = inputTeks.toLowerCase().split(/\s+/);
 
-    // Inisialisasi state kata per kata
     currentWordsData = kataList.map((kata, index) => {
         let analisisId = uraiMorfologiIndonesia(kata);
         let bagonganEntry = cariKamusBagongan(analisisId.kataDasar);
@@ -62,9 +62,10 @@ function prosesTerjemahan() {
         return {
             index: index,
             originalInput: kata,
-            analisis: analisisId,
-            bagonganEntry: bagonganEntry,
-            customEntry: null // Menyimpan entri JSON hasil pengubahan user
+            analisis: analisisId,          // Standar (tanpa tag bagongan)
+            bagonganEntry: bagonganEntry, // Entri khusus bagongan jika ada
+            customStandardEntry: null,     // Jika user edit di kartu standar
+            customBagonganEntry: null      // Jika user edit di kartu bagongan
         };
     });
 
@@ -95,66 +96,56 @@ function renderAllCards() {
         let awalanFinal = awalanUi || analisisId.awalan;
         let akhiranFinal = akhiranUi || analisisId.akhiran;
 
-        // Gunakan customEntry jika user pernah memilih/mengetik kata yang cocok dengan JSON
-        let activeEntry = wordObj.customEntry || analisisId.entry;
-        let isMissingGeneral = !activeEntry;
+        // 1. Kamus Standar untuk Ngoko, Ngoko Alus, Krama, Krama Inggil
+        let stdEntry = wordObj.customStandardEntry || analisisId.entry;
+        let isMissingStd = !stdEntry;
 
-        // 1. Kata dasar Ngoko, Ngoko Alus, Krama, Krama Inggil
-        let stemNgoko = activeEntry ? activeEntry.ngoko : (analisisId.kataDasar);
-        let stemNgokoAlus = activeEntry ? activeEntry.ngoko_alus : (analisisId.kataDasar);
-        let stemKrama = activeEntry ? activeEntry.krama : (analisisId.kataDasar);
-        let stemKramaInggil = activeEntry ? activeEntry.krama_inggil : (analisisId.kataDasar);
+        let stemNgoko = stdEntry ? stdEntry.ngoko : analisisId.kataDasar;
+        let stemNgokoAlus = stdEntry ? stdEntry.ngoko_alus : analisisId.kataDasar;
+        let stemKrama = stdEntry ? stdEntry.krama : analisisId.kataDasar;
+        let stemKramaInggil = stdEntry ? stdEntry.krama_inggil : analisisId.kataDasar;
 
-        // 2. Kosakata khusus Bagongan
-        let bagonganEntry = wordObj.customEntry || wordObj.bagonganEntry;
+        // 2. Kamus Bagongan Khusus untuk Kartu Bagongan
+        let bagEntry = wordObj.customBagonganEntry || wordObj.bagonganEntry || stdEntry;
+        let isMissingBag = !bagEntry;
         let stemBagongan = analisisId.kataDasar;
-        let isMissingBagongan = false;
 
-        if (wordObj.customEntry) {
-            stemBagongan = wordObj.customEntry.bagongan || wordObj.customEntry.krama || wordObj.customEntry.ngoko;
-            isMissingBagongan = false;
-        } else if (bagonganEntry) {
-            stemBagongan = bagonganEntry.krama || bagonganEntry.ngoko;
-            isMissingBagongan = false;
-        } else if (activeEntry) {
-            stemBagongan = activeEntry.bagongan || activeEntry.krama || activeEntry.ngoko;
-            isMissingBagongan = false;
-        } else {
-            isMissingBagongan = true;
+        if (bagEntry) {
+            stemBagongan = bagEntry.krama || bagEntry.ngoko || bagEntry.krama_inggil;
         }
 
         hasilNgoko.push({
             wordIndex: idx,
             text: terapkanMorfologi(stemNgoko, "ngoko", awalanFinal, akhiranFinal),
-            isMissing: isMissingGeneral
+            isMissing: isMissingStd
         });
         hasilNgokoAlus.push({
             wordIndex: idx,
             text: terapkanMorfologi(stemNgokoAlus, "ngoko_alus", awalanFinal, akhiranFinal),
-            isMissing: isMissingGeneral
+            isMissing: isMissingStd
         });
         hasilKrama.push({
             wordIndex: idx,
             text: terapkanMorfologi(stemKrama, "krama", awalanFinal, akhiranFinal),
-            isMissing: isMissingGeneral
+            isMissing: isMissingStd
         });
         hasilKramaInggil.push({
             wordIndex: idx,
             text: terapkanMorfologi(stemKramaInggil, "krama_inggil", awalanFinal, akhiranFinal),
-            isMissing: isMissingGeneral
+            isMissing: isMissingStd
         });
         hasilBagongan.push({
             wordIndex: idx,
             text: terapkanMorfologi(stemBagongan, "bagongan", awalanFinal, akhiranFinal),
-            isMissing: isMissingBagongan
+            isMissing: isMissingBag
         });
     });
 
-    tampilkanHasil("outNgokoLatin", "outNgokoJawa", hasilNgoko);
-    tampilkanHasil("outNgokoAlusLatin", "outNgokoAlusJawa", hasilNgokoAlus);
-    tampilkanHasil("outKramaLatin", "outKramaJawa", hasilKrama);
-    tampilkanHasil("outKramaInggilLatin", "outKramaInggilJawa", hasilKramaInggil);
-    tampilkanHasil("outBagonganLatin", "outBagonganJawa", hasilBagongan);
+    tampilkanHasil("outNgokoLatin", "outNgokoJawa", hasilNgoko, false);
+    tampilkanHasil("outNgokoAlusLatin", "outNgokoAlusJawa", hasilNgokoAlus, false);
+    tampilkanHasil("outKramaLatin", "outKramaJawa", hasilKrama, false);
+    tampilkanHasil("outKramaInggilLatin", "outKramaInggilJawa", hasilKramaInggil, false);
+    tampilkanHasil("outBagonganLatin", "outBagonganJawa", hasilBagongan, true);
 }
 
 /**
@@ -166,7 +157,7 @@ function uraiMorfologiIndonesia(kata) {
     let akhiran = "";
     let stem = clean;
 
-    let directEntry = cariKamus(clean);
+    let directEntry = cariKamusStandard(clean);
     if (directEntry) {
         return { kataDasar: clean, awalan: "", akhiran: "", entry: directEntry };
     }
@@ -228,7 +219,7 @@ function cariKataDasarIndonesia(stem) {
     if (!stem) return null;
     let clean = stem.toLowerCase();
 
-    let direct = cariKamus(clean);
+    let direct = cariKamusStandard(clean);
     if (direct) return direct;
 
     let meForms = [
@@ -245,52 +236,30 @@ function cariKataDasarIndonesia(stem) {
     if (clean.startsWith('s')) meForms.push("meny" + clean.slice(1));
 
     for (let form of meForms) {
-        let found = cariKamus(form);
+        let found = cariKamusStandard(form);
         if (found) return found;
     }
 
     return null;
 }
 
-function cariKamus(kata) {
-    if (!kamusData || kamusData.length === 0) return null;
-
-    let found = kamusData.find(item => item.indonesia.toLowerCase() === kata);
-    if (found) return found;
-
-    found = kamusData.find(item => item.indonesia.toLowerCase() === `[bagongan] ${kata}`);
-    if (found) return found;
-
-    found = kamusData.find(item => {
-        let parts = item.indonesia.toLowerCase().split(", ");
-        return parts.includes(kata);
-    });
-
-    return found || null;
-}
-
-function cariKamusBagongan(kata) {
-    if (!kamusData || kamusData.length === 0) return null;
-    let clean = kata.toLowerCase().trim();
-    return kamusData.find(item => item.indonesia.toLowerCase() === `[bagongan] ${clean}`) || null;
-}
-
 /**
- * Mencari entri JSON berdasarkan kata dari Bahasa Apapun (Ngoko, Krama, Krama Inggil, Bagongan, Indonesia)
+ * Pencarian Kamus Standar (TIDAK mengambil entri bertag [bagongan])
  */
-function cariKamusByAnyField(kata) {
+function cariKamusStandard(kata) {
     if (!kamusData || kamusData.length === 0 || !kata) return null;
     let clean = kata.toLowerCase().trim();
 
     return kamusData.find(item => {
         let ind = item.indonesia ? item.indonesia.toLowerCase() : "";
+        if (ind.startsWith("[bagongan]")) return false; // Abaikan entri khusus bagongan
+
         let ngo = item.ngoko ? item.ngoko.toLowerCase() : "";
         let ngoAlus = item.ngoko_alus ? item.ngoko_alus.toLowerCase() : "";
         let kra = item.krama ? item.krama.toLowerCase() : "";
         let kraIng = item.krama_inggil ? item.krama_inggil.toLowerCase() : "";
 
         return ind === clean ||
-               ind === `[bagongan] ${clean}` ||
                ngo === clean ||
                ngoAlus === clean ||
                kra === clean ||
@@ -299,6 +268,19 @@ function cariKamusByAnyField(kata) {
                ngo.split(", ").includes(clean) ||
                kra.split(", ").includes(clean);
     }) || null;
+}
+
+/**
+ * Pencarian Kamus Khusus Bagongan (Mencari tag [bagongan] dulu, jika tidak ada baru ke standar)
+ */
+function cariKamusBagongan(kata) {
+    if (!kamusData || kamusData.length === 0 || !kata) return null;
+    let clean = kata.toLowerCase().trim();
+
+    let bagEntry = kamusData.find(item => item.indonesia.toLowerCase() === `[bagongan] ${clean}`);
+    if (bagEntry) return bagEntry;
+
+    return cariKamusStandard(clean);
 }
 
 /**
@@ -380,7 +362,7 @@ function jalankanParamasastraSriwedari(ater, dasar, panam) {
 /**
  * Menampilkan Hasil Terjemahan dan Mengaktifkan Fitur Edit & Cross-Card Lookup
  */
-function tampilkanHasil(idLatin, idJawa, kataItems) {
+function tampilkanHasil(idLatin, idJawa, kataItems, isBagonganCard = false) {
     const elLatin = document.getElementById(idLatin);
     const elJawa = document.getElementById(idJawa);
 
@@ -405,9 +387,7 @@ function tampilkanHasil(idLatin, idJawa, kataItems) {
         elJawa.innerText = window.transliterasiKalimat(plainText);
     }
 
-    // Event Listener untuk Live Editing & Cross-Card Lookup
     elLatin.querySelectorAll(".word-span").forEach(span => {
-        // 1. Transliterasi Aksara Jawa langsung saat mengetik
         span.addEventListener("input", () => {
             let updatedText = elLatin.innerText;
             if (elJawa && typeof window.transliterasiKalimat === 'function') {
@@ -415,21 +395,26 @@ function tampilkanHasil(idLatin, idJawa, kataItems) {
             }
         });
 
-        // 2. Saat selesai mengetik (blur) atau tekan Enter: Cari di JSON & perbarui semua kartu
         const handleCommitEdit = () => {
             let wordIndex = parseInt(span.getAttribute("data-index"));
             let typedText = span.innerText.trim();
 
             if (!isNaN(wordIndex) && currentWordsData[wordIndex]) {
-                // Cari kata baru di kamus JSON (lintas bahasa)
-                let matchedEntry = cariKamusByAnyField(typedText);
-
-                if (matchedEntry) {
-                    // Jika kata ditemukan di JSON, perbarui entri kata tersebut
-                    currentWordsData[wordIndex].customEntry = matchedEntry;
-                    currentWordsData[wordIndex].analisis.kataDasar = matchedEntry.indonesia;
-                    renderAllCards(); // Perbarui seluruh 5 kartu sekaligus!
+                if (isBagonganCard) {
+                    // Jika editan berasal dari Kartu Bagongan, cari khusus di kamus Bagongan
+                    let matched = cariKamusBagongan(typedText);
+                    if (matched) {
+                        currentWordsData[wordIndex].customBagonganEntry = matched;
+                    }
+                } else {
+                    // Jika editan berasal dari Kartu Standar (Ngoko/Krama), cari khusus di kamus Standar
+                    let matched = cariKamusStandard(typedText);
+                    if (matched) {
+                        currentWordsData[wordIndex].customStandardEntry = matched;
+                        currentWordsData[wordIndex].analisis.kataDasar = matched.indonesia;
+                    }
                 }
+                renderAllCards();
             }
         };
 
@@ -438,7 +423,7 @@ function tampilkanHasil(idLatin, idJawa, kataItems) {
         span.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
                 e.preventDefault();
-                span.blur(); // Memicu handleCommitEdit
+                span.blur();
             }
         });
     });
