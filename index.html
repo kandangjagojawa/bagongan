@@ -19,12 +19,12 @@
                 <textarea id="inputIndonesia" placeholder="Masukkan kata atau kalimat dalam Bahasa Indonesia..."></textarea>
 
                 <div class="morphology-controls">
-                    <h3>Pengaturan Imbuhan (Paramasastra):</h3>
+                    <h3>Pengaturan Imbuhan Manual (Opsional):</h3>
                     <div class="control-grid">
                         <div class="control-group">
                             <label for="selAwalan">Awalan (Ater-ater):</label>
-                            <select id="selAwalan">
-                                <option value="">-- Tanpa Awalan --</option>
+                            <select id="selAwalan" onchange="prosesTerjemahan()">
+                                <option value="">Otomatis dari Input</option>
                                 <option value="N">Aktif (N- / Anuswara)</option>
                                 <option value="pasif">Pasif (di- / dipun- / ka-)</option>
                                 <option value="pelaku1">Pelaku I / Saya (tak- / kula- / di-)</option>
@@ -37,8 +37,8 @@
 
                         <div class="control-group">
                             <label for="selAkhiran">Akhiran (Panambang):</label>
-                            <select id="selAkhiran">
-                                <option value="">-- Tanpa Akhiran --</option>
+                            <select id="selAkhiran" onchange="prosesTerjemahan()">
+                                <option value="">Otomatis dari Input</option>
                                 <option value="pemilikan">Kepemilikan (-e / -ne / -ipun / -nipun)</option>
                                 <option value="kausatif">Kausatif / -kan (-ake / -aken)</option>
                                 <option value="lokatif">Lokatif (-i)</option>
