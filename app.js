@@ -1,20 +1,15 @@
-// Engine Translasi dan Logika UI Aplikasi Basa Bagongan
+// Engine Translasi Basa Bagongan Yogyakarta (Versi Terkoreksi)
 
 function translateToBagongan(text) {
   if (!text || text.trim() === "") {
     return { output: "", breakdown: [] };
   }
 
-  // Cleaning & tokenization
   const cleanText = text.trim();
-  const sentences = cleanText.split(/([.!?]+)/);
-  
+  const words = cleanText.toLowerCase().replace(/[^a-z0-9\s\-]/g, "").split(/\s+/);
+
   let translatedTokens = [];
   let breakdownList = [];
-
-  // Regex helpers for Indonesian affixes
-  // me-kan, di-kan, di-nya, -nya, -kan, di-
-  const words = cleanText.toLowerCase().replace(/[^a-z0-9\s\-]/g, "").split(/\s+/);
 
   words.forEach(rawWord => {
     let word = rawWord;
@@ -22,19 +17,18 @@ function translateToBagongan(text) {
     let note = "";
     let ruleCategory = "";
 
-    // Step 1: Check Bagongan Direct Special Lexicon
+    // Step 1: Check Bagongan Special Lexicon (11 Kosakata Khusus Yogyakarta)
     if (BAGONGAN_SPECIAL_LEXICON[word]) {
       resultWord = BAGONGAN_SPECIAL_LEXICON[word].bagongan;
       note = BAGONGAN_SPECIAL_LEXICON[word].note;
-      ruleCategory = "Kosakata Khusus Bagongan";
+      ruleCategory = "Kosakata Khusus Bagongan Yogya";
     }
-    // Step 2: Check morphological patterns
+    // Step 2: Check Morphological Rules (Awalan Pasif ka-, Kata Dasar Krama, Imbuhan Ngoko)
     else {
       let stem = word;
       let hasDiPrefix = false;
       let hasNyaSuffix = false;
       let hasKanSuffix = false;
-      let hasMePrefix = false;
 
       // Check suffixes
       if (stem.endsWith("nya")) {
@@ -45,18 +39,9 @@ function translateToBagongan(text) {
         stem = stem.slice(0, -3);
       }
 
-      // Check prefixes
+      // Check passive prefixes
       if (stem.startsWith("di")) {
         hasDiPrefix = true;
-        stem = stem.slice(2);
-      } else if (stem.startsWith("mem")) {
-        hasMePrefix = true;
-        stem = stem.slice(3);
-      } else if (stem.startsWith("men") || stem.startsWith("meng")) {
-        hasMePrefix = true;
-        stem = stem.replace(/^(men|meng)/, "");
-      } else if (stem.startsWith("me")) {
-        hasMePrefix = true;
         stem = stem.slice(2);
       }
 
@@ -71,13 +56,13 @@ function translateToBagongan(text) {
 
       if (kramaStem) {
         let constructed = kramaStem;
-        let rulesApplied = ["Kata Dasar Krama: (" + kramaStem + ")"];
+        let rulesApplied = ["Kata Dasar Krama (" + kramaStem + ")"];
 
-        // Apply Bagongan Morphological Rules:
-        // Rule: Awalan Passive = di- (Ngoko), Akhiran = -e/-ne (Ngoko), Akhiran Causal = -ake (Ngoko)
+        // Rule Basa Bagongan Yogyakarta:
+        // Pasif Menggunakan Awalan ka- (Bukan di- / dipun-)
         if (hasDiPrefix) {
-          constructed = "di" + constructed;
-          rulesApplied.push("Awalan Pasif Ngoko 'di-'");
+          constructed = "ka" + constructed;
+          rulesApplied.push("Awalan Pasif Bagongan 'ka-'");
         }
         if (hasKanSuffix) {
           constructed = constructed + "ake";
@@ -91,12 +76,11 @@ function translateToBagongan(text) {
 
         resultWord = constructed;
         note = rulesApplied.join(" + ");
-        ruleCategory = "Aturan Kombinasi Morfologi Bagongan";
+        ruleCategory = "Morfologi Bagongan (Krama + Imbuhan Ngoko/ka-)";
       } else {
-        // Fallback: Retain original word if not in dictionary
         resultWord = word;
-        note = "Kata serapan / belum terdaftar di basis data Krama";
-        ruleCategory = "Kata Serapan / Asli";
+        note = "Kata serapan / belum ada di kamus Krama dasar";
+        ruleCategory = "Kata Serapan";
       }
     }
 
@@ -109,7 +93,6 @@ function translateToBagongan(text) {
     });
   });
 
-  // Capitalize first letter
   let outputString = translatedTokens.join(" ");
   if (outputString.length > 0) {
     outputString = outputString.charAt(0).toUpperCase() + outputString.slice(1);
@@ -121,37 +104,32 @@ function translateToBagongan(text) {
   };
 }
 
-// UI Controller Functions
+// UI Controllers
 document.addEventListener("DOMContentLoaded", () => {
   const inputEl = document.getElementById("inputText");
   const outputEl = document.getElementById("outputText");
-  const breakdownContainer = document.getElementById("breakdownContainer");
   const copyBtn = document.getElementById("copyBtn");
   const clearBtn = document.getElementById("clearBtn");
   const speakBtn = document.getElementById("speakBtn");
 
-  // Input listener
   if (inputEl) {
     inputEl.addEventListener("input", () => {
-      const text = inputEl.value;
-      const res = translateToBagongan(text);
+      const res = translateToBagongan(inputEl.value);
       outputEl.textContent = res.output || "Hasil terjemahan Basa Bagongan akan muncul di sini...";
       renderBreakdown(res.breakdown);
     });
   }
 
-  // Copy button
   if (copyBtn) {
     copyBtn.addEventListener("click", () => {
       const text = outputEl.textContent;
-      if (text && text !== "Hasil terjemahan Basa Bagongan akan muncul di sini...") {
+      if (text && !text.includes("muncul di sini")) {
         navigator.clipboard.writeText(text);
-        alert("Terjemahan berhasil disalin ke clipboard!");
+        alert("Terjemahan Basa Bagongan berhasil disalin!");
       }
     });
   }
 
-  // Clear button
   if (clearBtn) {
     clearBtn.addEventListener("click", () => {
       inputEl.value = "";
@@ -160,19 +138,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Speech Synthesis
   if (speakBtn) {
     speakBtn.addEventListener("click", () => {
       const text = outputEl.textContent;
-      if (text && text !== "Hasil terjemahan Basa Bagongan akan muncul di sini...") {
+      if (text && !text.includes("muncul di sini")) {
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = "id-ID"; // Standard Indonesian/Javanese voice
+        utterance.lang = "id-ID";
         window.speechSynthesis.speak(utterance);
       }
     });
   }
 
-  // Render Dictionary Table
   renderDictionaryTable();
 });
 
@@ -189,7 +165,7 @@ function renderBreakdown(breakdownList) {
   if (!container) return;
 
   if (!breakdownList || breakdownList.length === 0) {
-    container.innerHTML = `<p class="text-slate-400 text-sm italic">Ketik kalimat di atas untuk melihat analisis tata bahasa kata demi kata.</p>`;
+    container.innerHTML = `<p class="text-slate-400 text-sm italic">Ketik kalimat di atas untuk menganalisis struktur kata demi kata.</p>`;
     return;
   }
 
@@ -200,7 +176,7 @@ function renderBreakdown(breakdownList) {
     if (item.category.includes("Morfologi")) badgeColor = "bg-blue-100 text-blue-800 border-blue-300";
 
     html += `
-      <div class="p-3 bg-slate-800/60 rounded-lg border border-slate-700/80 hover:border-amber-500/50 transition">
+      <div class="p-3 bg-slate-800/60 rounded-lg border border-slate-700/80">
         <div class="flex items-center justify-between mb-1">
           <span class="font-semibold text-amber-400 text-base">${item.original}</span>
           <span class="text-xs px-2 py-0.5 rounded-full border ${badgeColor}">${item.category}</span>
@@ -219,7 +195,6 @@ function renderDictionaryTable() {
   if (!dictContainer) return;
 
   let html = "";
-  // Render Bagongan Special Lexicon
   Object.keys(BAGONGAN_SPECIAL_LEXICON).forEach(key => {
     const item = BAGONGAN_SPECIAL_LEXICON[key];
     html += `
@@ -234,32 +209,24 @@ function renderDictionaryTable() {
   dictContainer.innerHTML = html;
 }
 
-// Search Dictionary
 function filterDictionary() {
   const query = document.getElementById("dictSearchInput").value.toLowerCase();
   const rows = document.querySelectorAll("#dictionaryTableBody tr");
-
   rows.forEach(row => {
-    const text = row.textContent.toLowerCase();
-    row.style.display = text.includes(query) ? "" : "none";
+    row.style.display = row.textContent.toLowerCase().includes(query) ? "" : "none";
   });
 }
 
-// Quiz Logic
-let currentScore = 0;
 function checkQuiz(questionNum, answer) {
   const resultEl = document.getElementById(`quizResult${questionNum}`);
-  const correctAnswers = {
-    1: 'b', // Manira samen neda teng griya
-    2: 'a', // Awalan Pasif Ngoko (di-) + Kata Dasar Krama
-    3: 'c'  // Sira / Pakenira
-  };
+  resultEl.classList.remove("hidden");
+  const correctAnswers = { 1: 'b', 2: 'a', 3: 'b' };
 
   if (answer === correctAnswers[questionNum]) {
     resultEl.className = "mt-2 p-2 rounded text-sm bg-emerald-900/50 border border-emerald-500 text-emerald-300";
-    resultEl.innerHTML = "✅ <b>Benar!</b> Jawaban Anda sesuai dengan kaidah Basa Bagongan Keraton.";
+    resultEl.innerHTML = "✅ <b>Benar!</b> Jawaban Anda tepat sesuai dengan literatur resmi Basa Bagongan Yogyakarta.";
   } else {
     resultEl.className = "mt-2 p-2 rounded text-sm bg-red-900/50 border border-red-500 text-red-300";
-    resultEl.innerHTML = "❌ <b>Kurang Tepat.</b> Silakan pelajari kembali aturan tata bahasa Bagongan.";
+    resultEl.innerHTML = "❌ <b>Kurang Tepat.</b> Silakan tinjau kembali aturan Basa Bagongan Yogyakarta.";
   }
 }
