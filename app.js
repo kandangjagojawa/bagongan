@@ -1,11 +1,10 @@
 /**
  * APP.JS - Mesin Penerjemah & Transformasi Morfologi Bahasa Indonesia ke Basa Jawa
  * Fitur Utama:
- * - Pemisahan Ketat: Kamus Bagongan khusus untuk Bagongan, Kamus Standar untuk Ngoko/Krama.
  * - Analisis morfologi Bahasa Indonesia (awalan me-/di-, akhiran -kan/-i/-nya)
  * - Pemisahan & pemulihan kata dasar luluh/tidak luluh
  * - Pencarian multi-tingkat tutur pada kamuskramamet.json
- * - Pencarian Silang Otomatis (Cross-Card Lookup): Edit kartu standar -> memperbarui kartu standar lainnya. Edit kartu Bagongan -> khusus Bagongan.
+ * - Synchronized Cross-Card Lookup: Edit kata di 1 kartu standar -> Semua kartu otomatis menyesuaikan!
  * - Pembentukan morfologi Bahasa Jawa via sriwedari.js & live-editing Aksara Jawa
  */
 
@@ -244,15 +243,17 @@ function cariKataDasarIndonesia(stem) {
 }
 
 /**
- * Pencarian Kamus Standar (TIDAK mengambil entri bertag [bagongan])
+ * Pencarian Kamus Standar Fleksibel (Mencari di semua kolom: Indonesia, Ngoko, Krama, Krama Inggil)
  */
 function cariKamusStandard(kata) {
     if (!kamusData || kamusData.length === 0 || !kata) return null;
-    let clean = kata.toLowerCase().trim();
+    let clean = kata.toLowerCase().trim().replace(/[^a-z\-]/g, "");
+    if (!clean) return null;
 
-    return kamusData.find(item => {
+    // 1. Match persis
+    let match = kamusData.find(item => {
         let ind = item.indonesia ? item.indonesia.toLowerCase() : "";
-        if (ind.startsWith("[bagongan]")) return false; // Abaikan entri khusus bagongan
+        if (ind.startsWith("[bagongan]")) return false;
 
         let ngo = item.ngoko ? item.ngoko.toLowerCase() : "";
         let ngoAlus = item.ngoko_alus ? item.ngoko_alus.toLowerCase() : "";
@@ -267,11 +268,56 @@ function cariKamusStandard(kata) {
                ind.split(", ").includes(clean) ||
                ngo.split(", ").includes(clean) ||
                kra.split(", ").includes(clean);
-    }) || null;
+    });
+
+    if (match) return match;
+
+    // 2. Jika berimbuhan Jawa, coba lepaskan awalan/akhiran Jawa untuk mencari kata dasarnya
+    let stemsToTry = [];
+    let s = clean;
+
+    if (s.endsWith("aken")) s = s.slice(0, -4);
+    else if (s.endsWith("ake") || s.endsWith("ipun")) s = s.slice(0, -3);
+    else if (s.endsWith("e") || s.endsWith("i")) s = s.slice(0, -1);
+
+    if (s.startsWith("dipun")) s = s.slice(5);
+    else if (s.startsWith("di")) s = s.slice(2);
+    else if (s.startsWith("ng")) {
+        stemsToTry.push(s.slice(2));
+        stemsToTry.push("k" + s.slice(2));
+    } else if (s.startsWith("ny")) {
+        stemsToTry.push("c" + s.slice(2));
+        stemsToTry.push("s" + s.slice(2));
+    } else if (s.startsWith("n")) {
+        stemsToTry.push(s.slice(1));
+        stemsToTry.push("t" + s.slice(1));
+    } else if (s.startsWith("m")) {
+        stemsToTry.push(s.slice(1));
+        stemsToTry.push("p" + s.slice(1));
+    }
+    stemsToTry.push(s);
+
+    for (let stemCandidate of stemsToTry) {
+        if (!stemCandidate) continue;
+        let subMatch = kamusData.find(item => {
+            let ind = item.indonesia ? item.indonesia.toLowerCase() : "";
+            if (ind.startsWith("[bagongan]")) return false;
+
+            let ngo = item.ngoko ? item.ngoko.toLowerCase() : "";
+            let ngoAlus = item.ngoko_alus ? item.ngoko_alus.toLowerCase() : "";
+            let kra = item.krama ? item.krama.toLowerCase() : "";
+            let kraIng = item.krama_inggil ? item.krama_inggil.toLowerCase() : "";
+
+            return ind === stemCandidate || ngo === stemCandidate || kra === stemCandidate || kraIng === stemCandidate;
+        });
+        if (subMatch) return subMatch;
+    }
+
+    return null;
 }
 
 /**
- * Pencarian Kamus Khusus Bagongan (Mencari tag [bagongan] dulu, jika tidak ada baru ke standar)
+ * Pencarian Kamus Khusus Bagongan
  */
 function cariKamusBagongan(kata) {
     if (!kamusData || kamusData.length === 0 || !kata) return null;
@@ -360,7 +406,7 @@ function jalankanParamasastraSriwedari(ater, dasar, panam) {
 }
 
 /**
- * Menampilkan Hasil Terjemahan dan Mengaktifkan Fitur Edit & Cross-Card Lookup
+ * Menampilkan Hasil Terjemahan dan Mengaktifkan Fitur Edit & Synchronized Cross-Card Lookup
  */
 function tampilkanHasil(idLatin, idJawa, kataItems, isBagonganCard = false) {
     const elLatin = document.getElementById(idLatin);
@@ -401,17 +447,21 @@ function tampilkanHasil(idLatin, idJawa, kataItems, isBagonganCard = false) {
 
             if (!isNaN(wordIndex) && currentWordsData[wordIndex]) {
                 if (isBagonganCard) {
-                    // Jika editan berasal dari Kartu Bagongan, cari khusus di kamus Bagongan
                     let matched = cariKamusBagongan(typedText);
                     if (matched) {
                         currentWordsData[wordIndex].customBagonganEntry = matched;
                     }
                 } else {
-                    // Jika editan berasal dari Kartu Standar (Ngoko/Krama), cari khusus di kamus Standar
                     let matched = cariKamusStandard(typedText);
                     if (matched) {
                         currentWordsData[wordIndex].customStandardEntry = matched;
                         currentWordsData[wordIndex].analisis.kataDasar = matched.indonesia;
+                        currentWordsData[wordIndex].bagonganEntry = cariKamusBagongan(matched.indonesia);
+                    } else {
+                        // Jika kata belum ada di JSON, perbarui kata dasarnya secara langsung
+                        currentWordsData[wordIndex].customStandardEntry = null;
+                        currentWordsData[wordIndex].analisis.kataDasar = typedText;
+                        currentWordsData[wordIndex].bagonganEntry = cariKamusBagongan(typedText);
                     }
                 }
                 renderAllCards();
