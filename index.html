@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplikasi Pelestarian Basa Bagongan - Keraton Yogyakarta & Surakarta</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0b1120;
+      color: #f1f5f9;
+    }
+    .font-royal {
+      font-family: 'Cinzel', serif;
+    }
+    .gold-gradient {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .royal-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- Header & Navigation -->
+  <header class="border-b border-amber-500/20 bg-slate-900/80 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/50 flex items-center justify-center text-amber-400 font-bold text-xl">
+          👑
+        </div>
+        <div>
+          <h1 class="text-xl font-bold font-royal text-amber-400 tracking-wide">BASA BAGONGAN</h1>
+          <p class="text-xs text-slate-400">Pusat Transliterasi & Analisis Linguistik Sosiolek Keraton</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex items-center gap-1 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700 text-sm font-medium">
+        <button onclick="switchTab('playground')" id="tab-playground" class="px-4 py-2 rounded-lg bg-amber-500 text-slate-950 font-semibold shadow transition">
+          🔄 Translator & Inspector
+        </button>
+        <button onclick="switchTab('encyclopedia')" id="tab-encyclopedia" class="px-4 py-2 rounded-lg hover:text-amber-400 text-slate-300 transition">
+          📚 Tata Bahasa
+        </button>
+        <button onclick="switchTab('dictionary')" id="tab-dictionary" class="px-4 py-2 rounded-lg hover:text-amber-400 text-slate-300 transition">
+          📖 Kamus Bagongan
+        </button>
+        <button onclick="switchTab('quiz')" id="tab-quiz" class="px-4 py-2 rounded-lg hover:text-amber-400 text-slate-300 transition">
+          🎯 Kuis Laras Bahasa
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+    <!-- SECTION 1: PLAYGROUND TRANSLATOR & GRAMMAR INSPECTOR -->
+    <section id="section-playground" class="space-y-6">
+      
+      <!-- Top Info Banner -->
+      <div class="royal-card p-6 rounded-2xl shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-bold text-amber-400 font-royal mb-1">Playground Penerjemah Basa Bagongan</h2>
+          <p class="text-slate-300 text-sm">
+            Ketik kalimat Bahasa Indonesia untuk dikonversi secara otomatis ke <span class="text-amber-300 font-semibold">Basa Bagongan Keraton</span> beserta analisis struktur morfologi kata demi kata.
+          </p>
+        </div>
+        <!-- Quick Sample Sentences -->
+        <div class="flex flex-wrap gap-2">
+          <span class="text-xs text-slate-400 self-center">Contoh cepat:</span>
+          <button onclick="loadExample('Saya sedang makan di rumah')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500 text-amber-300 transition">
+            "Saya sedang makan di rumah"
+          </button>
+          <button onclick="loadExample('Kamu mau pergi ke mana sekarang?')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500 text-amber-300 transition">
+            "Kamu mau pergi ke mana sekarang?"
+          </button>
+          <button onclick="loadExample('Apakah kamu tidak membuat baju baru?')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500 text-amber-300 transition">
+            "Apakah kamu tidak membuat baju baru?"
+          </button>
+        </div>
+      </div>
+
+      <!-- Translator Dual Panel -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Input Card -->
+        <div class="royal-card p-5 rounded-2xl flex flex-col justify-between shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <label class="font-semibold text-slate-200 text-sm flex items-center gap-2">
+                🇮🇩 Bahasa Indonesia (Input)
+              </label>
+              <button id="clearBtn" class="text-xs text-slate-400 hover:text-red-400 transition flex items-center gap-1">
+                🗑️ Bersihkan
+              </button>
+            </div>
+            <textarea id="inputText" rows="6" placeholder="Ketik kalimat Bahasa Indonesia di sini... (Contoh: Saya sedang makan di rumah sekarang)" 
+              class="w-full bg-slate-900/90 border border-slate-700 rounded-xl p-4 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-lg resize-none"></textarea>
+          </div>
+          <div class="mt-4 text-xs text-slate-400 flex justify-between items-center">
+            <span>Dukungan otomatis imbuhan pasif & kata ganti khas.</span>
+          </div>
+        </div>
+
+        <!-- Output Card -->
+        <div class="royal-card p-5 rounded-2xl flex flex-col justify-between shadow-lg border-amber-500/40">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <label class="font-semibold text-amber-400 text-sm flex items-center gap-2">
+                👑 Basa Bagongan Keraton (Output)
+              </label>
+              <div class="flex gap-2">
+                <button id="speakBtn" class="text-xs px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 transition">
+                  🔊 Suara
+                </button>
+                <button id="copyBtn" class="text-xs px-2.5 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold transition">
+                  📋 Salin
+                </button>
+              </div>
+            </div>
+            <div id="outputText" class="w-full bg-slate-900/90 border border-amber-500/30 rounded-xl p-4 text-amber-300 text-xl font-medium min-h-[160px] flex items-center">
+              Hasil terjemahan Basa Bagongan akan muncul di sini...
+            </div>
+          </div>
+          <div class="mt-4 text-xs text-amber-400/80 flex justify-between items-center">
+            <span>Ragam Bahasa Resmi Kesetaraan Keraton Yogyakarta/Surakarta</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Grammar Inspector / Bedah Struktur -->
+      <div class="royal-card p-6 rounded-2xl shadow-xl">
+        <h3 class="text-lg font-bold text-amber-400 font-royal mb-4 flex items-center gap-2">
+          🔍 Bedah Struktur & Analisis Grammar (Grammar Inspector)
+        </h3>
+        <div id="breakdownContainer">
+          <p class="text-slate-400 text-sm italic">Ketik kalimat di atas untuk melihat analisis tata bahasa kata demi kata.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SECTION 2: ENCYCLOPEDIA & GRAMMAR RULES -->
+    <section id="section-encyclopedia" class="hidden space-y-6">
+      <div class="royal-card p-6 rounded-2xl shadow-xl">
+        <h2 class="text-2xl font-bold text-amber-400 font-royal mb-4">Ensiklopedia & Kaidah Linguistik Basa Bagongan</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-slate-300 text-sm leading-relaxed">
+          <div class="space-y-4">
+            <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
+              <h3 class="font-bold text-amber-300 text-base mb-2">📜 Latar Belakang & Filosofi Keraton</h3>
+              <p>
+                <strong>Basa Bagongan</strong> adalah sosiolek (ragam bahasa khusus) yang dikembangkan di lingkungan Keraton Ngayogyakarta Hadiningrat sejak era Sri Sultan Hamengku Buwana I. Bahasa ini diciptakan untuk menghilangkan sekat hierarki ketat di antara sesama bangsawan dan <em>abdi dalem</em> saat berada di dalam keraton, menciptakan suasana <strong>egaliter (kesetaraan)</strong> dan keakraban tanpa mengurangi rasa hormat.
+              </p>
+            </div>
+
+            <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
+              <h3 class="font-bold text-amber-300 text-base mb-2">👤 Kata Ganti Orang (Pronomina Khusus)</h3>
+              <ul class="list-disc list-inside space-y-1 text-slate-300">
+                <li><strong class="text-amber-400">Manira / Kula</strong> = Saya / Aku</li>
+                <li><strong class="text-amber-400">Sira / Pakenira</strong> = Kamu / Anda</li>
+                <li><strong class="text-amber-400">Piyambakipun</strong> = Dia / Beliau</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
+              <h3 class="font-bold text-amber-300 text-base mb-2">🧩 Kaidah Pembentukan Morfologi Unik</h3>
+              <p class="mb-2">
+                Ciri paling menonjol dari Basa Bagongan adalah formula sintaksisnya:
+              </p>
+              <div class="p-3 bg-amber-500/10 border border-amber-500/40 rounded-lg text-amber-300 font-semibold mb-3">
+                Kata Dasar Krama + Imbuhan / Awalan Ngoko
+              </div>
+              <ul class="list-disc list-inside space-y-1">
+                <li><strong>Awalan Pasif (`di-`)</strong>: Menggunakan `di-` (Ngoko), bukan `dipun-` (Krama). Contoh: <em>Di- + Tedha (makan) = Ditedha</em>.</li>
+                <li><strong>Akhiran Kepemilikan (`-e / -ne`)</strong>: Menggunakan `-e/-ne` (Ngoko), bukan `-ipun` (Krama). Contoh: <em>Griya + -ne = Griyane</em>.</li>
+                <li><strong>Akhiran Kausatif (`-ake`)</strong>: Menggunakan `-ake` (Ngoko), bukan `-aken` (Krama). Contoh: <em>Damel + -ake = Damelake</em>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: INTERACTIVE DICTIONARY -->
+    <section id="section-dictionary" class="hidden space-y-6">
+      <div class="royal-card p-6 rounded-2xl shadow-xl">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-2xl font-bold text-amber-400 font-royal">Kamus Interaktif Basa Bagongan</h2>
+            <p class="text-slate-400 text-sm">Daftar kosakata khusus Bagongan dan pemetaannya dari Indonesia, Ngoko, dan Krama.</p>
+          </div>
+          <div class="w-full md:w-72">
+            <input type="text" id="dictSearchInput" onkeyup="filterDictionary()" placeholder="🔍 Cari kata..." 
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm text-slate-300">
+            <thead class="bg-slate-800/80 text-amber-400 font-royal border-b border-amber-500/30 uppercase text-xs">
+              <tr>
+                <th class="p-3">Bahasa Indonesia</th>
+                <th class="p-3">Basa Bagongan</th>
+                <th class="p-3">Catatan / Aturan Linguistik</th>
+              </tr>
+            </thead>
+            <tbody id="dictionaryTableBody">
+              <!-- Rendered via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: QUIZ -->
+    <section id="section-quiz" class="hidden space-y-6">
+      <div class="royal-card p-6 rounded-2xl shadow-xl">
+        <h2 class="text-2xl font-bold text-amber-400 font-royal mb-2">🎯 Kuis & Uji Pemahaman Laras Bahasa</h2>
+        <p class="text-slate-400 text-sm mb-6">Uji pemahaman Anda mengenai kaidah dan konversi Basa Bagongan Keraton.</p>
+
+        <div class="space-y-6">
+          
+          <!-- Question 1 -->
+          <div class="p-5 bg-slate-800/60 rounded-xl border border-slate-700">
+            <h3 class="font-semibold text-slate-200 text-base mb-3">1. Terjemahkan kalimat "Saya sedang makan di rumah" ke dalam Basa Bagongan yang benar:</h3>
+            <div class="space-y-2 text-sm">
+              <button onclick="checkQuiz(1, 'a')" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-700 border border-slate-700 text-slate-300 transition">
+                A. Kula saweg dhahar wonten ing griya
+              </button>
+              <button onclick="checkQuiz(1, 'b')" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-700 border border-slate-700 text-slate-300 transition">
+                B. Manira nembe tedha teng griya
+              </button>
+              <button onclick="checkQuiz(1, 'c')" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-700 border border-slate-700 text-slate-300 transition">
+                C. Aku lagi mangan ning omah
+              </button>
+            </div>
+            <div id="quizResult1" class="hidden"></div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="p-5 bg-slate-800/60 rounded-xl border border-slate-700">
+            <h3 class="font-semibold text-slate-200 text-base mb-3">2. Apakah aturan utama dalam pembentukan kata kerja pasif pada Basa Bagongan?</h3>
+            <div class="space-y-2 text-sm">
+              <button onclick="checkQuiz(2, 'a')" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-700 border border-slate-700 text-slate-300 transition">
+                A. Menggunakan Awalan Pasif Ngoko (di-) digabung dengan Kata Dasar Krama
+              </button>
+              <button onclick="checkQuiz(2, 'b')" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-700 border border-slate-700 text-slate-300 transition">
+                B. Menggunakan Awalan dipun- penuh seperti Krama Inggil
+              </button>
+              <button onclick="checkQuiz(2, 'c')" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-700 border border-slate-700 text-slate-300 transition">
+                C. Tidak ada aturan awalan sama sekali
+              </button>
+            </div>
+            <div id="quizResult2" class="hidden"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 bg-slate-950 py-6 text-center text-xs text-slate-500">
+    <p>© 2026 Aplikasi Pelestarian Basa Bagongan - Keraton Yogyakarta & Surakarta. Siap di-deploy di GitHub Pages.</p>
+  </footer>
+
+  <!-- External Scripts -->
+  <script src="dictionary.js"></script>
+  <script src="app.js"></script>
+  <script>
+    function switchTab(tabName) {
+      // Hide all sections
+      ['playground', 'encyclopedia', 'dictionary', 'quiz'].forEach(sec => {
+        document.getElementById(`section-${sec}`).classList.add('hidden');
+        const btn = document.getElementById(`tab-${sec}`);
+        if (btn) {
+          btn.className = "px-4 py-2 rounded-lg hover:text-amber-400 text-slate-300 transition";
+        }
+      });
+
+      // Show selected section
+      document.getElementById(`section-${tabName}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`tab-${tabName}`);
+      if (activeBtn) {
+        activeBtn.className = "px-4 py-2 rounded-lg bg-amber-500 text-slate-950 font-semibold shadow transition";
+      }
+    }
+  </script>
+</body>
+</html>
