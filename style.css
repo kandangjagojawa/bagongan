@@ -167,3 +167,27 @@ button#btnTerjemah:hover {
     line-height: 1.4;
     word-break: break-all;
 }
+
+/* Gaya Kata yang Tidak Ditemukan dalam Kamus */
+.missing-word {
+    color: #e53e3e;
+    font-weight: bold;
+    border-bottom: 2px dashed #e53e3e;
+    padding: 0 3px;
+    background-color: #fff5f5;
+    border-radius: 4px;
+    cursor: text;
+    outline: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+.missing-word:hover {
+    background-color: #fed7d7;
+}
+
+.missing-word:focus {
+    background-color: #feb2b2;
+    border-bottom-style: solid;
+    box-shadow: 0 0 0 2px rgba(229, 62, 62, 0.3);
+}
