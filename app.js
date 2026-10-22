@@ -1,6 +1,11 @@
 /**
- * APP.JS - Mesin Penerjemah & Transformasi Morfologi Bahasa Indonesia - Basa Jawa
- * Fitur Tambahan: Penanganan Kosa Kata Bagongan, Red Highlight Kata Hilang, & Live Editing.
+ * APP.JS - Mesin Penerjemah & Transformasi Morfologi Bahasa Indonesia ke Basa Jawa
+ * Fitur Utama:
+ * - Analisis morfologi Bahasa Indonesia (awalan me-/di-, akhiran -kan/-i/-nya)
+ * - Pemisahan & pemulihan kata dasar luluh/tidak luluh
+ * - Pencarian multi-tingkat tutur pada kamuskramamet.json (termasuk tag [bagongan])
+ * - Pembentukan morfologi Bahasa Jawa via sriwedari.js
+ * - Sorotan warna merah untuk kata tidak ditemukan & live-editing transliterasi Aksara Jawa
  */
 
 let kamusData = [];
@@ -45,8 +50,8 @@ function prosesTerjemahan() {
         return;
     }
 
-    const awalanUi = document.getElementById("selAwalan").value;
-    const akhiranUi = document.getElementById("selAkhiran").value;
+    const awalanUi = document.getElementById("selAwalan") ? document.getElementById("selAwalan").value : "";
+    const akhiranUi = document.getElementById("selAkhiran") ? document.getElementById("selAkhiran").value : "";
 
     const kataList = inputTeks.toLowerCase().split(/\s+/);
 
@@ -63,39 +68,48 @@ function prosesTerjemahan() {
         let akhiranFinal = akhiranUi || analisisId.akhiran;
 
         let entry = analisisId.entry;
-        let isMissing = !entry;
+        let isMissingGeneral = !entry;
 
-        // Ambil kata dasar terjemahan untuk masing-masing tingkatan
+        // 1. Kata dasar umum (Ngoko, Krama, Krama Inggil)
         let stemNgoko = entry ? entry.ngoko : analisisId.kataDasar;
         let stemNgokoAlus = entry ? entry.ngoko_alus : analisisId.kataDasar;
         let stemKrama = entry ? entry.krama : analisisId.kataDasar;
         let stemKramaInggil = entry ? entry.krama_inggil : analisisId.kataDasar;
 
-        // Khusus Bagongan: Prioritaskan bidang bagongan dari JSON jika ada
+        // 2. Cek kosakata khusus Bagongan bertag [bagongan]
+        let bagonganEntry = cariKamusBagongan(analisisId.kataDasar);
         let stemBagongan = analisisId.kataDasar;
-        if (entry) {
+        let isMissingBagongan = false;
+
+        if (bagonganEntry) {
+            stemBagongan = bagonganEntry.krama || bagonganEntry.ngoko;
+            isMissingBagongan = false;
+        } else if (entry) {
             stemBagongan = entry.bagongan || entry.krama || entry.ngoko;
+            isMissingBagongan = false;
+        } else {
+            isMissingBagongan = true;
         }
 
         hasilNgoko.push({
             text: terapkanMorfologi(stemNgoko, "ngoko", awalanFinal, akhiranFinal),
-            isMissing: isMissing
+            isMissing: isMissingGeneral
         });
         hasilNgokoAlus.push({
             text: terapkanMorfologi(stemNgokoAlus, "ngoko_alus", awalanFinal, akhiranFinal),
-            isMissing: isMissing
+            isMissing: isMissingGeneral
         });
         hasilKrama.push({
             text: terapkanMorfologi(stemKrama, "krama", awalanFinal, akhiranFinal),
-            isMissing: isMissing
+            isMissing: isMissingGeneral
         });
         hasilKramaInggil.push({
             text: terapkanMorfologi(stemKramaInggil, "krama_inggil", awalanFinal, akhiranFinal),
-            isMissing: isMissing
+            isMissing: isMissingGeneral
         });
         hasilBagongan.push({
             text: terapkanMorfologi(stemBagongan, "bagongan", awalanFinal, akhiranFinal),
-            isMissing: isMissing
+            isMissing: isMissingBagongan
         });
     });
 
@@ -107,7 +121,7 @@ function prosesTerjemahan() {
 }
 
 /**
- * Urai Morfologi Bahasa Indonesia
+ * Urai Morfologi Bahasa Indonesia (Awalan + Kata Dasar + Akhiran)
  */
 function uraiMorfologiIndonesia(kata) {
     let clean = kata.toLowerCase().replace(/[^a-z\-]/g, "");
@@ -120,6 +134,7 @@ function uraiMorfologiIndonesia(kata) {
         return { kataDasar: clean, awalan: "", akhiran: "", entry: directEntry };
     }
 
+    // Deteksi Akhiran Bahasa Indonesia
     if (stem.endsWith("nya") && stem.length > 4) {
         akhiran = "pemilikan";
         stem = stem.slice(0, -3);
@@ -134,6 +149,7 @@ function uraiMorfologiIndonesia(kata) {
         }
     }
 
+    // Deteksi Awalan Bahasa Indonesia
     if (stem.startsWith("di") && stem.length > 3) {
         awalan = "pasif";
         stem = stem.slice(2);
@@ -207,7 +223,6 @@ function cariKamus(kata) {
     let found = kamusData.find(item => item.indonesia.toLowerCase() === kata);
     if (found) return found;
 
-    // Deteksi pencarian kata ber-tag [bagongan]
     found = kamusData.find(item => item.indonesia.toLowerCase() === `[bagongan] ${kata}`);
     if (found) return found;
 
@@ -217,6 +232,12 @@ function cariKamus(kata) {
     });
 
     return found || null;
+}
+
+function cariKamusBagongan(kata) {
+    if (!kamusData || kamusData.length === 0) return null;
+    let clean = kata.toLowerCase().trim();
+    return kamusData.find(item => item.indonesia.toLowerCase() === `[bagongan] ${clean}`) || null;
 }
 
 /**
@@ -310,7 +331,6 @@ function tampilkanHasil(idLatin, idJawa, kataItems) {
         return;
     }
 
-    // Susun elemen HTML dengan penanda merah jika kata tidak ditemukan di JSON
     let htmlContent = kataItems.map(item => {
         if (item.isMissing) {
             return `<span class="missing-word" contenteditable="true" spellcheck="false" title="Kata tidak ditemukan dalam kamus. Klik untuk mengubah.">${item.text}</span>`;
@@ -320,14 +340,12 @@ function tampilkanHasil(idLatin, idJawa, kataItems) {
 
     elLatin.innerHTML = htmlContent;
 
-    // Dapatkan teks lengkap tanpa tag HTML untuk transliterasi Aksara Jawa
     let plainText = elLatin.innerText;
 
     if (elJawa && typeof window.transliterasiKalimat === 'function') {
         elJawa.innerText = window.transliterasiKalimat(plainText);
     }
 
-    // Tambahkan event listener saat user mengubah teks merah langsung di kartu
     elLatin.querySelectorAll(".missing-word").forEach(span => {
         span.addEventListener("input", () => {
             let updatedText = elLatin.innerText;
