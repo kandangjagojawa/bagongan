@@ -1,27 +1,27 @@
-// Database Kosakata Resmi Basa Bagongan Yogyakarta (11 Kosakata Khusus)
+// Database Kosakata Murni Basa Bagongan Keraton Ngayogyakarta Hadiningrat (11 Tembung Khusus)
 const BAGONGAN_SPECIAL_LEXICON = {
-  "saya": { bagongan: "manira", note: "Pronomina Orang I Khusus Bagongan (Manira / Menira)" },
-  "aku": { bagongan: "manira", note: "Pronomina Orang I Khusus Bagongan (Manira / Menira)" },
-  "kamu": { bagongan: "pakenira", note: "Pronomina Orang II Khusus Bagongan (Pakenira / Pekenira)" },
-  "anda": { bagongan: "pakenira", note: "Pronomina Orang II Khusus Bagongan (Pakenira / Pekenira)" },
-  "engkau": { bagongan: "pakenira", note: "Pronomina Orang II Khusus Bagongan (Pakenira / Pekenira)" },
-  "sekarang": { bagongan: "samen", note: "Kosakata Khusus Bagongan (Samen)" },
-  "nanti": { bagongan: "besuk", note: "Kosakata Khusus Bagongan (Besuk)" },
-  "besok": { bagongan: "besuk", note: "Kosakata Khusus Bagongan (Besuk)" },
-  "apa": { bagongan: "paran", note: "Kosakata Khusus Bagongan (Paran)" },
-  "apakah": { bagongan: "paran", note: "Kosakata Khusus Bagongan (Paran)" },
-  "mana": { bagongan: "pundi", note: "Kosakata Khusus Bagongan (Pundi)" },
-  "ya": { bagongan: "enggeh", note: "Kosakata Khusus Bagongan (Enggeh)" },
-  "iya": { bagongan: "enggeh", note: "Kosakata Khusus Bagongan (Enggeh)" },
-  "tidak": { bagongan: "mboten", note: "Kosakata Khusus Bagongan (Mboten)" },
-  "bukan": { bagongan: "mboten", note: "Kosakata Khusus Bagongan (Mboten)" },
-  "ini": { bagongan: "puniki", note: "Kosakata Khusus Bagongan (Puniki)" },
-  "itu": { bagongan: "puniku", note: "Kosakata Khusus Bagongan (Puniku)" },
-  "berapa": { bagongan: "santen", note: "Kosakata Khusus Bagongan (Santen)" }
+  "saya": { bagongan: "manira", note: "Pronomina Orang I Murni Bagongan Yogya (Manira / Menira)" },
+  "aku": { bagongan: "manira", note: "Pronomina Orang I Murni Bagongan Yogya (Manira / Menira)" },
+  "kamu": { bagongan: "pakenira", note: "Pronomina Orang II Murni Bagongan Yogya (Pakenira / Pekenira)" },
+  "anda": { bagongan: "pakenira", note: "Pronomina Orang II Murni Bagongan Yogya (Pakenira / Pekenira)" },
+  "engkau": { bagongan: "pakenira", note: "Pronomina Orang II Murni Bagongan Yogya (Pakenira / Pekenira)" },
+  "sekarang": { bagongan: "samen", note: "Tembung Khusus Bagongan Yogya (Samen)" },
+  "nanti": { bagongan: "besuk", note: "Tembung Khusus Bagongan Yogya (Besuk)" },
+  "besok": { bagongan: "besuk", note: "Tembung Khusus Bagongan Yogya (Besuk)" },
+  "apa": { bagongan: "punapa", note: "Tembung Khusus Bagongan Yogya (Punapa / Apa - Sanes Paran)" },
+  "apakah": { bagongan: "punapa", note: "Tembung Khusus Bagongan Yogya (Punapa / Apa - Sanes Paran)" },
+  "mana": { bagongan: "pundi", note: "Tembung Khusus Bagongan Yogya (Pundi)" },
+  "ya": { bagongan: "enggeh", note: "Tembung Khusus Bagongan Yogya (Enggeh)" },
+  "iya": { bagongan: "enggeh", note: "Tembung Khusus Bagongan Yogya (Enggeh)" },
+  "tidak": { bagongan: "mboten", note: "Tembung Khusus Bagongan Yogya (Mboten)" },
+  "bukan": { bagongan: "mboten", note: "Tembung Khusus Bagongan Yogya (Mboten)" },
+  "ini": { bagongan: "puniki", note: "Tembung Khusus Bagongan Yogya (Puniki)" },
+  "itu": { bagongan: "puniku", note: "Tembung Khusus Bagongan Yogya (Puniku)" },
+  "berapa": { bagongan: "santen", note: "Tembung Khusus Bagongan Yogya (Santen)" }
 };
 
 const KRAMA_BASE_DICTIONARY = {
-  // Verba (Kata Kerja)
+  // Verba (Tembung Kriya)
   "makan": { krama: "tedha" },
   "minum": { krama: "unjuk" },
   "tidur": { krama: "tilem" },
@@ -57,7 +57,7 @@ const KRAMA_BASE_DICTIONARY = {
   "belum": { krama: "dhereng" },
   "sedang": { krama: "nembe" },
 
-  // Nomina (Kata Benda)
+  // Nomina (Tembung Aran)
   "rumah": { krama: "griya" },
   "pakaian": { krama: "rasukan" },
   "baju": { krama: "rasukan" },

@@ -1,4 +1,4 @@
-// Engine Translasi Basa Bagongan Yogyakarta (Versi Terkoreksi)
+// Engine Translasi Basa Bagongan Keraton Ngayogyakarta Hadiningrat (Murni 100%)
 
 function translateToBagongan(text) {
   if (!text || text.trim() === "") {
@@ -17,11 +17,11 @@ function translateToBagongan(text) {
     let note = "";
     let ruleCategory = "";
 
-    // Step 1: Check Bagongan Special Lexicon (11 Kosakata Khusus Yogyakarta)
+    // Step 1: Check 11 Kosakata Khusus Bagongan Murni Yogyakarta
     if (BAGONGAN_SPECIAL_LEXICON[word]) {
       resultWord = BAGONGAN_SPECIAL_LEXICON[word].bagongan;
       note = BAGONGAN_SPECIAL_LEXICON[word].note;
-      ruleCategory = "Kosakata Khusus Bagongan Yogya";
+      ruleCategory = "11 Tembung Khusus Bagongan Yogya";
     }
     // Step 2: Check Morphological Rules (Awalan Pasif ka-, Kata Dasar Krama, Imbuhan Ngoko)
     else {
@@ -56,31 +56,31 @@ function translateToBagongan(text) {
 
       if (kramaStem) {
         let constructed = kramaStem;
-        let rulesApplied = ["Kata Dasar Krama (" + kramaStem + ")"];
+        let rulesApplied = ["Tembung Dasar Krama (" + kramaStem + ")"];
 
         // Rule Basa Bagongan Yogyakarta:
         // Pasif Menggunakan Awalan ka- (Bukan di- / dipun-)
         if (hasDiPrefix) {
           constructed = "ka" + constructed;
-          rulesApplied.push("Awalan Pasif Bagongan 'ka-'");
+          rulesApplied.push("Ater-ater Pasif Bagongan 'ka-'");
         }
         if (hasKanSuffix) {
           constructed = constructed + "ake";
-          rulesApplied.push("Akhiran Kausatif Ngoko '-ake'");
+          rulesApplied.push("Panambang Kausatif Ngoko '-ake'");
         }
         if (hasNyaSuffix) {
           const endsWithVowel = /[aeiou]$/i.test(constructed);
           constructed = constructed + (endsWithVowel ? "ne" : "e");
-          rulesApplied.push("Akhiran Kepemilikan Ngoko '" + (endsWithVowel ? "-ne" : "-e") + "'");
+          rulesApplied.push("Panambang Kepemilikan Ngoko '" + (endsWithVowel ? "-ne" : "-e") + "'");
         }
 
         resultWord = constructed;
         note = rulesApplied.join(" + ");
-        ruleCategory = "Morfologi Bagongan (Krama + Imbuhan Ngoko/ka-)";
+        ruleCategory = "Morfologi Bagongan (ka- + Krama + Ngoko)";
       } else {
         resultWord = word;
-        note = "Kata serapan / belum ada di kamus Krama dasar";
-        ruleCategory = "Kata Serapan";
+        note = "Tembung serapan / dereng wonten ing kamus Krama dasar";
+        ruleCategory = "Tembung Serapan";
       }
     }
 
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (inputEl) {
     inputEl.addEventListener("input", () => {
       const res = translateToBagongan(inputEl.value);
-      outputEl.textContent = res.output || "Hasil terjemahan Basa Bagongan akan muncul di sini...";
+      outputEl.textContent = res.output || "Hasil terjemahan Basa Bagongan bakal muncul teng mriki...";
       renderBreakdown(res.breakdown);
     });
   }
@@ -123,9 +123,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (copyBtn) {
     copyBtn.addEventListener("click", () => {
       const text = outputEl.textContent;
-      if (text && !text.includes("muncul di sini")) {
+      if (text && !text.includes("bakal muncul")) {
         navigator.clipboard.writeText(text);
-        alert("Terjemahan Basa Bagongan berhasil disalin!");
+        alert("Puterjemahan Basa Bagongan berhasil disalin!");
       }
     });
   }
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (clearBtn) {
     clearBtn.addEventListener("click", () => {
       inputEl.value = "";
-      outputEl.textContent = "Hasil terjemahan Basa Bagongan akan muncul di sini...";
+      outputEl.textContent = "Hasil terjemahan Basa Bagongan bakal muncul teng mriki...";
       renderBreakdown([]);
     });
   }
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (speakBtn) {
     speakBtn.addEventListener("click", () => {
       const text = outputEl.textContent;
-      if (text && !text.includes("muncul di sini")) {
+      if (text && !text.includes("bakal muncul")) {
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "id-ID";
         window.speechSynthesis.speak(utterance);
@@ -165,7 +165,7 @@ function renderBreakdown(breakdownList) {
   if (!container) return;
 
   if (!breakdownList || breakdownList.length === 0) {
-    container.innerHTML = `<p class="text-slate-400 text-sm italic">Ketik kalimat di atas untuk menganalisis struktur kata demi kata.</p>`;
+    container.innerHTML = `<p class="text-slate-400 text-sm italic">Ketik kalimat teng inggil damel ningali analisis struktur tembung demi tembung.</p>`;
     return;
   }
 
@@ -220,13 +220,13 @@ function filterDictionary() {
 function checkQuiz(questionNum, answer) {
   const resultEl = document.getElementById(`quizResult${questionNum}`);
   resultEl.classList.remove("hidden");
-  const correctAnswers = { 1: 'b', 2: 'a', 3: 'b' };
+  const correctAnswers = { 1: 'b', 2: 'a', 3: 'a' };
 
   if (answer === correctAnswers[questionNum]) {
     resultEl.className = "mt-2 p-2 rounded text-sm bg-emerald-900/50 border border-emerald-500 text-emerald-300";
-    resultEl.innerHTML = "✅ <b>Benar!</b> Jawaban Anda tepat sesuai dengan literatur resmi Basa Bagongan Yogyakarta.";
+    resultEl.innerHTML = "✅ <b>Leres!</b> Wangsulan panjenengan trep kaliyan aturan Murni Basa Bagongan Keraton Ngayogyakarta Hadiningrat.";
   } else {
     resultEl.className = "mt-2 p-2 rounded text-sm bg-red-900/50 border border-red-500 text-red-300";
-    resultEl.innerHTML = "❌ <b>Kurang Tepat.</b> Silakan tinjau kembali aturan Basa Bagongan Yogyakarta.";
+    resultEl.innerHTML = "❌ <b>Dereng Trep.</b> Mangga dipun-inaos malih aturan Murni Basa Bagongan Yogyakarta.";
   }
 }
