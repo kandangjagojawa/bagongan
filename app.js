@@ -1,4 +1,4 @@
-// Engine Translasi Basa Bagongan Keraton Ngayogyakarta Hadiningrat (Murni 100%)
+// Engine Translasi Presisi 11 Tembung Bagongan Yogyakarta
 
 function translateToBagongan(text) {
   if (!text || text.trim() === "") {
@@ -17,11 +17,11 @@ function translateToBagongan(text) {
     let note = "";
     let ruleCategory = "";
 
-    // Step 1: Check 11 Kosakata Khusus Bagongan Murni Yogyakarta
-    if (BAGONGAN_SPECIAL_LEXICON[word]) {
-      resultWord = BAGONGAN_SPECIAL_LEXICON[word].bagongan;
-      note = BAGONGAN_SPECIAL_LEXICON[word].note;
-      ruleCategory = "11 Tembung Khusus Bagongan Yogya";
+    // Step 1: Check Presisi 11 Kosakata Khusus Bagongan Yogya
+    if (BAGONGAN_SPECIAL_11[word]) {
+      resultWord = BAGONGAN_SPECIAL_11[word].bagongan;
+      note = BAGONGAN_SPECIAL_11[word].note;
+      ruleCategory = "11 Tembung Khusus Otentik Yogya";
     }
     // Step 2: Check Morphological Rules (Awalan Pasif ka-, Kata Dasar Krama, Imbuhan Ngoko)
     else {
@@ -58,8 +58,6 @@ function translateToBagongan(text) {
         let constructed = kramaStem;
         let rulesApplied = ["Tembung Dasar Krama (" + kramaStem + ")"];
 
-        // Rule Basa Bagongan Yogyakarta:
-        // Pasif Menggunakan Awalan ka- (Bukan di- / dipun-)
         if (hasDiPrefix) {
           constructed = "ka" + constructed;
           rulesApplied.push("Ater-ater Pasif Bagongan 'ka-'");
@@ -79,8 +77,8 @@ function translateToBagongan(text) {
         ruleCategory = "Morfologi Bagongan (ka- + Krama + Ngoko)";
       } else {
         resultWord = word;
-        note = "Tembung serapan / dereng wonten ing kamus Krama dasar";
-        ruleCategory = "Tembung Serapan";
+        note = "Tembung serapan / Krama umum";
+        ruleCategory = "Kata Serapan / Krama";
       }
     }
 
@@ -195,8 +193,8 @@ function renderDictionaryTable() {
   if (!dictContainer) return;
 
   let html = "";
-  Object.keys(BAGONGAN_SPECIAL_LEXICON).forEach(key => {
-    const item = BAGONGAN_SPECIAL_LEXICON[key];
+  Object.keys(BAGONGAN_SPECIAL_11).forEach(key => {
+    const item = BAGONGAN_SPECIAL_11[key];
     html += `
       <tr class="border-b border-slate-800 hover:bg-slate-800/40">
         <td class="p-3 font-medium text-amber-300">${key}</td>
@@ -220,13 +218,13 @@ function filterDictionary() {
 function checkQuiz(questionNum, answer) {
   const resultEl = document.getElementById(`quizResult${questionNum}`);
   resultEl.classList.remove("hidden");
-  const correctAnswers = { 1: 'b', 2: 'a', 3: 'a' };
+  const correctAnswers = { 1: 'b', 2: 'a' };
 
   if (answer === correctAnswers[questionNum]) {
     resultEl.className = "mt-2 p-2 rounded text-sm bg-emerald-900/50 border border-emerald-500 text-emerald-300";
-    resultEl.innerHTML = "✅ <b>Leres!</b> Wangsulan panjenengan trep kaliyan aturan Murni Basa Bagongan Keraton Ngayogyakarta Hadiningrat.";
+    resultEl.innerHTML = "✅ <b>Leres!</b> Wangsulan panjenengan trep kaliyan 11 Tembung Khusus Bagongan Yogyakarta.";
   } else {
     resultEl.className = "mt-2 p-2 rounded text-sm bg-red-900/50 border border-red-500 text-red-300";
-    resultEl.innerHTML = "❌ <b>Dereng Trep.</b> Mangga dipun-inaos malih aturan Murni Basa Bagongan Yogyakarta.";
+    resultEl.innerHTML = "❌ <b>Dereng Trep.</b> Mangga dipun-inaos malih 11 Tembung Khusus Bagongan Yogyakarta.";
   }
 }

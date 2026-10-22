@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aplikasi Murni Basa Bagongan Keraton Ngayogyakarta Hadiningrat</title>
+  <title>Aplikasi Presisi 11 Tembung Basa Bagongan Yogyakarta</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap');
@@ -22,7 +22,7 @@
           👑
         </div>
         <div>
-          <h1 class="text-xl font-bold font-royal text-amber-400 tracking-wide">BASA BAGONGAN YOGYAKARTA MURNI</h1>
+          <h1 class="text-xl font-bold font-royal text-amber-400 tracking-wide">BASA BAGONGAN YOGYAKARTA (11 TEMBUNG KHUSUS)</h1>
           <p class="text-xs text-slate-400">Pusat Transliterasi & Analisis Linguistik Keraton Ngayogyakarta Hadiningrat</p>
         </div>
       </div>
@@ -35,7 +35,7 @@
           📚 Tata Bahasa
         </button>
         <button onclick="switchTab('dictionary')" id="tab-dictionary" class="px-4 py-2 rounded-lg hover:text-amber-400 text-slate-300 transition">
-          📖 11 Kosakata Khusus
+          📖 11 Tembung Otentik
         </button>
         <button onclick="switchTab('quiz')" id="tab-quiz" class="px-4 py-2 rounded-lg hover:text-amber-400 text-slate-300 transition">
           🎯 Kuis Linguistik
@@ -51,21 +51,18 @@
     <section id="section-playground" class="space-y-6">
       <div class="royal-card p-6 rounded-2xl shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <h2 class="text-2xl font-bold text-amber-400 font-royal mb-1">Playground Penerjemah Basa Bagongan Murni</h2>
+          <h2 class="text-2xl font-bold text-amber-400 font-royal mb-1">Playground Penerjemah Presisi 11 Tembung Bagongan</h2>
           <p class="text-slate-300 text-sm">
-            Ketik kalimat Bahasa Indonesia damel dikonversi teng <span class="text-amber-300 font-semibold">Basa Bagongan Yogyakarta Murni</span> (Pronomina <em>Manira/Pakenira</em>, Pasif <em>ka-</em>, Tembung Dasar Krama, Sanes Surakarta).
+            Ketik kalimat Bahasa Indonesia damel dikonversi adhedhasar presisi <span class="text-amber-300 font-semibold">11 Tembung Khusus Bagongan Yogyakarta</span>.
           </p>
         </div>
         <div class="flex flex-wrap gap-2">
           <span class="text-xs text-slate-400 self-center">Contoh:</span>
-          <button onclick="loadExample('Saya sedang makan di rumah')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500 text-amber-300 transition">
-            "Saya sedang makan di rumah"
+          <button onclick="loadExample('Saya tidak ada di rumah ini')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500 text-amber-300 transition">
+            "Saya tidak ada di rumah ini"
           </button>
-          <button onclick="loadExample('Apakah kamu mau pergi sekarang?')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500 text-amber-300 transition">
-            "Apakah kamu mau pergi sekarang?"
-          </button>
-          <button onclick="loadExample('Baju ini diinginkan Sultan')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500 text-amber-300 transition">
-            "Baju ini diinginkan Sultan"
+          <button onclick="loadExample('Apakah kamu mau makan saja?')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500 text-amber-300 transition">
+            "Apakah kamu mau makan saja?"
           </button>
         </div>
       </div>
@@ -77,7 +74,7 @@
               <label class="font-semibold text-slate-200 text-sm">🇮🇩 Bahasa Indonesia (Input)</label>
               <button id="clearBtn" class="text-xs text-slate-400 hover:text-red-400 transition">🗑️ Bersihkan</button>
             </div>
-            <textarea id="inputText" rows="6" placeholder="Ketik kalimat Bahasa Indonesia di sini... (Contoh: Saya sedang makan di rumah sekarang)" 
+            <textarea id="inputText" rows="6" placeholder="Ketik kalimat Bahasa Indonesia di sini... (Contoh: Apakah kamu tidak ada di sini saja?)" 
               class="w-full bg-slate-900/90 border border-slate-700 rounded-xl p-4 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 text-lg resize-none"></textarea>
           </div>
         </div>
@@ -85,7 +82,7 @@
         <div class="royal-card p-5 rounded-2xl flex flex-col justify-between shadow-lg border-amber-500/40">
           <div>
             <div class="flex items-center justify-between mb-3">
-              <label class="font-semibold text-amber-400 text-sm">👑 Basa Bagongan Yogyakarta Murni (Output)</label>
+              <label class="font-semibold text-amber-400 text-sm">👑 Basa Bagongan Yogyakarta (Output)</label>
               <div class="flex gap-2">
                 <button id="speakBtn" class="text-xs px-2.5 py-1 rounded-lg bg-slate-800 text-amber-300 border border-slate-700">🔊 Suara</button>
                 <button id="copyBtn" class="text-xs px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-semibold">📋 Salin</button>
@@ -109,35 +106,34 @@
     <!-- Encyclopedia Section -->
     <section id="section-encyclopedia" class="hidden space-y-6">
       <div class="royal-card p-6 rounded-2xl shadow-xl">
-        <h2 class="text-2xl font-bold text-amber-400 font-royal mb-4">Materi Linguistik Murni Basa Bagongan Yogyakarta</h2>
+        <h2 class="text-2xl font-bold text-amber-400 font-royal mb-4">11 Tembung Khusus Otentik Basa Bagongan Yogyakarta</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-slate-300 text-sm leading-relaxed">
           <div class="space-y-4">
             <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
-              <h3 class="font-bold text-amber-300 text-base mb-2">🏛️ Pemurnian saking Surakarta</h3>
-              <p>
-                Aplikasi puniki sampun **100% dipun-resikaken saking kosakata Kedaton Surakarta** (kados tembung <em>paran</em>). Murni mung nggunakaken <strong>11 kosakata khusus Bagongan Ngayogyakarta Hadiningrat</strong> lan bersifat <em>sami-sami</em> (egaliter).
-              </p>
-            </div>
-
-            <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
-              <h3 class="font-bold text-amber-300 text-base mb-2">👤 Pronomina Murni Bagongan Yogyakarta</h3>
-              <ul class="list-disc list-inside space-y-1">
-                <li><strong class="text-amber-400">Manira / Menira</strong> = Saya (Pronomina Tiyang I)</li>
-                <li><strong class="text-amber-400">Pakenira / Pekenira</strong> = Kamu / Anda (Pronomina Tiyang II)</li>
-              </ul>
+              <h3 class="font-bold text-amber-300 text-base mb-2">📜 Daftar 11 Tembung Khusus Otentik</h3>
+              <ol class="list-decimal list-inside space-y-1 text-slate-200">
+                <li><strong>Henggeh</strong> (ya)</li>
+                <li><strong>Mboya</strong> (tidak)</li>
+                <li><strong>Manira / Menira</strong> (saya)</li>
+                <li><strong>Pakenira / Pekenira</strong> (kamu)</li>
+                <li><strong>Punapi / Ponapi</strong> (apa)</li>
+                <li><strong>Puniki / Peniki</strong> (ini)</li>
+                <li><strong>Puniku / Peniku</strong> (itu)</li>
+                <li><strong>Wenten</strong> (ada)</li>
+                <li><strong>Nedha / Neda</strong> (silakan / ayo)</li>
+                <li><strong>Besaos</strong> (saja)</li>
+                <li><strong>Seyos</strong> (lain / beda)</li>
+              </ol>
             </div>
           </div>
 
           <div class="space-y-4">
             <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
-              <h3 class="font-bold text-amber-300 text-base mb-2">⚙️ Ater-ater Pasif `ka-` & Imbuhan</h3>
-              <p class="mb-2">
-                Ngetutake aturan <em>Pranatan Sowan/Marak lan Basa Bagongan</em>, wujud pasif murni nggunakaken ater-ater <strong><code>ka-</code></strong>:
-              </p>
+              <h3 class="font-bold text-amber-300 text-base mb-2">⚙️ Kaidah Morfologi Pasif `ka-`</h3>
+              <p class="mb-2">Ater-ater pasif tetep nggunakaken <strong><code>ka-</code></strong> dipun-gabung kaliyan Tembung Dasar Krama + Panambang Ngoko:</p>
               <div class="p-3 bg-amber-500/10 border border-amber-500/40 rounded-lg text-amber-300 font-medium">
-                Ater-ater Pasif `ka-` + Tembung Dasar Krama + Panambang Ngoko (`-ake`, `-e`)<br>
-                <span class="text-xs text-slate-300 font-normal">Contoh: <em>ka- + karsa + -ake = kakersakaké</em></span>
+                ka- + karsa + -ake = kakersakaké
               </div>
             </div>
           </div>
@@ -150,8 +146,8 @@
       <div class="royal-card p-6 rounded-2xl shadow-xl">
         <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
           <div>
-            <h2 class="text-2xl font-bold text-amber-400 font-royal">11 Kosakata Khusus Basa Bagongan Yogyakarta</h2>
-            <p class="text-slate-400 text-sm">Daftar murni 11 kosakata khusus Keraton Ngayogyakarta Hadiningrat.</p>
+            <h2 class="text-2xl font-bold text-amber-400 font-royal">Presisi 11 Tembung Khusus Bagongan Yogyakarta</h2>
+            <p class="text-slate-400 text-sm">Daftar presisi 11 kosakata khusus Keraton Ngayogyakarta Hadiningrat.</p>
           </div>
           <input type="text" id="dictSearchInput" onkeyup="filterDictionary()" placeholder="🔍 Cari kata..." 
             class="w-full md:w-72 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-sm text-slate-100">
@@ -178,11 +174,11 @@
         
         <div class="space-y-6">
           <div class="p-5 bg-slate-800/60 rounded-xl border border-slate-700">
-            <h3 class="font-semibold text-slate-200 mb-3">1. Tembung pundi ingkang kalebet 11 kosakata khusus Basa Bagongan Yogyakarta damel ngganteni tembung "apa"?</h3>
+            <h3 class="font-semibold text-slate-200 mb-3">1. Tembung pundi ingkang leres damel ngendikan "tidak" ing Basa Bagongan Yogyakarta?</h3>
             <div class="space-y-2 text-sm">
-              <button onclick="checkQuiz(1, 'a')" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-700 border border-slate-700">A. Paran (Surakarta)</button>
-              <button onclick="checkQuiz(1, 'b')" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-700 border border-slate-700">B. Punapa / Apa (Yogyakarta)</button>
-              <button onclick="checkQuiz(1, 'c')" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-700 border border-slate-700">C. Menapa</button>
+              <button onclick="checkQuiz(1, 'a')" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-700 border border-slate-700">A. Boten</button>
+              <button onclick="checkQuiz(1, 'b')" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-700 border border-slate-700">B. Mboya</button>
+              <button onclick="checkQuiz(1, 'c')" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-700 border border-slate-700">C. Ora</button>
             </div>
             <div id="quizResult1" class="hidden"></div>
           </div>
@@ -193,7 +189,7 @@
   </main>
 
   <footer class="border-t border-slate-800 bg-slate-950 py-6 text-center text-xs text-slate-500">
-    <p>© 2026 Aplikasi Murni Basa Bagongan Keraton Ngayogyakarta Hadiningrat. Berdasarkan Literatur Balai Bahasa DIY.</p>
+    <p>© 2026 Aplikasi Presisi 11 Tembung Basa Bagongan Keraton Ngayogyakarta Hadiningrat.</p>
   </footer>
 
   <script src="dictionary.js"></script>

@@ -1,23 +1,25 @@
-// Database Kosakata Murni Basa Bagongan Keraton Ngayogyakarta Hadiningrat (11 Tembung Khusus)
-const BAGONGAN_SPECIAL_LEXICON = {
-  "saya": { bagongan: "manira", note: "Pronomina Orang I Murni Bagongan Yogya (Manira / Menira)" },
-  "aku": { bagongan: "manira", note: "Pronomina Orang I Murni Bagongan Yogya (Manira / Menira)" },
-  "kamu": { bagongan: "pakenira", note: "Pronomina Orang II Murni Bagongan Yogya (Pakenira / Pekenira)" },
-  "anda": { bagongan: "pakenira", note: "Pronomina Orang II Murni Bagongan Yogya (Pakenira / Pekenira)" },
-  "engkau": { bagongan: "pakenira", note: "Pronomina Orang II Murni Bagongan Yogya (Pakenira / Pekenira)" },
-  "sekarang": { bagongan: "samen", note: "Tembung Khusus Bagongan Yogya (Samen)" },
-  "nanti": { bagongan: "besuk", note: "Tembung Khusus Bagongan Yogya (Besuk)" },
-  "besok": { bagongan: "besuk", note: "Tembung Khusus Bagongan Yogya (Besuk)" },
-  "apa": { bagongan: "punapa", note: "Tembung Khusus Bagongan Yogya (Punapa / Apa - Sanes Paran)" },
-  "apakah": { bagongan: "punapa", note: "Tembung Khusus Bagongan Yogya (Punapa / Apa - Sanes Paran)" },
-  "mana": { bagongan: "pundi", note: "Tembung Khusus Bagongan Yogya (Pundi)" },
-  "ya": { bagongan: "enggeh", note: "Tembung Khusus Bagongan Yogya (Enggeh)" },
-  "iya": { bagongan: "enggeh", note: "Tembung Khusus Bagongan Yogya (Enggeh)" },
-  "tidak": { bagongan: "mboten", note: "Tembung Khusus Bagongan Yogya (Mboten)" },
-  "bukan": { bagongan: "mboten", note: "Tembung Khusus Bagongan Yogya (Mboten)" },
-  "ini": { bagongan: "puniki", note: "Tembung Khusus Bagongan Yogya (Puniki)" },
-  "itu": { bagongan: "puniku", note: "Tembung Khusus Bagongan Yogya (Puniku)" },
-  "berapa": { bagongan: "santen", note: "Tembung Khusus Bagongan Yogya (Santen)" }
+// Database Presisi 11 Kosakata Khusus Basa Bagongan Keraton Ngayogyakarta Hadiningrat
+const BAGONGAN_SPECIAL_11 = {
+  "ya": { bagongan: "henggeh", note: "11 Tembung Khusus Bagongan (Henggeh)" },
+  "iya": { bagongan: "henggeh", note: "11 Tembung Khusus Bagongan (Henggeh)" },
+  "tidak": { bagongan: "mboya", note: "11 Tembung Khusus Bagongan (Mboya)" },
+  "bukan": { bagongan: "mboya", note: "11 Tembung Khusus Bagongan (Mboya)" },
+  "saya": { bagongan: "manira", note: "11 Tembung Khusus Bagongan (Manira / Menira)" },
+  "aku": { bagongan: "manira", note: "11 Tembung Khusus Bagongan (Manira / Menira)" },
+  "kamu": { bagongan: "pakenira", note: "11 Tembung Khusus Bagongan (Pakenira / Pekenira)" },
+  "anda": { bagongan: "pakenira", note: "11 Tembung Khusus Bagongan (Pakenira / Pekenira)" },
+  "engkau": { bagongan: "pakenira", note: "11 Tembung Khusus Bagongan (Pakenira / Pekenira)" },
+  "apa": { bagongan: "punapi", note: "11 Tembung Khusus Bagongan (Punapi / Ponapi)" },
+  "apakah": { bagongan: "punapi", note: "11 Tembung Khusus Bagongan (Punapi / Ponapi)" },
+  "ini": { bagongan: "puniki", note: "11 Tembung Khusus Bagongan (Puniki / Peniki)" },
+  "itu": { bagongan: "puniku", note: "11 Tembung Khusus Bagongan (Puniku / Peniku)" },
+  "ada": { bagongan: "wenten", note: "11 Tembung Khusus Bagongan (Wenten)" },
+  "silakan": { bagongan: "nedha", note: "11 Tembung Khusus Bagongan (Nedha / Neda)" },
+  "mari": { bagongan: "nedha", note: "11 Tembung Khusus Bagongan (Nedha / Neda)" },
+  "saja": { bagongan: "besaos", note: "11 Tembung Khusus Bagongan (Besaos)" },
+  "saja": { bagongan: "besaos", note: "11 Tembung Khusus Bagongan (Besaos)" },
+  "lain": { bagongan: "seyos", note: "11 Tembung Khusus Bagongan (Seyos)" },
+  "beda": { bagongan: "seyos", note: "11 Tembung Khusus Bagongan (Seyos)" }
 };
 
 const KRAMA_BASE_DICTIONARY = {
@@ -56,6 +58,7 @@ const KRAMA_BASE_DICTIONARY = {
   "sudah": { krama: "sampun" },
   "belum": { krama: "dhereng" },
   "sedang": { krama: "nembe" },
+  "sekarang": { krama: "sapunika" },
 
   // Nomina (Tembung Aran)
   "rumah": { krama: "griya" },
@@ -72,18 +75,6 @@ const KRAMA_BASE_DICTIONARY = {
   "malam": { krama: "dalu" },
   "pagi": { krama: "enjing" },
   "siang": { krama: "siang" },
-
-  // Adjektiva & Kata Tugas
-  "baik": { krama: "sae" },
-  "bagus": { krama: "sae" },
-  "besar": { krama: "ageng" },
-  "kecil": { krama: "alit" },
-  "banyak": { krama: "kathah" },
-  "sedikit": { krama: "sakedhik" },
-  "baru": { krama: "enggal" },
-  "lama": { krama: "dangu" },
-  "jauh": { krama: "tebih" },
-  "dekat": { krama: "celak" },
 
   // Preposisi
   "di": { krama: "teng" },
