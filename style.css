@@ -216,3 +216,7 @@ button#btnTerjemah:hover {
     border-color: #1b5e20;
     box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3);
 }
+
+.jawa-result {
+    display: none;
+}
