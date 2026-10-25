@@ -1,15 +1,15 @@
+
 /**
- * APP.JS - Mesin Penerjemah & Transformasi Morfologi Bahasa Indonesia ke Basa Jawa
- * Versi 2.0 - Sudah mendukung imbuhan lengkap Indonesia
- * - Awalan: me-, mem-, men-, meng-, meny-, memper-, ber-, ter-, di-, ke-, se-, per-, pe-, pem-, pen-, peng-, peny-, pel-, bel-, be-, te-, keber-, keter-, diper-
- * - Akhiran: -kan, -an, -i, -nya, -ku, -mu, -lah, -kah, -pun
- * - Konfiks: ke-an, per-an, pe-an, se-an, ber-an, me-kan, me-i, di-kan, di-i
- * - Infix: -el-, -em-, -er-
- * - Mapping otomatis ke Paramasastra Jawa (N-, di-/dipun-/ka-, pa-, pi-, sa-, ke-, ka-an, pa-an)
+ * APP.JS - Versi 3.0 dengan Auto Krama Inggil untuk orang dihormati
+ * - Imbuhan lengkap Indonesia (me-, ber-, ter-, di-, ke-, se-, per-, pe-, dll)
+ * - Auto-detect subjek hormat (bapak, ibu, beliau, eyang, mbah, simbah, etc)
+ * - Kalau hormat, otomatis pakai krama_inggil (makan -> dhahar, tidur -> tilem, datang -> rawuh)
  */
 
 let kamusData = [];
 let currentWordsData = [];
+let isHormatAktif = false; // global flag untuk UI
+window.isHormatAktif = false;
 
 document.addEventListener("DOMContentLoaded", () => {
     fetch("kamuskramamet.json")
@@ -25,6 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const inputArea = document.getElementById("inputIndonesia");
     if (inputArea) inputArea.addEventListener("input", debounce(prosesTerjemahan, 400));
+    
+    const selSubjek = document.getElementById("selSubjek");
+    if (selSubjek) selSubjek.addEventListener("change", prosesTerjemahan);
 });
 
 function debounce(func, wait) {
@@ -35,8 +38,35 @@ function debounce(func, wait) {
     };
 }
 
+// === LOGIKA DETEKSI HORMAT ===
+const KATA_HORMAT = [
+    "bapak", "bpk", "ibu", "bu", "beliau", "eyang", "mbah", "simbah", 
+    "pakde", "bude", "paklik", "bulik", "pak dhe", "bu dhe",
+    "eyang kakung", "eyang putri", "eyang kakung", "rama", "ibu", 
+    "gusti", "ndoro", "kanjeng", "kyai", "ustad", "ustadz", "romo", "suster",
+    "panjenengan", "sampeyan", "tuan", "nyonya", "kakek", "nenek"
+];
+
+function deteksiHormat(inputTeks, mode) {
+    if (mode === "hormat") return true;
+    if (mode === "biasa") return false;
+    // mode auto
+    let lower = inputTeks.toLowerCase();
+    for (let kata of KATA_HORMAT) {
+        if (lower.includes(kata)) return true;
+    }
+    return false;
+}
+
 function prosesTerjemahan() {
-    const inputTeks = document.getElementById("inputIndonesia").value.trim();
+    const inputEl = document.getElementById("inputIndonesia");
+    const inputTeks = inputEl ? inputEl.value.trim() : "";
+    const selSubjek = document.getElementById("selSubjek");
+    const mode = selSubjek ? selSubjek.value : "auto";
+    
+    isHormatAktif = deteksiHormat(inputTeks, mode);
+    window.isHormatAktif = isHormatAktif;
+
     if (!inputTeks) {
         currentWordsData = [];
         resetOutput();
@@ -71,6 +101,52 @@ function getVariantsForLevel(entry, level) {
     return null;
 }
 
+// Pilih stem dengan mempertimbangkan mode hormat
+function pilihStemHormat(entry, level, isHormat) {
+    if (!entry) return null;
+    if (!isHormat) {
+        // mode biasa, pakai level masing-masing
+        if (level === "ngoko") return entry.ngoko;
+        if (level === "ngoko_alus") return entry.ngoko_alus;
+        if (level === "krama") return entry.krama;
+        if (level === "krama_inggil") return entry.krama_inggil;
+        if (level === "bagongan") return entry.krama || entry.ngoko;
+        return entry.ngoko;
+    } else {
+        // mode hormat: untuk kata kerja/orang, pakai krama_inggil kalau ada dan beda
+        // Contoh: makan -> dhahar, bukan mangan
+        // Jika krama_inggil ada dan berbeda dari ngoko, pakai itu untuk semua level
+        // Kecuali untuk kata yang krama_inggil sama dengan krama (tidak perlu)
+        let ki = entry.krama_inggil;
+        let kr = entry.krama;
+        let nga = entry.ngoko_alus;
+        // Jika krama_inggil tersedia dan bukan kosong, pakai krama_inggil untuk level krama dan krama_inggil
+        // Untuk ngoko alus, juga pakai krama_inggil kalau ada (ini ciri ngoko alus hormat)
+        if (ki && ki !== "" && ki !== entry.ngoko) {
+            if (level === "ngoko") {
+                // Di ngoko lugu tapi subjek hormat, tetap pakai ngoko_alus atau krama_inggil?
+                // Aturan: Bapak mangan -> seharusnya Bapak dhahar (pakai krama inggil walau ngoko)
+                // Jadi untuk mode hormat, ngoko lugu pun kita upgrade ke krama_inggil kalau kata kerja
+                // Kita cek apakah kata ini termasuk kata kerja yang punya krama inggil berbeda
+                // Jika ya, pakai krama_inggil, jika tidak pakai ngoko_alus
+                if (ki !== kr || nga !== entry.ngoko) {
+                    return ki; // pakai paling halus untuk hormat
+                }
+            }
+            if (level === "ngoko_alus") return ki || nga || kr;
+            if (level === "krama") return ki || kr;
+            if (level === "krama_inggil") return ki;
+            if (level === "bagongan") return ki || kr;
+        }
+        // Fallback ke krama jika tidak ada krama_inggil
+        if (level === "ngoko") return entry.ngoko;
+        if (level === "ngoko_alus") return entry.ngoko_alus;
+        if (level === "krama") return entry.krama;
+        if (level === "krama_inggil") return entry.krama_inggil;
+        return entry.ngoko;
+    }
+}
+
 function renderAllCards() {
     if (!currentWordsData || currentWordsData.length === 0) {
         resetOutput(); return;
@@ -86,7 +162,6 @@ function renderAllCards() {
         let awalanFinal = awalanUi || analisisId.awalan;
         let akhiranFinal = akhiranUi || analisisId.akhiran;
 
-        // Untuk ke-an dan per-an, kita butuh konfiks info
         if(analisisId.konfiks) {
             if(analisisId.konfiks==="ke-an" && !awalanUi) awalanFinal = "ke";
             if(analisisId.konfiks==="per-an" && !awalanUi) awalanFinal = "pa";
@@ -96,9 +171,21 @@ function renderAllCards() {
         let isMissingStd = !stdEntry;
         if (!wordObj.selectedVariants) wordObj.selectedVariants = {};
 
-        const buildLevelItem = (level, defaultStem, entryObj, isMissing) => {
-            let varList = getVariantsForLevel(entryObj, level);
+        const buildLevelItem = (level, entryObj, isMissing) => {
+            // Tentukan stem dasar dengan mempertimbangkan hormat
+            let defaultStemFromHormat = pilihStemHormat(entryObj, level, isHormatAktif);
+            let defaultStem = defaultStemFromHormat || (entryObj ? (entryObj[level] || analisisId.kataDasar) : analisisId.kataDasar);
+            
+            // Jika entry custom atau ada selectedVariants, pakai itu
             let selectedStem = wordObj.selectedVariants[level] || defaultStem;
+            
+            let varList = getVariantsForLevel(entryObj, level);
+            // Jika mode hormat, varian juga harus dari krama_inggil
+            if (isHormatAktif && entryObj) {
+                let kiVar = getVariantsForLevel(entryObj, "krama_inggil");
+                if (kiVar && kiVar.length > 1) varList = kiVar;
+            }
+
             if (varList && varList.length > 1) {
                 let variantsTransformed = varList.map(vStem => ({
                     stem: vStem,
@@ -112,33 +199,28 @@ function renderAllCards() {
                     isMissing: false,
                     hasVariants: true,
                     variants: variantsTransformed,
-                    selectedStem: selectedStem
+                    selectedStem: selectedStem,
+                    isHormat: isHormatAktif
                 };
             } else {
                 return {
                     wordIndex: idx,
                     text: terapkanMorfologi(selectedStem, level, awalanFinal, akhiranFinal, analisisId),
                     isMissing: isMissing,
-                    hasVariants: false
+                    hasVariants: false,
+                    isHormat: isHormatAktif
                 };
             }
         };
 
-        let stemNgoko = stdEntry ? stdEntry.ngoko : analisisId.kataDasar;
-        let stemNgokoAlus = stdEntry ? stdEntry.ngoko_alus : analisisId.kataDasar;
-        let stemKrama = stdEntry ? stdEntry.krama : analisisId.kataDasar;
-        let stemKramaInggil = stdEntry ? stdEntry.krama_inggil : analisisId.kataDasar;
-
         let bagEntry = wordObj.customBagonganEntry || wordObj.bagonganEntry || stdEntry;
         let isMissingBag = !bagEntry;
-        let stemBagongan = analisisId.kataDasar;
-        if (bagEntry) stemBagongan = bagEntry.krama || bagEntry.ngoko || bagEntry.krama_inggil;
 
-        hasilNgoko.push(buildLevelItem("ngoko", stemNgoko, stdEntry, isMissingStd));
-        hasilNgokoAlus.push(buildLevelItem("ngoko_alus", stemNgokoAlus, stdEntry, isMissingStd));
-        hasilKrama.push(buildLevelItem("krama", stemKrama, stdEntry, isMissingStd));
-        hasilKramaInggil.push(buildLevelItem("krama_inggil", stemKramaInggil, stdEntry, isMissingStd));
-        hasilBagongan.push(buildLevelItem("bagongan", stemBagongan, bagEntry, isMissingBag));
+        hasilNgoko.push(buildLevelItem("ngoko", stdEntry, isMissingStd));
+        hasilNgokoAlus.push(buildLevelItem("ngoko_alus", stdEntry, isMissingStd));
+        hasilKrama.push(buildLevelItem("krama", stdEntry, isMissingStd));
+        hasilKramaInggil.push(buildLevelItem("krama_inggil", stdEntry, isMissingStd));
+        hasilBagongan.push(buildLevelItem("bagongan", bagEntry, isMissingBag));
     });
 
     tampilkanHasil("outNgokoLatin", "outNgokoJawa", hasilNgoko, false, "ngoko");
@@ -148,16 +230,10 @@ function renderAllCards() {
     tampilkanHasil("outBagonganLatin", "outBagonganJawa", hasilBagongan, true, "bagongan");
 }
 
-/**
- * Urai Morfologi Bahasa Indonesia - Versi Lengkap
- * Jika morfologi-id.js ada, pakai itu. Jika tidak, pakai fallback internal.
- */
 function uraiMorfologiIndonesia(kata) {
-    // Jika modul baru tersedia, delegasikan
     if(typeof window.uraiMorfologiIndonesiaLengkap === 'function') {
         try {
             let hasil = window.uraiMorfologiIndonesiaLengkap(kata, cariKamusStandard);
-            // Pastikan struktur kompatibel dengan kode lama
             return {
                 kataDasar: hasil.kataDasar,
                 awalan: hasil.awalan,
@@ -174,23 +250,17 @@ function uraiMorfologiIndonesia(kata) {
             console.warn("Gagal pakai modul lengkap, fallback ke internal", e);
         }
     }
-    // Fallback internal (versi upgrade dari kode lama)
     return uraiMorfologiInternal(kata);
 }
 
 function uraiMorfologiInternal(kata) {
     let clean = kata.toLowerCase().replace(/[^a-z\-]/g, "");
     if(!clean) return { kataDasar: kata, awalan: "", akhiran: "", entry: null, konfiks: "" };
-
     let directEntry = cariKamusStandard(clean);
     if (directEntry) return { kataDasar: clean, awalan: "", akhiran: "", entry: directEntry, konfiks: "", prefiks: [], sufiks: [] };
-
-    // Copy dari logika baru versi ringkas jika modul tidak load
     let word = clean;
     let prefiks = [];
     let sufiks = [];
-
-    // Sufiks
     if(word.endsWith("nya") && word.length>5) { sufiks.push("nya"); word = word.slice(0,-3); }
     if(word.endsWith("kan") && word.length>5) { sufiks.push("kan"); word = word.slice(0,-3); }
     else if(word.endsWith("an") && word.length>4) { 
@@ -201,16 +271,12 @@ function uraiMorfologiInternal(kata) {
         let temp = word.slice(0,-1);
         if(cariKamusStandard(temp)) { sufiks.push("i"); word = temp; }
     }
-
-    // Prefiks dengan luluh
     let stem = word;
     let awalanJawa = "";
-    
     const tryPrefix = (p, fn) => {
         if(stem.startsWith(p)) {
             let rest = stem.slice(p.length);
             let cand = fn ? fn(rest) : rest;
-            // coba beberapa varian luluh
             let variants = [cand];
             if(p==="meng") variants.push("k"+rest, rest);
             if(p==="men") variants.push("t"+rest, rest);
@@ -222,7 +288,6 @@ function uraiMorfologiInternal(kata) {
                     return v;
                 }
             }
-            // jika tidak ketemu tapi remainder cukup panjang, anggap itu dasar
             if(rest.length>=3) {
                 prefiks.push(p);
                 return cand;
@@ -230,30 +295,23 @@ function uraiMorfologiInternal(kata) {
         }
         return null;
     };
-
     let newStem = null;
-    // urutan panjang
     for(let p of ["memper","meng","meny","men","mem","ber","ter","per","di","ke","se","me","pe"]) {
         let res = tryPrefix(p, r=>r);
         if(res) { newStem = res; break; }
     }
     if(newStem) stem = newStem;
-
     let entry = cariKamusStandard(stem);
-    
-    // Tentukan mapping Jawa
     let hasMe = prefiks.some(p=>p.startsWith("me") || p==="memper");
     let hasDi = prefiks.includes("di");
     let hasBer = prefiks.includes("ber");
     let hasTer = prefiks.includes("ter");
     let hasKe = prefiks.includes("ke");
     let hasPer = prefiks.includes("per") || prefiks.includes("pe");
-    
     if(hasMe || hasBer) awalanJawa = "N";
     else if(hasDi || hasTer) awalanJawa = "pasif";
     else if(hasPer) awalanJawa = "pa";
     else if(hasKe) awalanJawa = "ke";
-
     let akhiranJawa = "";
     let konfiks = "";
     if(sufiks.includes("kan")) akhiranJawa = "kausatif";
@@ -264,7 +322,6 @@ function uraiMorfologiInternal(kata) {
         else { akhiranJawa = "an"; }
     }
     else if(sufiks.includes("nya")) akhiranJawa = "pemilikan";
-
     return {
         kataDasar: stem,
         awalan: awalanJawa,
@@ -286,7 +343,6 @@ function cariKamusStandard(kata) {
     if (!kamusData || kamusData.length === 0 || !kata) return null;
     let clean = kata.toLowerCase().trim().replace(/[^a-z\-]/g, "");
     if (!clean) return null;
-
     let match = kamusData.find(item => {
         let ind = item.indonesia ? item.indonesia.toLowerCase() : "";
         if (ind.startsWith("[bagongan]")) return false;
@@ -298,20 +354,16 @@ function cariKamusStandard(kata) {
                ind.split(", ").includes(clean) || ngo.split(", ").includes(clean) || kra.split(", ").includes(clean);
     });
     if (match) return match;
-
-    // Coba hapus imbuhan Jawa jika ada (untuk reverse lookup)
     let s = clean;
     if (s.endsWith("aken")) s = s.slice(0, -4);
     else if (s.endsWith("ake") || s.endsWith("ipun")) s = s.slice(0, -3);
     else if (s.endsWith("e") || s.endsWith("i") || s.endsWith("an")) s = s.slice(0, -1);
-
     if (s.startsWith("dipun")) s = s.slice(5);
     else if (s.startsWith("di")) s = s.slice(2);
     else if (s.startsWith("ng")) s = s.slice(2);
     else if (s.startsWith("ny")) s = s.slice(2);
     else if (s.startsWith("n")) s = s.slice(1);
     else if (s.startsWith("m")) s = s.slice(1);
-
     if(s!==clean) {
         let sub = kamusData.find(item => {
             let ind = item.indonesia ? item.indonesia.toLowerCase() : "";
@@ -331,20 +383,13 @@ function cariKamusBagongan(kata) {
     return cariKamusStandard(clean);
 }
 
-/**
- * Pembentukan Morfologi Bahasa Jawa - Versi Lengkap
- * Sekarang mendukung: N, pasif, ter, ke, pa, pi, sa, ber, per, pel, ke-an, per-an
- */
 function terapkanMorfologi(kataDasar, tingkat, awalanType, akhiranType, analisisLengkap) {
     if (!kataDasar) return "";
     let aterAter = "";
     let panambang = "";
     let konfiks = analisisLengkap ? analisisLengkap.konfiks : "";
-
-    // Normalisasi awalanType
     if(awalanType==="ber" || awalanType==="be") awalanType="N";
     if(awalanType==="ter") awalanType="ter";
-
     if (awalanType === "N") aterAter = "N";
     else if (awalanType === "pasif") {
         if (tingkat === "ngoko" || tingkat === "ngoko_alus") aterAter = "di";
@@ -352,7 +397,6 @@ function terapkanMorfologi(kataDasar, tingkat, awalanType, akhiranType, analisis
         else if (tingkat === "bagongan") aterAter = "ka";
     }
     else if (awalanType === "ter") {
-        // ter- dalam Jawa jadi ke- / ka-
         if (tingkat === "ngoko" || tingkat === "ngoko_alus") aterAter = "ke";
         else if (tingkat === "krama" || tingkat === "krama_inggil") aterAter = "ke";
         else if (tingkat === "bagongan") aterAter = "ka";
@@ -369,12 +413,9 @@ function terapkanMorfologi(kataDasar, tingkat, awalanType, akhiranType, analisis
         else if (tingkat === "bagongan") aterAter = "di";
     }
     else if (["sa","pa","pi","ke","per"].includes(awalanType)) {
-        // per -> pa
         if(awalanType==="per") aterAter = "pa";
         else aterAter = awalanType;
     }
-
-    // Khusus konfiks ke-an dan per-an
     if(konfiks==="ke-an") {
         if(!aterAter) {
             if(tingkat==="bagongan") aterAter="ka";
@@ -385,7 +426,6 @@ function terapkanMorfologi(kataDasar, tingkat, awalanType, akhiranType, analisis
         if(!aterAter) aterAter="pa";
         panambang = "an";
     }
-
     if (akhiranType === "pemilikan") {
         if (tingkat === "krama" || tingkat === "krama_inggil") panambang = "ipun";
         else panambang = "e";
@@ -399,12 +439,9 @@ function terapkanMorfologi(kataDasar, tingkat, awalanType, akhiranType, analisis
     } else if (akhiranType === "imperatif_pasif") {
         panambang = "en";
     } else if (akhiranType === "an" || akhiranType === "nomina") {
-        // -an nomina: harapan, permainan
         if(!panambang) panambang = "an";
     }
-
     if (!aterAter && !panambang) return kataDasar;
-
     return jalankanParamasastraSriwedari(aterAter, kataDasar, panambang);
 }
 
@@ -415,7 +452,6 @@ function jalankanParamasastraSriwedari(ater, dasar, panam) {
     let mockWarn = { innerHTML: "" };
     let mockOutLat = { value: "" };
     let mockOutJaw = { innerHTML: "", innerText: "" };
-
     const getEl = document.getElementById.bind(document);
     document.getElementById = function (id) {
         if (id === 'selAter') return mockAter;
@@ -441,19 +477,20 @@ function tampilkanHasil(idLatin, idJawa, kataItems, isBagonganCard = false, card
         return;
     }
     let htmlContent = kataItems.map(item => {
+        let hormatBadge = item.isHormat ? ' <span style="font-size:0.6rem; background:#f97316; color:white; padding:1px 4px; border-radius:4px;">hormat</span>' : '';
         if (item.isMissing) {
             let displayText = item.text ? item.text.replace(/-/g, "") : "";
-            return `<span class="word-span missing-word" contenteditable="true" spellcheck="false" data-index="${item.wordIndex}">${displayText}</span>`;
+            return `<span class="word-span missing-word" contenteditable="true" spellcheck="false" data-index="${item.wordIndex}">${displayText}</span>${hormatBadge}`;
         } else if (item.hasVariants) {
             let optionsHtml = item.variants.map(vObj => {
                 let isSelected = vObj.stem === item.selectedStem ? "selected" : "";
                 let displayVal = vObj.transformed ? vObj.transformed.replace(/-/g, "") : vObj.stem;
                 return `<option value="${vObj.stem}" ${isSelected}>${displayVal}</option>`;
             }).join("");
-            return `<select class="variant-select green-variant" data-index="${item.wordIndex}" data-level="${cardLevel}">${optionsHtml}</select>`;
+            return `<select class="variant-select green-variant" data-index="${item.wordIndex}" data-level="${cardLevel}">${optionsHtml}</select>${hormatBadge}`;
         } else {
             let displayText = item.text ? item.text.replace(/-/g, "") : "";
-            return `<span class="word-span" contenteditable="true" spellcheck="false" data-index="${item.wordIndex}">${displayText}</span>`;
+            return `<span class="word-span" contenteditable="true" spellcheck="false" data-index="${item.wordIndex}">${displayText}</span>${hormatBadge}`;
         }
     }).join(" ");
     elLatin.innerHTML = htmlContent;
