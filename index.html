@@ -3,12 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penerjemah Indonesia - Jawa dengan Auto Krama Inggil</title>
+    <title>Penerjemah Jawa - Auto Krama Inggil & Andhap</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .hormat-control {
             background: #fff7ed;
             border: 1px solid #fed7aa;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .andhap-control {
+            background: #f0f9ff;
+            border: 1px solid #7dd3fc;
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 15px;
@@ -17,15 +28,17 @@
             align-items: center;
             flex-wrap: wrap;
         }
-        .hormat-control label { font-weight: 600; font-size: 0.9rem; color: #9a3412; }
-        .hormat-control select {
+        .hormat-control label, .andhap-control label { font-weight: 600; font-size: 0.9rem; }
+        .hormat-control label { color: #9a3412; }
+        .andhap-control label { color: #0c4a6e; }
+        .hormat-control select, .andhap-control select {
             padding: 6px 10px;
             border-radius: 6px;
-            border: 1px solid #fdba74;
+            border: 1px solid #ccc;
             background: white;
+            min-width: 220px;
         }
-        .badge-hormat {
-            background: #f97316;
+        .badge {
             color: white;
             padding: 2px 8px;
             border-radius: 12px;
@@ -33,7 +46,9 @@
             font-weight: bold;
             display: none;
         }
-        .badge-hormat.active { display: inline-block; }
+        .badge-hormat { background: #f97316; }
+        .badge-andhap { background: #0284c7; }
+        .badge.active { display: inline-block; }
         .info-box {
             background: #f0fdf4;
             border: 1px solid #bbf7d0;
@@ -41,46 +56,55 @@
             border-radius: 8px;
             margin-bottom: 15px;
             font-size: 0.85rem;
+            line-height: 1.5;
         }
+        .example { background: #fefce8; border-left: 3px solid #eab308; padding: 6px 10px; margin: 6px 0; font-size: 0.85rem; }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Penerjemah & Paramasastra Basa Jawa</h1>
-            <p>Auto-suggest Krama Inggil untuk orang dihormati + imbuhan lengkap</p>
-            <p style="font-size:0.8rem; color:#888; margin-top:8px;">v3.0 - 2130 entri + deteksi hormat otomatis</p>
+            <p>Auto Krama Inggil (hormat) + Krama Andhap (merendah) + imbuhan lengkap</p>
+            <p style="font-size:0.8rem; color:#888; margin-top:8px;">v4.0 - 2130 entri + deteksi hormat & andhap otomatis</p>
         </header>
 
         <main>
             <section class="input-section">
                 <label for="inputIndonesia"><strong>Teks Bahasa Indonesia:</strong></label>
-                <textarea id="inputIndonesia" placeholder="Coba: bapak makan, ibu tidur, beliau datang, saya mengharapkan kehadiran bapak..."></textarea>
+                <textarea id="inputIndonesia" placeholder="Coba: saya memberi bapak, bapak makan, saya mengharapkan kehadiran bapak, saya datang ke rumah ibu..."></textarea>
 
                 <div class="hormat-control">
-                    <label for="selSubjek">Subjek kalimat:</label>
+                    <label for="selSubjek">Subjek yang dibicarakan:</label>
                     <select id="selSubjek" onchange="prosesTerjemahan()">
-                        <option value="auto" selected>Auto-detect (dari kata bapak/ibu/beliau/eyang)</option>
-                        <option value="biasa">Biasa - aku/kowe/dheweke</option>
-                        <option value="hormat">Hormat - bapak/ibu/beliau/eyang/mbah</option>
+                        <option value="auto" selected>Auto-detect dari kalimat</option>
+                        <option value="biasa">Biasa - aku/kowe/dheweke mangan</option>
+                        <option value="saya_andhap">Saya merendah (kula nedha) - Krama Andhap</option>
+                        <option value="beliau_hormat">Beliau dihormati (bapak dhahar) - Krama Inggil</option>
+                        <option value="both">Saya merendah + Beliau dihormati (kula nyaosi bapak dhahar)</option>
                     </select>
-                    <span id="badgeHormat" class="badge-hormat">Mode Hormat Aktif - pakai Krama Inggil</span>
+                    <span id="badgeHormat" class="badge badge-hormat">Hormat (Inggil)</span>
+                    <span id="badgeAndhap" class="badge badge-andhap">Andhap (Merendah)</span>
                 </div>
 
                 <div class="info-box">
-                    <strong>Cara kerja auto krama inggil:</strong><br>
-                    • Kalau kalimat ada kata <code>bapak, ibu, beliau, eyang, mbah, simbah, pakde, bude, rama, eyang kakung, eyang putri, gusti, romo, kyai</code> → otomatis pakai krama inggil<br>
-                    • Contoh: <code>makan</code> = <code>mangan</code> (ngoko biasa) → kalau subjek hormat jadi <code>dhahar</code> (krama inggil)<br>
-                    • <code>tidur</code> = <code>turu</code> → hormat = <code>tilem / sare</code><br>
-                    • <code>datang</code> = <code>teka</code> → hormat = <code>rawuh</code><br>
-                    • <code>pergi</code> = <code>lunga</code> → hormat = <code>tindak</code>
+                    <strong>Bedanya Krama Inggil vs Andhap:</strong><br>
+                    • <b>Krama Inggil</b> = untuk orang dihormati (orang lain). <code>makan → dhahar, tidur → tilem, datang → rawuh, pergi → tindak</code><br>
+                    • <b>Krama Andhap</b> = untuk merendahkan diri sendiri ke orang hormat. <code>saya → kula, memberi → nyaosi/caos, melihat → sumerep, datang → sowan</code><br>
+                    • <b>Contoh andhap:</b> <code>saya memberi bapak</code> → <code>kula nyaosi bapak</code> (bukan <code>kula maringi</code>)<br>
+                    • <b>Contoh inggil:</b> <code>bapak makan</code> → <code>bapak dhahar</code> (bukan <code>mangan</code>)<br>
+                    • <b>Contoh both:</b> <code>saya memberi bapak yang sedang makan</code> → <code>kula nyaosi bapak ingkang dhahar</code>
+                </div>
+
+                <div class="example">
+                    <b>Uji cepat:</b> ketik <code>bapak makan</code> → harusnya jadi <code>dhahar</code>. Ketik <code>saya memberi bapak</code> → harusnya jadi <code>kula nyaosi bapak</code>. Ketik <code>saya datang ke rumah bapak</code> → <code>kula sowan dateng griyanipun bapak</code>
                 </div>
 
                 <button id="btnTerjemah" onclick="prosesTerjemahan()">Terjemahkan</button>
             </section>
 
             <section class="output-section">
-                <h2>Hasil Terjemahan <span id="labelHormat" style="font-size:0.9rem; color:#f97316; display:none;">(Mode Hormat)</span></h2>
+                <h2>Hasil Terjemahan <span id="labelHormat" style="font-size:0.9rem; color:#f97316; display:none;">(Hormat)</span> <span id="labelAndhap" style="font-size:0.9rem; color:#0284c7; display:none;">(Andhap)</span></h2>
                 <div id="outputContainer" class="output-grid">
                     <div class="card ngoko">
                         <h3>Ngoko Lugu</h3>
@@ -88,17 +112,17 @@
                         <div class="jawa-result" id="outNgokoJawa"></div>
                     </div>
                     <div class="card ngoko-alus">
-                        <h3>Ngoko Alus (Hormat)</h3>
+                        <h3>Ngoko Alus</h3>
                         <div class="latin-result" id="outNgokoAlusLatin">-</div>
                         <div class="jawa-result" id="outNgokoAlusJawa"></div>
                     </div>
                     <div class="card krama">
-                        <h3>Krama Lugu</h3>
+                        <h3>Krama Lugu (Andhap)</h3>
                         <div class="latin-result" id="outKramaLatin">-</div>
                         <div class="jawa-result" id="outKramaJawa"></div>
                     </div>
                     <div class="card krama-inggil">
-                        <h3>Krama Inggil (Paling Halus)</h3>
+                        <h3>Krama Inggil</h3>
                         <div class="latin-result" id="outKramaInggilLatin">-</div>
                         <div class="jawa-result" id="outKramaInggilJawa"></div>
                     </div>
@@ -120,14 +144,20 @@
         const _origProses = window.prosesTerjemahan;
         window.prosesTerjemahan = function() {
             _origProses();
-            const isHormat = window.isHormatAktif || false;
-            const badge = document.getElementById('badgeHormat');
-            const label = document.getElementById('labelHormat');
-            if(badge) {
-                if(isHormat) badge.classList.add('active');
-                else badge.classList.remove('active');
+            const isH = window.isHormatAktif || false;
+            const isA = window.isAndhapAktif || false;
+            document.getElementById('badgeHormat')?.classList.toggle('active', isH);
+            document.getElementById('badgeAndhap')?.classList.toggle('active', isA);
+            const lh = document.getElementById('labelHormat');
+            const la = document.getElementById('labelAndhap');
+            if(lh) lh.style.display = isH ? 'inline' : 'none';
+            if(la) la.style.display = isA ? 'inline' : 'none';
+            const dbg = document.getElementById('debugInfo');
+            if(dbg && window.currentWordsData) {
+                dbg.style.display='block';
+                dbg.innerHTML = '<b>Mode:</b> Hormat=' + isH + ' Andhap=' + isA + '<br>' +
+                    window.currentWordsData.map(w=> `${w.originalInput} → ${w.analisis.kataDasar} | prefiks:${(w.analisis.prefiks||[]).join(',')} | sufiks:${(w.analisis.sufiks||[]).join(',')} | ${w.analisis.entry?'✓':'✗'}`).join('<br>');
             }
-            if(label) label.style.display = isHormat ? 'inline' : 'none';
         };
     </script>
 </body>
