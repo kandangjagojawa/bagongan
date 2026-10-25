@@ -10626,24 +10626,22 @@
     "ngoko": "kelar",
     "ngoko_alus": "kuwawi",
     "all_krama": [
-      "kiyat/kuwawi",
       "kuwawi",
       "kiyat"
     ],
     "all_krama_inggil": [
-      "kiyat/kuwawi",
+      "kiyat",
       "kuwawi"
     ],
     "all_ngoko": [
       "kelar",
-      "kuwat",
-      "kuwat/kelar"
+      "kuwat"
     ],
     "all_ngoko_alus": [
-      "kiyat/kuwawi",
+      "kiyat",
       "kuwawi"
     ],
-    "variant_count": 3
+    "variant_count": 2
   },
   {
     "indonesia": "kubur",
@@ -13100,7 +13098,7 @@
     ],
     "all_krama_inggil": [
       "paring priksa",
-      "paring/atur priksa",
+      "atur priksa",
       "maringi priksa",
       "ngaturi priksa"
     ],
@@ -13110,7 +13108,7 @@
     ],
     "all_ngoko_alus": [
       "paring priksa",
-      "paring/atur priksa",
+      "atur priksa",
       "maringi priksa",
       "ngaturi priksa"
     ],
