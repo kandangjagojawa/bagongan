@@ -182,6 +182,13 @@ function getVariantsForLevel(entry, level) {
     return null;
 }
 
+function pilihStemBagongan(entry, originalWord) {
+    if (!entry) return null;
+    // Bagongan murni: pakai krama/ngoko dari entry bagongan asli, tanpa pengaruh hormat/andhap
+    // Contoh: [bagongan] saya -> manira, [bagongan] ada -> wenten
+    return entry.krama || entry.ngoko || entry.krama_inggil;
+}
+
 function pilihStem(entry, level, isHormat, isAndhap, originalWord) {
     if (!entry) return null;
     let lowOrig = originalWord.toLowerCase().replace(/[^a-z]/g,"");
@@ -262,8 +269,15 @@ function renderAllCards() {
         if (!wordObj.selectedVariants) wordObj.selectedVariants = {};
 
         const buildLevelItem = (level, entryObj, isMissing) => {
-            let defaultStem = pilihStem(entryObj, level, isHormatAktif, isAndhapAktif, wordObj.originalInput);
-            if (!defaultStem) defaultStem = entryObj ? (entryObj[level] || analisisId.kataDasar) : analisisId.kataDasar;
+            let defaultStem;
+            if (level === "bagongan") {
+                // Bagongan harus murni, tidak terpengaruh mode hormat/andhap
+                defaultStem = pilihStemBagongan(entryObj, wordObj.originalInput);
+                if (!defaultStem) defaultStem = entryObj ? (entryObj.ngoko || entryObj.krama || analisisId.kataDasar) : analisisId.kataDasar;
+            } else {
+                defaultStem = pilihStem(entryObj, level, isHormatAktif, isAndhapAktif, wordObj.originalInput);
+                if (!defaultStem) defaultStem = entryObj ? (entryObj[level] || analisisId.kataDasar) : analisisId.kataDasar;
+            }
             
             let selectedStem = wordObj.selectedVariants[level] || defaultStem;
             let varList = getVariantsForLevel(entryObj, level);
@@ -303,8 +317,12 @@ function renderAllCards() {
             }
         };
 
-        let bagEntry = wordObj.customBagonganEntry || wordObj.bagonganEntry || stdEntry;
-        let isMissingBag = !bagEntry;
+        // BAGONGAN: pakai vocab bagongan asli kalau ada, kalau tidak fallback ke standard tapi dengan morfologi ka-
+        let bagEntryPure = wordObj.customBagonganEntry || wordObj.bagonganEntry;
+        let bagEntryForStem = bagEntryPure || stdEntry; // untuk fallback morfologi ka-
+        let isMissingBag = !bagEntryForStem; // hanya missing kalau tidak ada vocab sama sekali
+        let bagEntry = bagEntryForStem;
+        let isPureBagongan = !!bagEntryPure; // flag untuk debug, apakah ini vocab bagongan asli
 
         hasilNgoko.push(buildLevelItem("ngoko", stdEntry, isMissingStd));
         hasilNgokoAlus.push(buildLevelItem("ngoko_alus", stdEntry, isMissingStd));
@@ -442,30 +460,59 @@ function cariKamusBagongan(kata) {
     let clean = kata.toLowerCase().trim();
     let bagEntry = kamusData.find(item => item.indonesia.toLowerCase() === `[bagongan] ${clean}`);
     if (bagEntry) return bagEntry;
-    return cariKamusStandard(clean);
+    // Jangan fallback ke standard untuk deteksi murni bagongan
+    // Kembalikan null biar bisa ditandai missing atau fallback dengan morfologi ka-
+    return null;
 }
+
+
 
 function terapkanMorfologi(kataDasar, tingkat, awalanType, akhiranType, analisisLengkap) {
     if (!kataDasar) return "";
     let aterAter = "";
     let panambang = "";
     let konfiks = analisisLengkap ? analisisLengkap.konfiks : "";
+
+    // Normalisasi awalan dari modul morfologi-id
     if(awalanType==="ber" || awalanType==="be") awalanType="N";
     if(awalanType==="ter") awalanType="ter";
-    if (awalanType === "N") aterAter = "N";
+
+    // === ATER-ATER (Awalan Jawa) ===
+    if (awalanType === "N") {
+        // me-, mem-, men-, meng-, ber- -> N- untuk semua tingkat
+        aterAter = "N";
+    }
     else if (awalanType === "pasif") {
+        // di- -> di- (ngoko), dipun- (krama), ka- (bagongan)
         if (tingkat === "ngoko" || tingkat === "ngoko_alus") aterAter = "di";
         else if (tingkat === "krama" || tingkat === "krama_inggil") aterAter = "dipun";
-        else if (tingkat === "bagongan") aterAter = "ka";
+        else if (tingkat === "bagongan") aterAter = "ka"; // Bagongan pakai ka- untuk pasif
     }
     else if (awalanType === "ter") {
-        if (tingkat === "bagongan") aterAter="ka";
-        else aterAter="ke";
+        // ter- -> ke- (ngoko/krama), ka- (bagongan)
+        if (tingkat === "bagongan") aterAter = "ka";
+        else aterAter = "ke";
+    }
+    else if (awalanType === "pelaku1") {
+        // kubuka, kumakan -> tak- (ngoko), kula- (krama), ka-/di- (bagongan)
+        if (tingkat === "ngoko" || tingkat === "ngoko_alus") aterAter = "tak";
+        else if (tingkat === "krama" || tingkat === "krama_inggil") aterAter = "kula";
+        else if (tingkat === "bagongan") aterAter = "ka";
+    }
+    else if (awalanType === "pelaku2") {
+        // kaubuka -> kok- (ngoko), sampeyan/panjenengan (krama), ka-/di- (bagongan)
+        if (tingkat === "ngoko") aterAter = "kok";
+        else if (tingkat === "krama") aterAter = "sampeyan";
+        else if (tingkat === "ngoko_alus" || tingkat === "krama_inggil") aterAter = "panjenengan";
+        else if (tingkat === "bagongan") aterAter = "ka";
     }
     else if (["sa","pa","pi","ke","per"].includes(awalanType)) {
+        // sa-, pa-, pi-, per-, ke- tetap, per- jadi pa-
         if(awalanType==="per") aterAter = "pa";
         else aterAter = awalanType;
     }
+
+    // === KONFIKS (ke-an, per-an) ===
     if(konfiks==="ke-an") {
         if(!aterAter) {
             if(tingkat==="bagongan") aterAter="ka";
@@ -476,20 +523,41 @@ function terapkanMorfologi(kataDasar, tingkat, awalanType, akhiranType, analisis
         if(!aterAter) aterAter="pa";
         panambang = "an";
     }
+
+    // === PANAMBANG (Akhiran Jawa) ===
     if (akhiranType === "pemilikan") {
+        // -nya, -ku, -mu -> -e (ngoko, ngoko_alus, bagongan), -ipun (krama, krama_inggil)
+        // Bagongan pakai -e seperti ngoko (lebih kasar), bukan -ipun
         if (tingkat === "krama" || tingkat === "krama_inggil") panambang = "ipun";
-        else panambang = "e";
-    } else if (akhiranType === "kausatif") {
-        if (tingkat === "ngoko") panambang = "ake";
-        else panambang = "aken";
-    } else if (akhiranType === "lokatif") {
+        else panambang = "e"; // ngoko, ngoko_alus, bagongan
+    } 
+    else if (akhiranType === "kausatif") {
+        // -kan -> -ake (ngoko, bagongan), -aken (krama, krama_inggil, ngoko_alus)
+        // Bagongan pakai -ake seperti ngoko (paugeran bagongan: -ake, bukan -aken)
+        if (tingkat === "ngoko" || tingkat === "bagongan") panambang = "ake";
+        else panambang = "aken"; // ngoko_alus, krama, krama_inggil
+    } 
+    else if (akhiranType === "lokatif") {
+        // -i -> -i untuk semua tingkat
         panambang = "i";
-    } else if (akhiranType === "an" || akhiranType === "nomina") {
+    } 
+    else if (akhiranType === "imperatif_aktif") {
+        // -lah aktif -> -a
+        panambang = "a";
+    }
+    else if (akhiranType === "imperatif_pasif") {
+        // -lah pasif -> -en
+        panambang = "en";
+    }
+    else if (akhiranType === "an" || akhiranType === "nomina") {
+        // -an -> -an untuk semua tingkat
         if(!panambang) panambang = "an";
     }
+
     if (!aterAter && !panambang) return kataDasar;
     return jalankanParamasastraSriwedari(aterAter, kataDasar, panambang);
 }
+
 
 function jalankanParamasastraSriwedari(ater, dasar, panam) {
     let mockAter = { value: ater };
