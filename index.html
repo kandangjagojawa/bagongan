@@ -59,6 +59,65 @@
             line-height: 1.5;
         }
         .example { background: #fefce8; border-left: 3px solid #eab308; padding: 6px 10px; margin: 6px 0; font-size: 0.85rem; }
+        .word-span {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dotted #999;
+        }
+        .word-span:hover {
+            background: #fff3cd;
+            border-radius: 3px;
+        }
+        .tooltip-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        /* Custom tooltip on hover for better readability */
+        .word-span[title]:hover::after,
+        .tooltip-wrapper[title]:hover::after {
+            content: attr(title);
+            position: absolute;
+            left: 50%;
+            bottom: 125%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: normal;
+            white-space: normal;
+            width: 260px;
+            z-index: 10;
+            line-height: 1.4;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            pointer-events: none;
+        }
+        .word-span[title]:hover::before,
+        .tooltip-wrapper[title]:hover::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 115%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: #1f2937;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .rule-legend {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.8rem;
+        }
+        .rule-legend h4 { margin-bottom: 6px; color: #334155; }
+        .rule-legend table { width: 100%; border-collapse: collapse; }
+        .rule-legend th, .rule-legend td { text-align: left; padding: 4px 6px; border-bottom: 1px solid #e2e8f0; font-size: 0.78rem; }
+        .rule-legend th { background: #f1f5f9; }
+
     </style>
 </head>
 <body>
@@ -97,7 +156,22 @@
                 </div>
 
                 <div class="example">
-                    <b>Uji cepat:</b> ketik <code>bapak makan</code> → harusnya jadi <code>dhahar</code>. Ketik <code>saya memberi bapak</code> → harusnya jadi <code>kula nyaosi bapak</code>. Ketik <code>saya datang ke rumah bapak</code> → <code>kula sowan dateng griyanipun bapak</code>
+                    <b>Uji cepat:</b> ketik <code>bapak makan</code> → harusnya jadi <code>dhahar</code>. Ketik <code>saya memberi bapak</code> → harusnya jadi <code>kula nyaosi bapak</code>. Ketik <code>saya datang ke rumah bapak</code> → <code>kula sowan dateng griyanipun bapak</code><br>
+                    <b>Hover</b> di tiap kata hasil untuk lihat aturan: <code>-nya → -e (Bagongan)</code>, <code>-kan → -ake</code>, dll.
+                </div>
+
+                <div class="rule-legend">
+                    <h4>📜 Aturan Akhiran per Tingkat (sudah fix)</h4>
+                    <table>
+                        <tr><th>Akhiran ID</th><th>Ngoko</th><th>Ngoko Alus</th><th>Krama</th><th>Krama Inggil</th><th>Bagongan</th></tr>
+                        <tr><td><code>di-</code> pasif</td><td><code>di-</code></td><td><code>di-</code></td><td><code>dipun-</code></td><td><code>dipun-</code></td><td><code>ka-</code> ✅</td></tr>
+                        <tr><td><code>ter-</code></td><td><code>ke-</code></td><td><code>ke-</code></td><td><code>ke-</code></td><td><code>ke-</code></td><td><code>ka-</code> ✅</td></tr>
+                        <tr><td><code>-nya</code></td><td><code>-e</code></td><td><code>-e</code></td><td><code>-ipun</code></td><td><code>-ipun</code></td><td><code>-e</code> ✅</td></tr>
+                        <tr><td><code>-kan</code></td><td><code>-ake</code></td><td><code>-aken</code></td><td><code>-aken</code></td><td><code>-aken</code></td><td><code>-ake</code> ✅ (fix dari -aken)</td></tr>
+                        <tr><td><code>-i</code></td><td><code>-i</code></td><td><code>-i</code></td><td><code>-i</code></td><td><code>-i</code></td><td><code>-i</code></td></tr>
+                        <tr><td><code>-an</code></td><td><code>-an</code></td><td><code>-an</code></td><td><code>-an</code></td><td><code>-an</code></td><td><code>-an</code></td></tr>
+                    </table>
+                    <p style="margin-top:6px; color:#64748b;">Hover kata hasil → tooltip muncul: <code>Dasar: makan → nedha | ID awalan: mem- → Jawa ater: N- | ID akhiran: -nya → Jawa panambang: e (-nya → -e (Bagongan))</code></p>
                 </div>
 
                 <button id="btnTerjemah" onclick="prosesTerjemahan()">Terjemahkan</button>

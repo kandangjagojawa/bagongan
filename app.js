@@ -278,6 +278,21 @@ function renderAllCards() {
                 defaultStem = pilihStem(entryObj, level, isHormatAktif, isAndhapAktif, wordObj.originalInput);
                 if (!defaultStem) defaultStem = entryObj ? (entryObj[level] || analisisId.kataDasar) : analisisId.kataDasar;
             }
+            // === Generate tooltip rule ===
+            let ruleParts = [];
+            ruleParts.push(`Dasar: ${analisisId.kataDasar} → ${defaultStem}`);
+            if (analisisId.prefiks && analisisId.prefiks.length > 0) {
+                ruleParts.push(`ID awalan: ${analisisId.prefiks.join(', ')} → Jawa ater: ${awalanFinal || '∅'} (${getAterExplanation(awalanFinal, level)})`);
+            } else if (awalanFinal) {
+                ruleParts.push(`Jawa ater: ${awalanFinal} (${getAterExplanation(awalanFinal, level)})`);
+            }
+            if (analisisId.sufiks && analisisId.sufiks.length > 0) {
+                ruleParts.push(`ID akhiran: ${analisisId.sufiks.join(', ')} → Jawa panambang: ${akhiranFinal || '∅'} (${getPanambangExplanation(akhiranFinal, level)})`);
+            } else if (akhiranFinal) {
+                ruleParts.push(`Jawa panambang: ${akhiranFinal} (${getPanambangExplanation(akhiranFinal, level)})`);
+            }
+            ruleParts.push(`Tingkat: ${level}`);
+            let ruleTooltip = ruleParts.join(' | ');
             
             let selectedStem = wordObj.selectedVariants[level] || defaultStem;
             let varList = getVariantsForLevel(entryObj, level);
@@ -303,7 +318,8 @@ function renderAllCards() {
                     variants: variantsTransformed,
                     selectedStem: selectedStem,
                     isHormat: isHormatAktif,
-                    isAndhap: isAndhapAktif
+                    isAndhap: isAndhapAktif,
+                    tooltip: ruleTooltip
                 };
             } else {
                 return {
@@ -312,7 +328,8 @@ function renderAllCards() {
                     isMissing: isMissing,
                     hasVariants: false,
                     isHormat: isHormatAktif,
-                    isAndhap: isAndhapAktif
+                    isAndhap: isAndhapAktif,
+                    tooltip: ruleTooltip
                 };
             }
         };
@@ -467,6 +484,44 @@ function cariKamusBagongan(kata) {
 
 
 
+
+function getAterExplanation(ater, tingkat) {
+    if (!ater) return "tanpa ater";
+    const map = {
+        "N": "aktif me-/ber- → N- (nasal)",
+        "di": "pasif di- → di- (ngoko)",
+        "dipun": "pasif di- → dipun- (krama)",
+        "ka": "pasif di-/ter- → ka- (bagongan)",
+        "ke": "ter- → ke- (ngoko/krama)",
+        "tak": "aku → tak- (ngoko)",
+        "kula": "aku → kula- (krama)",
+        "kok": "kamu → kok- (ngoko)",
+        "sampeyan": "kamu → sampeyan- (krama)",
+        "panjenengan": "kamu → panjenengan- (krama inggil)",
+        "sa": "se- → sa-",
+        "pa": "per-/pe- → pa-",
+        "pi": "pi-",
+        "ma": "ma-"
+    };
+    return map[ater] || ater;
+}
+
+function getPanambangExplanation(panam, tingkat) {
+    if (!panam) return "tanpa panambang";
+    const map = {
+        "e": "-nya → -e (ngoko/ngoko alus/bagongan)",
+        "ipun": "-nya → -ipun (krama/krama inggil)",
+        "ake": "-kan → -ake (ngoko/bagongan)",
+        "aken": "-kan → -aken (krama/krama inggil/ngoko alus)",
+        "i": "-i → -i (lokatif, semua tingkat)",
+        "an": "-an → -an (nomina, semua tingkat)",
+        "a": "imperatif aktif → -a",
+        "en": "imperatif pasif → -en"
+    };
+    return map[panam] || panam;
+}
+
+
 function terapkanMorfologi(kataDasar, tingkat, awalanType, akhiranType, analisisLengkap) {
     if (!kataDasar) return "";
     let aterAter = "";
@@ -596,17 +651,20 @@ function tampilkanHasil(idLatin, idJawa, kataItems, isBagonganCard = false, card
         if (item.isAndhap) badges += ' <span style="font-size:0.6rem; background:#0284c7; color:white; padding:1px 4px; border-radius:4px;">andhap</span>';
         if (item.isMissing) {
             let displayText = item.text ? item.text.replace(/-/g, "") : "";
-            return `<span class="word-span missing-word" contenteditable="true" spellcheck="false" data-index="${item.wordIndex}">${displayText}</span>${badges}`;
+            let tip = (item.tooltip || "").replace(/"/g, '&quot;');
+            return `<span class="word-span missing-word" contenteditable="true" spellcheck="false" data-index="${item.wordIndex}" title="${tip}">${displayText}</span>${badges}`;
         } else if (item.hasVariants) {
             let optionsHtml = item.variants.map(vObj => {
                 let isSelected = vObj.stem === item.selectedStem ? "selected" : "";
                 let displayVal = vObj.transformed ? vObj.transformed.replace(/-/g, "") : vObj.stem;
                 return `<option value="${vObj.stem}" ${isSelected}>${displayVal}</option>`;
             }).join("");
-            return `<select class="variant-select green-variant" data-index="${item.wordIndex}" data-level="${cardLevel}">${optionsHtml}</select>${badges}`;
+            let tip = (item.tooltip || "").replace(/"/g, '&quot;');
+            return `<span class="tooltip-wrapper" title="${tip}"><select class="variant-select green-variant" data-index="${item.wordIndex}" data-level="${cardLevel}">${optionsHtml}</select></span>${badges}`;
         } else {
             let displayText = item.text ? item.text.replace(/-/g, "") : "";
-            return `<span class="word-span" contenteditable="true" spellcheck="false" data-index="${item.wordIndex}">${displayText}</span>${badges}`;
+            let tip = (item.tooltip || "").replace(/"/g, '&quot;');
+            return `<span class="word-span" contenteditable="true" spellcheck="false" data-index="${item.wordIndex}" title="${tip}">${displayText}</span>${badges}`;
         }
     }).join(" ");
     elLatin.innerHTML = htmlContent;
