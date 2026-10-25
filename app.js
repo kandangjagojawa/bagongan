@@ -1,36 +1,30 @@
 /**
  * APP.JS - Mesin Penerjemah & Transformasi Morfologi Bahasa Indonesia ke Basa Jawa
- * Fitur Utama:
- * - Dukungan Varian JSON (`all_ngoko`, `all_krama`, dll.): Tampil warna hijau + dropdown <select>
- * - Transformasi Morfologi Varian: Setiap opsi varian otomatis diimbuhi sesuai kaidah Jawa
- * - Analisis Morfologi Indonesia (awalan me-/di-, akhiran -kan/-i/-nya)
- * - Tampilan UI Tanpa Tanda Hubung (-), Sistem Tetap Memakai Tanda Hubung untuk Transliterasi Sriwedari
- * - Synchronized Cross-Card Lookup & Live-Editing Aksara Jawa
+ * Versi 2.0 - Sudah mendukung imbuhan lengkap Indonesia
+ * - Awalan: me-, mem-, men-, meng-, meny-, memper-, ber-, ter-, di-, ke-, se-, per-, pe-, pem-, pen-, peng-, peny-, pel-, bel-, be-, te-, keber-, keter-, diper-
+ * - Akhiran: -kan, -an, -i, -nya, -ku, -mu, -lah, -kah, -pun
+ * - Konfiks: ke-an, per-an, pe-an, se-an, ber-an, me-kan, me-i, di-kan, di-i
+ * - Infix: -el-, -em-, -er-
+ * - Mapping otomatis ke Paramasastra Jawa (N-, di-/dipun-/ka-, pa-, pi-, sa-, ke-, ka-an, pa-an)
  */
 
 let kamusData = [];
-let currentWordsData = []; // Menyimpan state analisis kata untuk kalimat saat ini
+let currentWordsData = [];
 
 document.addEventListener("DOMContentLoaded", () => {
     fetch("kamuskramamet.json")
         .then(response => {
-            if (!response.ok) {
-                throw new Error("Gagal memuat kamuskramamet.json");
-            }
+            if (!response.ok) throw new Error("Gagal memuat kamuskramamet.json");
             return response.json();
         })
         .then(data => {
             kamusData = data;
             console.log("Kamus berhasil dimuat:", kamusData.length, "entri.");
         })
-        .catch(err => {
-            console.error("Error loading JSON dictionary:", err);
-        });
+        .catch(err => console.error("Error loading JSON dictionary:", err));
 
     const inputArea = document.getElementById("inputIndonesia");
-    if (inputArea) {
-        inputArea.addEventListener("input", debounce(prosesTerjemahan, 400));
-    }
+    if (inputArea) inputArea.addEventListener("input", debounce(prosesTerjemahan, 400));
 });
 
 function debounce(func, wait) {
@@ -41,9 +35,6 @@ function debounce(func, wait) {
     };
 }
 
-/**
- * Alur Utama Penerjemahan Input Teks
- */
 function prosesTerjemahan() {
     const inputTeks = document.getElementById("inputIndonesia").value.trim();
     if (!inputTeks) {
@@ -51,71 +42,43 @@ function prosesTerjemahan() {
         resetOutput();
         return;
     }
-
     const kataList = inputTeks.toLowerCase().split(/\s+/);
-
     currentWordsData = kataList.map((kata, index) => {
         let analisisId = uraiMorfologiIndonesia(kata);
         let bagonganEntry = cariKamusBagongan(analisisId.kataDasar);
-
         return {
             index: index,
             originalInput: kata,
-            analisis: analisisId,          // Standar (tanpa tag bagongan)
-            bagonganEntry: bagonganEntry, // Entri khusus bagongan jika ada
-            customStandardEntry: null,     // Jika user edit di kartu standar
-            customBagonganEntry: null,     // Jika user edit di kartu bagongan
-            selectedVariants: {}           // Pilihan varian user per tingkat tutur
+            analisis: analisisId,
+            bagonganEntry: bagonganEntry,
+            customStandardEntry: null,
+            customBagonganEntry: null,
+            selectedVariants: {}
         };
     });
-
     renderAllCards();
 }
 
-/**
- * Memeriksa Apakah Suatu Entri Memiliki Varian Kata Array
- */
 function getVariantsForLevel(entry, level) {
     if (!entry) return null;
-
     let key = "all_" + level;
-    if (entry[key] && Array.isArray(entry[key]) && entry[key].length > 1) {
-        return entry[key];
-    }
-
-    if (entry[level] && Array.isArray(entry[level]) && entry[level].length > 1) {
-        return entry[level];
-    }
-
+    if (entry[key] && Array.isArray(entry[key]) && entry[key].length > 1) return entry[key];
+    if (entry[level] && Array.isArray(entry[level]) && entry[level].length > 1) return entry[level];
     if (level === "bagongan") {
-        if (entry.all_bagongan && Array.isArray(entry.all_bagongan) && entry.all_bagongan.length > 1) {
-            return entry.all_bagongan;
-        }
-        if (entry.all_krama && Array.isArray(entry.all_krama) && entry.all_krama.length > 1) {
-            return entry.all_krama;
-        }
+        if (entry.all_bagongan && Array.isArray(entry.all_bagongan) && entry.all_bagongan.length > 1) return entry.all_bagongan;
+        if (entry.all_krama && Array.isArray(entry.all_krama) && entry.all_krama.length > 1) return entry.all_krama;
     }
-
     return null;
 }
 
-/**
- * Merender Ulang Seluruh Kartu Terjemahan Berdasarkan State currentWordsData
- */
 function renderAllCards() {
     if (!currentWordsData || currentWordsData.length === 0) {
-        resetOutput();
-        return;
+        resetOutput(); return;
     }
-
     const awalanUi = document.getElementById("selAwalan") ? document.getElementById("selAwalan").value : "";
     const akhiranUi = document.getElementById("selAkhiran") ? document.getElementById("selAkhiran").value : "";
 
-    let hasilNgoko = [];
-    let hasilNgokoAlus = [];
-    let hasilKrama = [];
-    let hasilKramaInggil = [];
-    let hasilBagongan = [];
+    let hasilNgoko = [], hasilNgokoAlus = [], hasilKrama = [], hasilKramaInggil = [], hasilBagongan = [];
 
     currentWordsData.forEach(wordObj => {
         let idx = wordObj.index;
@@ -123,28 +86,26 @@ function renderAllCards() {
         let awalanFinal = awalanUi || analisisId.awalan;
         let akhiranFinal = akhiranUi || analisisId.akhiran;
 
+        // Untuk ke-an dan per-an, kita butuh konfiks info
+        if(analisisId.konfiks) {
+            if(analisisId.konfiks==="ke-an" && !awalanUi) awalanFinal = "ke";
+            if(analisisId.konfiks==="per-an" && !awalanUi) awalanFinal = "pa";
+        }
+
         let stdEntry = wordObj.customStandardEntry || analisisId.entry;
         let isMissingStd = !stdEntry;
-
         if (!wordObj.selectedVariants) wordObj.selectedVariants = {};
 
-        // Helper Pembentuk Objek Item Terjemahan per Tingkat Tutur
         const buildLevelItem = (level, defaultStem, entryObj, isMissing) => {
             let varList = getVariantsForLevel(entryObj, level);
             let selectedStem = wordObj.selectedVariants[level] || defaultStem;
-
             if (varList && varList.length > 1) {
                 let variantsTransformed = varList.map(vStem => ({
                     stem: vStem,
-                    transformed: terapkanMorfologi(vStem, level, awalanFinal, akhiranFinal)
+                    transformed: terapkanMorfologi(vStem, level, awalanFinal, akhiranFinal, analisisId)
                 }));
-
-                if (!varList.includes(selectedStem)) {
-                    selectedStem = defaultStem || varList[0];
-                }
-
-                let activeTransformed = terapkanMorfologi(selectedStem, level, awalanFinal, akhiranFinal);
-
+                if (!varList.includes(selectedStem)) selectedStem = defaultStem || varList[0];
+                let activeTransformed = terapkanMorfologi(selectedStem, level, awalanFinal, akhiranFinal, analisisId);
                 return {
                     wordIndex: idx,
                     text: activeTransformed,
@@ -156,7 +117,7 @@ function renderAllCards() {
             } else {
                 return {
                     wordIndex: idx,
-                    text: terapkanMorfologi(selectedStem, level, awalanFinal, akhiranFinal),
+                    text: terapkanMorfologi(selectedStem, level, awalanFinal, akhiranFinal, analisisId),
                     isMissing: isMissing,
                     hasVariants: false
                 };
@@ -171,10 +132,7 @@ function renderAllCards() {
         let bagEntry = wordObj.customBagonganEntry || wordObj.bagonganEntry || stdEntry;
         let isMissingBag = !bagEntry;
         let stemBagongan = analisisId.kataDasar;
-
-        if (bagEntry) {
-            stemBagongan = bagEntry.krama || bagEntry.ngoko || bagEntry.krama_inggil;
-        }
+        if (bagEntry) stemBagongan = bagEntry.krama || bagEntry.ngoko || bagEntry.krama_inggil;
 
         hasilNgoko.push(buildLevelItem("ngoko", stemNgoko, stdEntry, isMissingStd));
         hasilNgokoAlus.push(buildLevelItem("ngoko_alus", stemNgokoAlus, stdEntry, isMissingStd));
@@ -191,103 +149,139 @@ function renderAllCards() {
 }
 
 /**
- * Urai Morfologi Bahasa Indonesia
+ * Urai Morfologi Bahasa Indonesia - Versi Lengkap
+ * Jika morfologi-id.js ada, pakai itu. Jika tidak, pakai fallback internal.
  */
 function uraiMorfologiIndonesia(kata) {
+    // Jika modul baru tersedia, delegasikan
+    if(typeof window.uraiMorfologiIndonesiaLengkap === 'function') {
+        try {
+            let hasil = window.uraiMorfologiIndonesiaLengkap(kata, cariKamusStandard);
+            // Pastikan struktur kompatibel dengan kode lama
+            return {
+                kataDasar: hasil.kataDasar,
+                awalan: hasil.awalan,
+                akhiran: hasil.akhiran,
+                konfiks: hasil.konfiks || "",
+                prefiks: hasil.prefiks || [],
+                sufiks: hasil.sufiks || [],
+                entry: hasil.entry,
+                original: hasil.original,
+                awalanIndo: hasil.awalanIndo || "",
+                akhiranIndo: hasil.akhiranIndo || ""
+            };
+        } catch(e) {
+            console.warn("Gagal pakai modul lengkap, fallback ke internal", e);
+        }
+    }
+    // Fallback internal (versi upgrade dari kode lama)
+    return uraiMorfologiInternal(kata);
+}
+
+function uraiMorfologiInternal(kata) {
     let clean = kata.toLowerCase().replace(/[^a-z\-]/g, "");
-    let awalan = "";
-    let akhiran = "";
-    let stem = clean;
+    if(!clean) return { kataDasar: kata, awalan: "", akhiran: "", entry: null, konfiks: "" };
 
     let directEntry = cariKamusStandard(clean);
-    if (directEntry) {
-        return { kataDasar: clean, awalan: "", akhiran: "", entry: directEntry };
+    if (directEntry) return { kataDasar: clean, awalan: "", akhiran: "", entry: directEntry, konfiks: "", prefiks: [], sufiks: [] };
+
+    // Copy dari logika baru versi ringkas jika modul tidak load
+    let word = clean;
+    let prefiks = [];
+    let sufiks = [];
+
+    // Sufiks
+    if(word.endsWith("nya") && word.length>5) { sufiks.push("nya"); word = word.slice(0,-3); }
+    if(word.endsWith("kan") && word.length>5) { sufiks.push("kan"); word = word.slice(0,-3); }
+    else if(word.endsWith("an") && word.length>4) { 
+        let temp = word.slice(0,-2);
+        if(cariKamusStandard(temp) || temp.length>3) { sufiks.push("an"); word = temp; }
+    }
+    if(word.endsWith("i") && word.length>4) {
+        let temp = word.slice(0,-1);
+        if(cariKamusStandard(temp)) { sufiks.push("i"); word = temp; }
     }
 
-    if (stem.endsWith("nya") && stem.length > 4) {
-        akhiran = "pemilikan";
-        stem = stem.slice(0, -3);
-    } else if (stem.endsWith("kan") && stem.length > 4) {
-        akhiran = "kausatif";
-        stem = stem.slice(0, -3);
-    } else if (stem.endsWith("i") && stem.length > 3) {
-        let tempStem = stem.slice(0, -1);
-        if (cariKataDasarIndonesia(tempStem) || stem.startsWith("me") || stem.startsWith("di")) {
-            akhiran = "lokatif";
-            stem = tempStem;
+    // Prefiks dengan luluh
+    let stem = word;
+    let awalanJawa = "";
+    
+    const tryPrefix = (p, fn) => {
+        if(stem.startsWith(p)) {
+            let rest = stem.slice(p.length);
+            let cand = fn ? fn(rest) : rest;
+            // coba beberapa varian luluh
+            let variants = [cand];
+            if(p==="meng") variants.push("k"+rest, rest);
+            if(p==="men") variants.push("t"+rest, rest);
+            if(p==="mem") variants.push("p"+rest, "b"+rest, rest);
+            if(p==="meny") variants.push("s"+rest, "c"+rest, rest);
+            for(let v of variants) {
+                if(cariKamusStandard(v)) {
+                    prefiks.push(p);
+                    return v;
+                }
+            }
+            // jika tidak ketemu tapi remainder cukup panjang, anggap itu dasar
+            if(rest.length>=3) {
+                prefiks.push(p);
+                return cand;
+            }
         }
+        return null;
+    };
+
+    let newStem = null;
+    // urutan panjang
+    for(let p of ["memper","meng","meny","men","mem","ber","ter","per","di","ke","se","me","pe"]) {
+        let res = tryPrefix(p, r=>r);
+        if(res) { newStem = res; break; }
     }
+    if(newStem) stem = newStem;
 
-    if (stem.startsWith("di") && stem.length > 3) {
-        awalan = "pasif";
-        stem = stem.slice(2);
-    } else if (stem.startsWith("me")) {
-        awalan = "N";
+    let entry = cariKamusStandard(stem);
+    
+    // Tentukan mapping Jawa
+    let hasMe = prefiks.some(p=>p.startsWith("me") || p==="memper");
+    let hasDi = prefiks.includes("di");
+    let hasBer = prefiks.includes("ber");
+    let hasTer = prefiks.includes("ter");
+    let hasKe = prefiks.includes("ke");
+    let hasPer = prefiks.includes("per") || prefiks.includes("pe");
+    
+    if(hasMe || hasBer) awalanJawa = "N";
+    else if(hasDi || hasTer) awalanJawa = "pasif";
+    else if(hasPer) awalanJawa = "pa";
+    else if(hasKe) awalanJawa = "ke";
 
-        if (stem.startsWith("mem")) {
-            let rest = stem.slice(3);
-            if (cariKataDasarIndonesia("p" + rest)) stem = "p" + rest;
-            else if (cariKataDasarIndonesia(rest)) stem = rest;
-            else stem = "p" + rest;
-        } else if (stem.startsWith("men")) {
-            let rest = stem.slice(3);
-            if (cariKataDasarIndonesia("t" + rest)) stem = "t" + rest;
-            else if (cariKataDasarIndonesia(rest)) stem = rest;
-            else stem = "t" + rest;
-        } else if (stem.startsWith("meny")) {
-            let rest = stem.slice(4);
-            stem = "s" + rest;
-        } else if (stem.startsWith("meng")) {
-            let rest = stem.slice(4);
-            if (cariKataDasarIndonesia("k" + rest)) stem = "k" + rest;
-            else if (cariKataDasarIndonesia(rest)) stem = rest;
-            else stem = rest;
-        } else if (stem.startsWith("me")) {
-            stem = stem.slice(2);
-        }
+    let akhiranJawa = "";
+    let konfiks = "";
+    if(sufiks.includes("kan")) akhiranJawa = "kausatif";
+    else if(sufiks.includes("i")) akhiranJawa = "lokatif";
+    else if(sufiks.includes("an")) {
+        if(hasKe) { akhiranJawa = "an"; konfiks="ke-an"; }
+        else if(hasPer) { akhiranJawa = "an"; konfiks="per-an"; awalanJawa="pa"; }
+        else { akhiranJawa = "an"; }
     }
-
-    let entry = cariKataDasarIndonesia(stem);
+    else if(sufiks.includes("nya")) akhiranJawa = "pemilikan";
 
     return {
         kataDasar: stem,
-        awalan: awalan,
-        akhiran: akhiran,
-        entry: entry
+        awalan: awalanJawa,
+        akhiran: akhiranJawa,
+        konfiks: konfiks,
+        prefiks: prefiks,
+        sufiks: sufiks,
+        entry: entry,
+        original: clean
     };
 }
 
 function cariKataDasarIndonesia(stem) {
     if (!stem) return null;
-    let clean = stem.toLowerCase();
-
-    let direct = cariKamusStandard(clean);
-    if (direct) return direct;
-
-    let meForms = [
-        "me" + clean,
-        "mem" + clean,
-        "men" + clean,
-        "meng" + clean,
-        "meny" + clean
-    ];
-
-    if (clean.startsWith('t')) meForms.push("men" + clean.slice(1));
-    if (clean.startsWith('p')) meForms.push("mem" + clean.slice(1));
-    if (clean.startsWith('k')) meForms.push("meng" + clean.slice(1));
-    if (clean.startsWith('s')) meForms.push("meny" + clean.slice(1));
-
-    for (let form of meForms) {
-        let found = cariKamusStandard(form);
-        if (found) return found;
-    }
-
-    return null;
+    return cariKamusStandard(stem);
 }
 
-/**
- * Pencarian Kamus Standar Fleksibel
- */
 function cariKamusStandard(kata) {
     if (!kamusData || kamusData.length === 0 || !kata) return null;
     let clean = kata.toLowerCase().trim().replace(/[^a-z\-]/g, "");
@@ -296,122 +290,120 @@ function cariKamusStandard(kata) {
     let match = kamusData.find(item => {
         let ind = item.indonesia ? item.indonesia.toLowerCase() : "";
         if (ind.startsWith("[bagongan]")) return false;
-
         let ngo = item.ngoko ? item.ngoko.toLowerCase() : "";
         let ngoAlus = item.ngoko_alus ? item.ngoko_alus.toLowerCase() : "";
         let kra = item.krama ? item.krama.toLowerCase() : "";
         let kraIng = item.krama_inggil ? item.krama_inggil.toLowerCase() : "";
-
-        return ind === clean ||
-               ngo === clean ||
-               ngoAlus === clean ||
-               kra === clean ||
-               kraIng === clean ||
-               ind.split(", ").includes(clean) ||
-               ngo.split(", ").includes(clean) ||
-               kra.split(", ").includes(clean);
+        return ind === clean || ngo === clean || ngoAlus === clean || kra === clean || kraIng === clean ||
+               ind.split(", ").includes(clean) || ngo.split(", ").includes(clean) || kra.split(", ").includes(clean);
     });
-
     if (match) return match;
 
-    let stemsToTry = [];
+    // Coba hapus imbuhan Jawa jika ada (untuk reverse lookup)
     let s = clean;
-
     if (s.endsWith("aken")) s = s.slice(0, -4);
     else if (s.endsWith("ake") || s.endsWith("ipun")) s = s.slice(0, -3);
-    else if (s.endsWith("e") || s.endsWith("i")) s = s.slice(0, -1);
+    else if (s.endsWith("e") || s.endsWith("i") || s.endsWith("an")) s = s.slice(0, -1);
 
     if (s.startsWith("dipun")) s = s.slice(5);
     else if (s.startsWith("di")) s = s.slice(2);
-    else if (s.startsWith("ng")) {
-        stemsToTry.push(s.slice(2));
-        stemsToTry.push("k" + s.slice(2));
-    } else if (s.startsWith("ny")) {
-        stemsToTry.push("c" + s.slice(2));
-        stemsToTry.push("s" + s.slice(2));
-    } else if (s.startsWith("n")) {
-        stemsToTry.push(s.slice(1));
-        stemsToTry.push("t" + s.slice(1));
-    } else if (s.startsWith("m")) {
-        stemsToTry.push(s.slice(1));
-        stemsToTry.push("p" + s.slice(1));
-    }
-    stemsToTry.push(s);
+    else if (s.startsWith("ng")) s = s.slice(2);
+    else if (s.startsWith("ny")) s = s.slice(2);
+    else if (s.startsWith("n")) s = s.slice(1);
+    else if (s.startsWith("m")) s = s.slice(1);
 
-    for (let stemCandidate of stemsToTry) {
-        if (!stemCandidate) continue;
-        let subMatch = kamusData.find(item => {
+    if(s!==clean) {
+        let sub = kamusData.find(item => {
             let ind = item.indonesia ? item.indonesia.toLowerCase() : "";
             if (ind.startsWith("[bagongan]")) return false;
-
-            let ngo = item.ngoko ? item.ngoko.toLowerCase() : "";
-            let ngoAlus = item.ngoko_alus ? item.ngoko_alus.toLowerCase() : "";
-            let kra = item.krama ? item.krama.toLowerCase() : "";
-            let kraIng = item.krama_inggil ? item.krama_inggil.toLowerCase() : "";
-
-            return ind === stemCandidate || ngo === stemCandidate || kra === stemCandidate || kraIng === stemCandidate;
+            return ind === s;
         });
-        if (subMatch) return subMatch;
+        if(sub) return sub;
     }
-
     return null;
 }
 
 function cariKamusBagongan(kata) {
     if (!kamusData || kamusData.length === 0 || !kata) return null;
     let clean = kata.toLowerCase().trim();
-
     let bagEntry = kamusData.find(item => item.indonesia.toLowerCase() === `[bagongan] ${clean}`);
     if (bagEntry) return bagEntry;
-
     return cariKamusStandard(clean);
 }
 
 /**
- * Pembentukan Morfologi Bahasa Jawa
+ * Pembentukan Morfologi Bahasa Jawa - Versi Lengkap
+ * Sekarang mendukung: N, pasif, ter, ke, pa, pi, sa, ber, per, pel, ke-an, per-an
  */
-function terapkanMorfologi(kataDasar, tingkat, awalanType, akhiranType) {
+function terapkanMorfologi(kataDasar, tingkat, awalanType, akhiranType, analisisLengkap) {
     if (!kataDasar) return "";
-
     let aterAter = "";
     let panambang = "";
+    let konfiks = analisisLengkap ? analisisLengkap.konfiks : "";
 
-    if (awalanType === "N") {
-        aterAter = "N";
-    } else if (awalanType === "pasif") {
+    // Normalisasi awalanType
+    if(awalanType==="ber" || awalanType==="be") awalanType="N";
+    if(awalanType==="ter") awalanType="ter";
+
+    if (awalanType === "N") aterAter = "N";
+    else if (awalanType === "pasif") {
         if (tingkat === "ngoko" || tingkat === "ngoko_alus") aterAter = "di";
         else if (tingkat === "krama" || tingkat === "krama_inggil") aterAter = "dipun";
         else if (tingkat === "bagongan") aterAter = "ka";
-    } else if (awalanType === "pelaku1") {
+    }
+    else if (awalanType === "ter") {
+        // ter- dalam Jawa jadi ke- / ka-
+        if (tingkat === "ngoko" || tingkat === "ngoko_alus") aterAter = "ke";
+        else if (tingkat === "krama" || tingkat === "krama_inggil") aterAter = "ke";
+        else if (tingkat === "bagongan") aterAter = "ka";
+    }
+    else if (awalanType === "pelaku1") {
         if (tingkat === "ngoko" || tingkat === "ngoko_alus") aterAter = "tak";
         else if (tingkat === "krama" || tingkat === "krama_inggil") aterAter = "kula";
         else if (tingkat === "bagongan") aterAter = "di";
-    } else if (awalanType === "pelaku2") {
+    }
+    else if (awalanType === "pelaku2") {
         if (tingkat === "ngoko") aterAter = "kok";
         else if (tingkat === "ngoko_alus" || tingkat === "krama_inggil") aterAter = "panjenengan";
         else if (tingkat === "krama") aterAter = "sampeyan";
         else if (tingkat === "bagongan") aterAter = "di";
-    } else if (["sa", "pa", "pi"].includes(awalanType)) {
-        aterAter = awalanType;
+    }
+    else if (["sa","pa","pi","ke","per"].includes(awalanType)) {
+        // per -> pa
+        if(awalanType==="per") aterAter = "pa";
+        else aterAter = awalanType;
+    }
+
+    // Khusus konfiks ke-an dan per-an
+    if(konfiks==="ke-an") {
+        if(!aterAter) {
+            if(tingkat==="bagongan") aterAter="ka";
+            else aterAter="ke";
+        }
+        panambang = "an";
+    } else if(konfiks==="per-an") {
+        if(!aterAter) aterAter="pa";
+        panambang = "an";
     }
 
     if (akhiranType === "pemilikan") {
         if (tingkat === "krama" || tingkat === "krama_inggil") panambang = "ipun";
         else panambang = "e";
     } else if (akhiranType === "kausatif") {
-        if (tingkat === "krama" || tingkat === "krama_inggil") panambang = "aken";
-        else panambang = "ake";
+        if (tingkat === "ngoko") panambang = "ake";
+        else panambang = "aken";
     } else if (akhiranType === "lokatif") {
         panambang = "i";
     } else if (akhiranType === "imperatif_aktif") {
         panambang = "a";
     } else if (akhiranType === "imperatif_pasif") {
         panambang = "en";
+    } else if (akhiranType === "an" || akhiranType === "nomina") {
+        // -an nomina: harapan, permainan
+        if(!panambang) panambang = "an";
     }
 
-    if (!aterAter && !panambang) {
-        return kataDasar;
-    }
+    if (!aterAter && !panambang) return kataDasar;
 
     return jalankanParamasastraSriwedari(aterAter, kataDasar, panambang);
 }
@@ -434,31 +426,20 @@ function jalankanParamasastraSriwedari(ater, dasar, panam) {
         if (id === 'outParamJawa') return mockOutJaw;
         return getEl(id);
     };
-
-    if (typeof window.prosesParamasastra === 'function') {
-        window.prosesParamasastra();
-    }
-
+    if (typeof window.prosesParamasastra === 'function') window.prosesParamasastra();
     document.getElementById = getEl;
     return mockOutLat.value || dasar;
 }
 
-/**
- * Menampilkan Hasil Terjemahan (Mendukung Text Merah, Dropdown Hijau Varian, & Aksara Jawa)
- */
 function tampilkanHasil(idLatin, idJawa, kataItems, isBagonganCard = false, cardLevel = "ngoko") {
     const elLatin = document.getElementById(idLatin);
     const elJawa = document.getElementById(idJawa);
-
     if (!elLatin) return;
-
     if (!kataItems || kataItems.length === 0) {
         elLatin.innerText = "-";
         if (elJawa) elJawa.innerText = "";
         return;
     }
-
-    // Render Elemen HTML (Merah jika Hilang, Dropdown Hijau jika Memiliki Varian)
     let htmlContent = kataItems.map(item => {
         if (item.isMissing) {
             let displayText = item.text ? item.text.replace(/-/g, "") : "";
@@ -469,41 +450,29 @@ function tampilkanHasil(idLatin, idJawa, kataItems, isBagonganCard = false, card
                 let displayVal = vObj.transformed ? vObj.transformed.replace(/-/g, "") : vObj.stem;
                 return `<option value="${vObj.stem}" ${isSelected}>${displayVal}</option>`;
             }).join("");
-
             return `<select class="variant-select green-variant" data-index="${item.wordIndex}" data-level="${cardLevel}">${optionsHtml}</select>`;
         } else {
             let displayText = item.text ? item.text.replace(/-/g, "") : "";
             return `<span class="word-span" contenteditable="true" spellcheck="false" data-index="${item.wordIndex}">${displayText}</span>`;
         }
     }).join(" ");
-
     elLatin.innerHTML = htmlContent;
-
-    // Transliterasi Aksara Jawa Tetap Memakai Teks Berpenghubung (-) untuk Kaidah Sriwedari
     let systemTextWithHyphens = kataItems.map(item => item.text).join(" ");
-
     if (elJawa && typeof window.transliterasiKalimat === 'function') {
         elJawa.innerText = window.transliterasiKalimat(systemTextWithHyphens);
     }
-
-    // Event Listener untuk Varian Dropdown (Hijau)
     elLatin.querySelectorAll(".variant-select").forEach(select => {
         select.addEventListener("change", () => {
             let wordIndex = parseInt(select.getAttribute("data-index"));
             let level = select.getAttribute("data-level");
             let selectedStem = select.value;
-
             if (!isNaN(wordIndex) && currentWordsData[wordIndex]) {
-                if (!currentWordsData[wordIndex].selectedVariants) {
-                    currentWordsData[wordIndex].selectedVariants = {};
-                }
+                if (!currentWordsData[wordIndex].selectedVariants) currentWordsData[wordIndex].selectedVariants = {};
                 currentWordsData[wordIndex].selectedVariants[level] = selectedStem;
                 renderAllCards();
             }
         });
     });
-
-    // Event Listener untuk Live Editing Kata Merah/Normal
     elLatin.querySelectorAll(".word-span").forEach(span => {
         span.addEventListener("input", () => {
             let updatedText = elLatin.innerText;
@@ -511,17 +480,13 @@ function tampilkanHasil(idLatin, idJawa, kataItems, isBagonganCard = false, card
                 elJawa.innerText = window.transliterasiKalimat(updatedText);
             }
         });
-
         const handleCommitEdit = () => {
             let wordIndex = parseInt(span.getAttribute("data-index"));
             let typedText = span.innerText.trim();
-
             if (!isNaN(wordIndex) && currentWordsData[wordIndex]) {
                 if (isBagonganCard) {
                     let matched = cariKamusBagongan(typedText);
-                    if (matched) {
-                        currentWordsData[wordIndex].customBagonganEntry = matched;
-                    }
+                    if (matched) currentWordsData[wordIndex].customBagonganEntry = matched;
                 } else {
                     let matched = cariKamusStandard(typedText);
                     if (matched) {
@@ -537,14 +502,9 @@ function tampilkanHasil(idLatin, idJawa, kataItems, isBagonganCard = false, card
                 renderAllCards();
             }
         };
-
         span.addEventListener("blur", handleCommitEdit);
-
         span.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-                e.preventDefault();
-                span.blur();
-            }
+            if (e.key === "Enter") { e.preventDefault(); span.blur(); }
         });
     });
 }
