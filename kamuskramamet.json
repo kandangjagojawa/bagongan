@@ -46420,5 +46420,1285 @@
       "rika"
     ],
     "variant_count": 1
+  },
+  {
+    "indonesia": "aduk",
+    "ngoko": "aduk",
+    "ngoko_alus": "aduk",
+    "krama": "aduk",
+    "krama_inggil": "aduk",
+    "all_ngoko": [
+      "aduk"
+    ],
+    "all_ngoko_alus": [
+      "aduk"
+    ],
+    "all_krama": [
+      "aduk"
+    ],
+    "all_krama_inggil": [
+      "aduk"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "bagi",
+    "ngoko": "dum",
+    "ngoko_alus": "dum",
+    "krama": "dum",
+    "krama_inggil": "dum",
+    "all_ngoko": [
+      "dum"
+    ],
+    "all_ngoko_alus": [
+      "dum"
+    ],
+    "all_krama": [
+      "dum"
+    ],
+    "all_krama_inggil": [
+      "dum"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "bangkit",
+    "ngoko": "tangi",
+    "ngoko_alus": "wungu",
+    "krama": "wungu",
+    "krama_inggil": "wungu",
+    "all_ngoko": [
+      "tangi"
+    ],
+    "all_ngoko_alus": [
+      "wungu"
+    ],
+    "all_krama": [
+      "wungu"
+    ],
+    "all_krama_inggil": [
+      "wungu"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "baring",
+    "ngoko": "gletak",
+    "ngoko_alus": "gletak",
+    "krama": "gletak",
+    "krama_inggil": "gletak",
+    "all_ngoko": [
+      "gletak"
+    ],
+    "all_ngoko_alus": [
+      "gletak"
+    ],
+    "all_krama": [
+      "gletak"
+    ],
+    "all_krama_inggil": [
+      "gletak"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "bisik",
+    "ngoko": "bisik",
+    "ngoko_alus": "bisik",
+    "krama": "bisik",
+    "krama_inggil": "bisik",
+    "all_ngoko": [
+      "bisik"
+    ],
+    "all_ngoko_alus": [
+      "bisik"
+    ],
+    "all_krama": [
+      "bisik"
+    ],
+    "all_krama_inggil": [
+      "bisik"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "bungkus",
+    "ngoko": "bungkus",
+    "ngoko_alus": "bungkus",
+    "krama": "bungkus",
+    "krama_inggil": "bungkus",
+    "all_ngoko": [
+      "bungkus"
+    ],
+    "all_ngoko_alus": [
+      "bungkus"
+    ],
+    "all_krama": [
+      "bungkus"
+    ],
+    "all_krama_inggil": [
+      "bungkus"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "cerai",
+    "ngoko": "pegat",
+    "ngoko_alus": "pegat",
+    "krama": "pegat",
+    "krama_inggil": "pegat",
+    "all_ngoko": [
+      "pegat"
+    ],
+    "all_ngoko_alus": [
+      "pegat"
+    ],
+    "all_krama": [
+      "pegat"
+    ],
+    "all_krama_inggil": [
+      "pegat"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "dorong",
+    "ngoko": "surung",
+    "ngoko_alus": "surung",
+    "krama": "surung",
+    "krama_inggil": "surung",
+    "all_ngoko": [
+      "surung"
+    ],
+    "all_ngoko_alus": [
+      "surung"
+    ],
+    "all_krama": [
+      "surung"
+    ],
+    "all_krama_inggil": [
+      "surung"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "gali",
+    "ngoko": "keduk",
+    "ngoko_alus": "keduk",
+    "krama": "keduk",
+    "krama_inggil": "keduk",
+    "all_ngoko": [
+      "keduk"
+    ],
+    "all_ngoko_alus": [
+      "keduk"
+    ],
+    "all_krama": [
+      "keduk"
+    ],
+    "all_krama_inggil": [
+      "keduk"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "gandeng",
+    "ngoko": "gandeng",
+    "ngoko_alus": "gandeng",
+    "krama": "gandeng",
+    "krama_inggil": "gandeng",
+    "all_ngoko": [
+      "gandeng"
+    ],
+    "all_ngoko_alus": [
+      "gandeng"
+    ],
+    "all_krama": [
+      "gandeng"
+    ],
+    "all_krama_inggil": [
+      "gandeng"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "gembok",
+    "ngoko": "gembok",
+    "ngoko_alus": "gembok",
+    "krama": "gembok",
+    "krama_inggil": "gembok",
+    "all_ngoko": [
+      "gembok"
+    ],
+    "all_ngoko_alus": [
+      "gembok"
+    ],
+    "all_krama": [
+      "gembok"
+    ],
+    "all_krama_inggil": [
+      "gembok"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "gigit",
+    "ngoko": "cokot",
+    "ngoko_alus": "cokot",
+    "krama": "cokot",
+    "krama_inggil": "cokot",
+    "all_ngoko": [
+      "cokot"
+    ],
+    "all_ngoko_alus": [
+      "cokot"
+    ],
+    "all_krama": [
+      "cokot"
+    ],
+    "all_krama_inggil": [
+      "cokot"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "goreng",
+    "ngoko": "goreng",
+    "ngoko_alus": "goreng",
+    "krama": "goreng",
+    "krama_inggil": "goreng",
+    "all_ngoko": [
+      "goreng"
+    ],
+    "all_ngoko_alus": [
+      "goreng"
+    ],
+    "all_krama": [
+      "goreng"
+    ],
+    "all_krama_inggil": [
+      "goreng"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "gosok",
+    "ngoko": "gosok",
+    "ngoko_alus": "gosok",
+    "krama": "gosok",
+    "krama_inggil": "gosok",
+    "all_ngoko": [
+      "gosok"
+    ],
+    "all_ngoko_alus": [
+      "gosok"
+    ],
+    "all_krama": [
+      "gosok"
+    ],
+    "all_krama_inggil": [
+      "gosok"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "gulung",
+    "ngoko": "gulung",
+    "ngoko_alus": "gulung",
+    "krama": "gulung",
+    "krama_inggil": "gulung",
+    "all_ngoko": [
+      "gulung"
+    ],
+    "all_ngoko_alus": [
+      "gulung"
+    ],
+    "all_krama": [
+      "gulung"
+    ],
+    "all_krama_inggil": [
+      "gulung"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "ikat",
+    "ngoko": "iket",
+    "ngoko_alus": "iket",
+    "krama": "iket",
+    "krama_inggil": "iket",
+    "all_ngoko": [
+      "iket"
+    ],
+    "all_ngoko_alus": [
+      "iket"
+    ],
+    "all_krama": [
+      "iket"
+    ],
+    "all_krama_inggil": [
+      "iket"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "injak",
+    "ngoko": "idak",
+    "ngoko_alus": "idak",
+    "krama": "idak",
+    "krama_inggil": "idak",
+    "all_ngoko": [
+      "idak"
+    ],
+    "all_ngoko_alus": [
+      "idak"
+    ],
+    "all_krama": [
+      "idak"
+    ],
+    "all_krama_inggil": [
+      "idak"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "jemput",
+    "ngoko": "jemput",
+    "ngoko_alus": "papag",
+    "krama": "papag",
+    "krama_inggil": "papag",
+    "all_ngoko": [
+      "jemput"
+    ],
+    "all_ngoko_alus": [
+      "papag"
+    ],
+    "all_krama": [
+      "papag"
+    ],
+    "all_krama_inggil": [
+      "papag"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "jemur",
+    "ngoko": "pe",
+    "ngoko_alus": "pe",
+    "krama": "pe",
+    "krama_inggil": "pe",
+    "all_ngoko": [
+      "pe"
+    ],
+    "all_ngoko_alus": [
+      "pe"
+    ],
+    "all_krama": [
+      "pe"
+    ],
+    "all_krama_inggil": [
+      "pe"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "jilat",
+    "ngoko": "dilat",
+    "ngoko_alus": "dilat",
+    "krama": "dilat",
+    "krama_inggil": "dilat",
+    "all_ngoko": [
+      "dilat"
+    ],
+    "all_ngoko_alus": [
+      "dilat"
+    ],
+    "all_krama": [
+      "dilat"
+    ],
+    "all_krama_inggil": [
+      "dilat"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "jujur",
+    "ngoko": "jujur",
+    "ngoko_alus": "jujur",
+    "krama": "jujur",
+    "krama_inggil": "jujur",
+    "all_ngoko": [
+      "jujur"
+    ],
+    "all_ngoko_alus": [
+      "jujur"
+    ],
+    "all_krama": [
+      "jujur"
+    ],
+    "all_krama_inggil": [
+      "jujur"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "kukus",
+    "ngoko": "kukus",
+    "ngoko_alus": "dang",
+    "krama": "dang",
+    "krama_inggil": "dang",
+    "all_ngoko": [
+      "kukus"
+    ],
+    "all_ngoko_alus": [
+      "dang"
+    ],
+    "all_krama": [
+      "dang"
+    ],
+    "all_krama_inggil": [
+      "dang"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "kupas",
+    "ngoko": "kupas",
+    "ngoko_alus": "kupas",
+    "krama": "kupas",
+    "krama_inggil": "kupas",
+    "all_ngoko": [
+      "kupas"
+    ],
+    "all_ngoko_alus": [
+      "kupas"
+    ],
+    "all_krama": [
+      "kupas"
+    ],
+    "all_krama_inggil": [
+      "kupas"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "lap",
+    "ngoko": "lap",
+    "ngoko_alus": "lap",
+    "krama": "lap",
+    "krama_inggil": "lap",
+    "all_ngoko": [
+      "lap"
+    ],
+    "all_ngoko_alus": [
+      "lap"
+    ],
+    "all_krama": [
+      "lap"
+    ],
+    "all_krama_inggil": [
+      "lap"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "letak",
+    "ngoko": "deleh",
+    "ngoko_alus": "deleh",
+    "krama": "deleh",
+    "krama_inggil": "deleh",
+    "all_ngoko": [
+      "deleh"
+    ],
+    "all_ngoko_alus": [
+      "deleh"
+    ],
+    "all_krama": [
+      "deleh"
+    ],
+    "all_krama_inggil": [
+      "deleh"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "mulai",
+    "ngoko": "wiwit",
+    "ngoko_alus": "wiwit",
+    "krama": "wiwit",
+    "krama_inggil": "wiwit",
+    "all_ngoko": [
+      "wiwit"
+    ],
+    "all_ngoko_alus": [
+      "wiwit"
+    ],
+    "all_krama": [
+      "wiwit"
+    ],
+    "all_krama_inggil": [
+      "wiwit"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "nangis",
+    "ngoko": "nangis",
+    "ngoko_alus": "nangis",
+    "krama": "nangis",
+    "krama_inggil": "nangis",
+    "all_ngoko": [
+      "nangis"
+    ],
+    "all_ngoko_alus": [
+      "nangis"
+    ],
+    "all_krama": [
+      "nangis"
+    ],
+    "all_krama_inggil": [
+      "nangis"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "panggang",
+    "ngoko": "panggang",
+    "ngoko_alus": "panggang",
+    "krama": "panggang",
+    "krama_inggil": "panggang",
+    "all_ngoko": [
+      "panggang"
+    ],
+    "all_ngoko_alus": [
+      "panggang"
+    ],
+    "all_krama": [
+      "panggang"
+    ],
+    "all_krama_inggil": [
+      "panggang"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "parut",
+    "ngoko": "parut",
+    "ngoko_alus": "parut",
+    "krama": "parut",
+    "krama_inggil": "parut",
+    "all_ngoko": [
+      "parut"
+    ],
+    "all_ngoko_alus": [
+      "parut"
+    ],
+    "all_krama": [
+      "parut"
+    ],
+    "all_krama_inggil": [
+      "parut"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "perbaiki",
+    "ngoko": "dandani",
+    "ngoko_alus": "dandani",
+    "krama": "dandani",
+    "krama_inggil": "dandani",
+    "all_ngoko": [
+      "dandani"
+    ],
+    "all_ngoko_alus": [
+      "dandani"
+    ],
+    "all_krama": [
+      "dandani"
+    ],
+    "all_krama_inggil": [
+      "dandani"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "petik",
+    "ngoko": "petik",
+    "ngoko_alus": "petik",
+    "krama": "petik",
+    "krama_inggil": "petik",
+    "all_ngoko": [
+      "petik"
+    ],
+    "all_ngoko_alus": [
+      "petik"
+    ],
+    "all_krama": [
+      "petik"
+    ],
+    "all_krama_inggil": [
+      "petik"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "pikir",
+    "ngoko": "pikir",
+    "ngoko_alus": "pikir",
+    "krama": "pikir",
+    "krama_inggil": "pikir",
+    "all_ngoko": [
+      "pikir"
+    ],
+    "all_ngoko_alus": [
+      "pikir"
+    ],
+    "all_krama": [
+      "pikir"
+    ],
+    "all_krama_inggil": [
+      "pikir"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "pilih",
+    "ngoko": "pilih",
+    "ngoko_alus": "pilih",
+    "krama": "pilih",
+    "krama_inggil": "pilih",
+    "all_ngoko": [
+      "pilih"
+    ],
+    "all_ngoko_alus": [
+      "pilih"
+    ],
+    "all_krama": [
+      "pilih"
+    ],
+    "all_krama_inggil": [
+      "pilih"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "potong",
+    "ngoko": "tugel",
+    "ngoko_alus": "potong",
+    "krama": "potong",
+    "krama_inggil": "potong",
+    "all_ngoko": [
+      "tugel"
+    ],
+    "all_ngoko_alus": [
+      "potong"
+    ],
+    "all_krama": [
+      "potong"
+    ],
+    "all_krama_inggil": [
+      "potong"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "putar",
+    "ngoko": "puter",
+    "ngoko_alus": "puter",
+    "krama": "puter",
+    "krama_inggil": "puter",
+    "all_ngoko": [
+      "puter"
+    ],
+    "all_ngoko_alus": [
+      "puter"
+    ],
+    "all_krama": [
+      "puter"
+    ],
+    "all_krama_inggil": [
+      "puter"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "putus",
+    "ngoko": "pedot",
+    "ngoko_alus": "pedot",
+    "krama": "pedot",
+    "krama_inggil": "pedot",
+    "all_ngoko": [
+      "pedot"
+    ],
+    "all_ngoko_alus": [
+      "pedot"
+    ],
+    "all_krama": [
+      "pedot"
+    ],
+    "all_krama_inggil": [
+      "pedot"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "rangkul",
+    "ngoko": "rangkul",
+    "ngoko_alus": "rangkul",
+    "krama": "rangkul",
+    "krama_inggil": "rangkul",
+    "all_ngoko": [
+      "rangkul"
+    ],
+    "all_ngoko_alus": [
+      "rangkul"
+    ],
+    "all_krama": [
+      "rangkul"
+    ],
+    "all_krama_inggil": [
+      "rangkul"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "rebah",
+    "ngoko": "rebah",
+    "ngoko_alus": "rebah",
+    "krama": "rebah",
+    "krama_inggil": "rebah",
+    "all_ngoko": [
+      "rebah"
+    ],
+    "all_ngoko_alus": [
+      "rebah"
+    ],
+    "all_krama": [
+      "rebah"
+    ],
+    "all_krama_inggil": [
+      "rebah"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "rebus",
+    "ngoko": "godhog",
+    "ngoko_alus": "godhog",
+    "krama": "godhog",
+    "krama_inggil": "godhog",
+    "all_ngoko": [
+      "godhog"
+    ],
+    "all_ngoko_alus": [
+      "godhog"
+    ],
+    "all_krama": [
+      "godhog"
+    ],
+    "all_krama_inggil": [
+      "godhog"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "remas",
+    "ngoko": "remas",
+    "ngoko_alus": "remas",
+    "krama": "remas",
+    "krama_inggil": "remas",
+    "all_ngoko": [
+      "remas"
+    ],
+    "all_ngoko_alus": [
+      "remas"
+    ],
+    "all_krama": [
+      "remas"
+    ],
+    "all_krama_inggil": [
+      "remas"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "saring",
+    "ngoko": "saring",
+    "ngoko_alus": "saring",
+    "krama": "saring",
+    "krama_inggil": "saring",
+    "all_ngoko": [
+      "saring"
+    ],
+    "all_ngoko_alus": [
+      "saring"
+    ],
+    "all_krama": [
+      "saring"
+    ],
+    "all_krama_inggil": [
+      "saring"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "sembunyi",
+    "ngoko": "ndhelik",
+    "ngoko_alus": "ndhelik",
+    "krama": "ndhelik",
+    "krama_inggil": "ndhelik",
+    "all_ngoko": [
+      "ndhelik"
+    ],
+    "all_ngoko_alus": [
+      "ndhelik"
+    ],
+    "all_krama": [
+      "ndhelik"
+    ],
+    "all_krama_inggil": [
+      "ndhelik"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "sentuh",
+    "ngoko": "demek",
+    "ngoko_alus": "demek",
+    "krama": "demek",
+    "krama_inggil": "demek",
+    "all_ngoko": [
+      "demek"
+    ],
+    "all_ngoko_alus": [
+      "demek"
+    ],
+    "all_krama": [
+      "demek"
+    ],
+    "all_krama_inggil": [
+      "demek"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "senyum",
+    "ngoko": "mesem",
+    "ngoko_alus": "mesem",
+    "krama": "mesem",
+    "krama_inggil": "mesem",
+    "all_ngoko": [
+      "mesem"
+    ],
+    "all_ngoko_alus": [
+      "mesem"
+    ],
+    "all_krama": [
+      "mesem"
+    ],
+    "all_krama_inggil": [
+      "mesem"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "setrika",
+    "ngoko": "setrika",
+    "ngoko_alus": "setrika",
+    "krama": "setrika",
+    "krama_inggil": "setrika",
+    "all_ngoko": [
+      "setrika"
+    ],
+    "all_ngoko_alus": [
+      "setrika"
+    ],
+    "all_krama": [
+      "setrika"
+    ],
+    "all_krama_inggil": [
+      "setrika"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "sikat",
+    "ngoko": "sikat",
+    "ngoko_alus": "sikat",
+    "krama": "sikat",
+    "krama_inggil": "sikat",
+    "all_ngoko": [
+      "sikat"
+    ],
+    "all_ngoko_alus": [
+      "sikat"
+    ],
+    "all_krama": [
+      "sikat"
+    ],
+    "all_krama_inggil": [
+      "sikat"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "siram",
+    "ngoko": "siram",
+    "ngoko_alus": "siram",
+    "krama": "siram",
+    "krama_inggil": "siram",
+    "all_ngoko": [
+      "siram"
+    ],
+    "all_ngoko_alus": [
+      "siram"
+    ],
+    "all_krama": [
+      "siram"
+    ],
+    "all_krama_inggil": [
+      "siram"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "sobek",
+    "ngoko": "suwek",
+    "ngoko_alus": "suwek",
+    "krama": "suwek",
+    "krama_inggil": "suwek",
+    "all_ngoko": [
+      "suwek"
+    ],
+    "all_ngoko_alus": [
+      "suwek"
+    ],
+    "all_krama": [
+      "suwek"
+    ],
+    "all_krama_inggil": [
+      "suwek"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "sodok",
+    "ngoko": "sodok",
+    "ngoko_alus": "sodok",
+    "krama": "sodok",
+    "krama_inggil": "sodok",
+    "all_ngoko": [
+      "sodok"
+    ],
+    "all_ngoko_alus": [
+      "sodok"
+    ],
+    "all_krama": [
+      "sodok"
+    ],
+    "all_krama_inggil": [
+      "sodok"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "tampar",
+    "ngoko": "tampar",
+    "ngoko_alus": "tampar",
+    "krama": "tampar",
+    "krama_inggil": "tampar",
+    "all_ngoko": [
+      "tampar"
+    ],
+    "all_ngoko_alus": [
+      "tampar"
+    ],
+    "all_krama": [
+      "tampar"
+    ],
+    "all_krama_inggil": [
+      "tampar"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "tanya",
+    "ngoko": "takon",
+    "ngoko_alus": "taken",
+    "krama": "taken",
+    "krama_inggil": "taken",
+    "all_ngoko": [
+      "takon"
+    ],
+    "all_ngoko_alus": [
+      "taken"
+    ],
+    "all_krama": [
+      "taken"
+    ],
+    "all_krama_inggil": [
+      "taken"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "tarik",
+    "ngoko": "tarik",
+    "ngoko_alus": "tarik",
+    "krama": "tarik",
+    "krama_inggil": "tarik",
+    "all_ngoko": [
+      "tarik"
+    ],
+    "all_ngoko_alus": [
+      "tarik"
+    ],
+    "all_krama": [
+      "tarik"
+    ],
+    "all_krama_inggil": [
+      "tarik"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "temukan",
+    "ngoko": "temu",
+    "ngoko_alus": "panggih",
+    "krama": "panggih",
+    "krama_inggil": "panggih",
+    "all_ngoko": [
+      "temu"
+    ],
+    "all_ngoko_alus": [
+      "panggih"
+    ],
+    "all_krama": [
+      "panggih"
+    ],
+    "all_krama_inggil": [
+      "panggih"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "tendang",
+    "ngoko": "tendang",
+    "ngoko_alus": "tendang",
+    "krama": "tendang",
+    "krama_inggil": "tendang",
+    "all_ngoko": [
+      "tendang"
+    ],
+    "all_ngoko_alus": [
+      "tendang"
+    ],
+    "all_krama": [
+      "tendang"
+    ],
+    "all_krama_inggil": [
+      "tendang"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "teriak",
+    "ngoko": "bengok",
+    "ngoko_alus": "bengok",
+    "krama": "bengok",
+    "krama_inggil": "bengok",
+    "all_ngoko": [
+      "bengok"
+    ],
+    "all_ngoko_alus": [
+      "bengok"
+    ],
+    "all_krama": [
+      "bengok"
+    ],
+    "all_krama_inggil": [
+      "bengok"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "terima",
+    "ngoko": "tampa",
+    "ngoko_alus": "tampi",
+    "krama": "tampi",
+    "krama_inggil": "tampi",
+    "all_ngoko": [
+      "tampa"
+    ],
+    "all_ngoko_alus": [
+      "tampi"
+    ],
+    "all_krama": [
+      "tampi"
+    ],
+    "all_krama_inggil": [
+      "tampi"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "timbang",
+    "ngoko": "timbang",
+    "ngoko_alus": "timbang",
+    "krama": "timbang",
+    "krama_inggil": "timbang",
+    "all_ngoko": [
+      "timbang"
+    ],
+    "all_ngoko_alus": [
+      "timbang"
+    ],
+    "all_krama": [
+      "timbang"
+    ],
+    "all_krama_inggil": [
+      "timbang"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "timbun",
+    "ngoko": "timbun",
+    "ngoko_alus": "timbun",
+    "krama": "timbun",
+    "krama_inggil": "timbun",
+    "all_ngoko": [
+      "timbun"
+    ],
+    "all_ngoko_alus": [
+      "timbun"
+    ],
+    "all_krama": [
+      "timbun"
+    ],
+    "all_krama_inggil": [
+      "timbun"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "tolak",
+    "ngoko": "tolak",
+    "ngoko_alus": "tolak",
+    "krama": "tolak",
+    "krama_inggil": "tolak",
+    "all_ngoko": [
+      "tolak"
+    ],
+    "all_ngoko_alus": [
+      "tolak"
+    ],
+    "all_krama": [
+      "tolak"
+    ],
+    "all_krama_inggil": [
+      "tolak"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "tuang",
+    "ngoko": "tuang",
+    "ngoko_alus": "tuang",
+    "krama": "tuang",
+    "krama_inggil": "tuang",
+    "all_ngoko": [
+      "tuang"
+    ],
+    "all_ngoko_alus": [
+      "tuang"
+    ],
+    "all_krama": [
+      "tuang"
+    ],
+    "all_krama_inggil": [
+      "tuang"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "ukur",
+    "ngoko": "ukur",
+    "ngoko_alus": "ukur",
+    "krama": "ukur",
+    "krama_inggil": "ukur",
+    "all_ngoko": [
+      "ukur"
+    ],
+    "all_ngoko_alus": [
+      "ukur"
+    ],
+    "all_krama": [
+      "ukur"
+    ],
+    "all_krama_inggil": [
+      "ukur"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "ulang",
+    "ngoko": "baleni",
+    "ngoko_alus": "baleni",
+    "krama": "baleni",
+    "krama_inggil": "baleni",
+    "all_ngoko": [
+      "baleni"
+    ],
+    "all_ngoko_alus": [
+      "baleni"
+    ],
+    "all_krama": [
+      "baleni"
+    ],
+    "all_krama_inggil": [
+      "baleni"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "ulek",
+    "ngoko": "ulek",
+    "ngoko_alus": "ulek",
+    "krama": "ulek",
+    "krama_inggil": "ulek",
+    "all_ngoko": [
+      "ulek"
+    ],
+    "all_ngoko_alus": [
+      "ulek"
+    ],
+    "all_krama": [
+      "ulek"
+    ],
+    "all_krama_inggil": [
+      "ulek"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "utang",
+    "ngoko": "utang",
+    "ngoko_alus": "utang",
+    "krama": "utang",
+    "krama_inggil": "utang",
+    "all_ngoko": [
+      "utang"
+    ],
+    "all_ngoko_alus": [
+      "utang"
+    ],
+    "all_krama": [
+      "utang"
+    ],
+    "all_krama_inggil": [
+      "utang"
+    ],
+    "variant_count": 1
   }
 ]
