@@ -13,6 +13,26 @@ let isAndhapAktif = false;
 window.isHormatAktif = false;
 window.isAndhapAktif = false;
 
+// === TAMBAHAN UNTUK FRASA MULTI-KATA ===
+let kamusStandardMap = new Map();
+let maxFrasaLength = 1;
+function buildKamusCache(){
+    kamusStandardMap.clear();
+    maxFrasaLength = 1;
+    if(!kamusData || !kamusData.length) return;
+    for(let item of kamusData){
+        let indo = (item.indonesia || "").toLowerCase().trim();
+        if(!indo) continue;
+        if(indo.startsWith("[bagongan]")) continue;
+        let clean = indo.replace(/[^a-z\s\-]/g, "").replace(/\s+/g, " ").trim();
+        if(!clean) continue;
+        kamusStandardMap.set(clean, item);
+        let len = clean.split(/\s+/).length;
+        if(len > maxFrasaLength) maxFrasaLength = len;
+    }
+    if(maxFrasaLength > 5) maxFrasaLength = 5;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     fetch("kamuskramamet.json")
         .then(r => {
@@ -21,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(data => {
             kamusData = data;
+            buildKamusCache();
             console.log("Kamus:", kamusData.length);
         })
         .catch(err => console.error(err));
@@ -153,20 +174,66 @@ function prosesTerjemahan() {
         resetOutput();
         return;
     }
-    const kataList = inputTeks.toLowerCase().split(/\s+/);
-    currentWordsData = kataList.map((kata, index) => {
-        let analisisId = uraiMorfologiIndonesia(kata);
-        let bagonganEntry = cariKamusBagongan(analisisId.kataDasar);
-        return {
-            index: index,
-            originalInput: kata,
-            analisis: analisisId,
-            bagonganEntry: bagonganEntry,
-            customStandardEntry: null,
-            customBagonganEntry: null,
-            selectedVariants: {}
-        };
-    });
+    // === LOGIKA BARU: longest match untuk frasa ===
+    const rawWords = inputTeks.toLowerCase().split(/\s+/).filter(Boolean);
+    let tokens = [];
+    let globalIndex = 0;
+    let i = 0;
+    while (i < rawWords.length) {
+        let found = null;
+        let foundLen = 0;
+        let maxTry = Math.min(maxFrasaLength, rawWords.length - i);
+        for (let L = maxTry; L >= 1; L--) {
+            let frase = rawWords.slice(i, i + L).join(" ");
+            let cleanFrase = frase.replace(/[^a-z\s\-]/g, "").replace(/\s+/g, " ").trim();
+            let entry = kamusStandardMap.get(cleanFrase);
+            if (entry) {
+                found = { frase: cleanFrase, entry: entry, original: rawWords.slice(i, i+L).join(" ") };
+                foundLen = L;
+                break;
+            }
+        }
+        if (found) {
+            let analisisId = {
+                kataDasar: found.frase,
+                awalan: "",
+                akhiran: "",
+                konfiks: "",
+                prefiks: [],
+                sufiks: [],
+                entry: found.entry,
+                original: found.original
+            };
+            let bagonganEntry = cariKamusBagongan(found.frase);
+            tokens.push({
+                index: globalIndex++,
+                originalInput: found.original,
+                analisis: analisisId,
+                bagonganEntry: bagonganEntry,
+                customStandardEntry: null,
+                customBagonganEntry: null,
+                selectedVariants: {},
+                isFrasa: true
+            });
+            i += foundLen;
+        } else {
+            let kata = rawWords[i];
+            let analisisId = uraiMorfologiIndonesia(kata);
+            let bagonganEntry = cariKamusBagongan(analisisId.kataDasar);
+            tokens.push({
+                index: globalIndex++,
+                originalInput: kata,
+                analisis: analisisId,
+                bagonganEntry: bagonganEntry,
+                customStandardEntry: null,
+                customBagonganEntry: null,
+                selectedVariants: {},
+                isFrasa: false
+            });
+            i += 1;
+        }
+    }
+    currentWordsData = tokens;
     renderAllCards();
 }
 
@@ -461,12 +528,14 @@ function uraiMorfologiInternal(kata) {
 
 function cariKamusStandard(kata) {
     if (!kamusData || kamusData.length === 0 || !kata) return null;
-    let clean = kata.toLowerCase().trim().replace(/[^a-z\-]/g, "");
+    let clean = kata.toLowerCase().trim().replace(/[^a-z\s\-]/g, "").replace(/\s+/g, " ").trim();
     if (!clean) return null;
+    if (kamusStandardMap.has(clean)) return kamusStandardMap.get(clean);
     let match = kamusData.find(item => {
-        let ind = item.indonesia ? item.indonesia.toLowerCase() : "";
+        let ind = item.indonesia ? item.indonesia.toLowerCase().trim() : "";
         if (ind.startsWith("[bagongan]")) return false;
-        return ind === clean;
+        let indClean = ind.replace(/[^a-z\s\-]/g, "").replace(/\s+/g, " ").trim();
+        return indClean === clean;
     });
     if (match) return match;
     return null;
