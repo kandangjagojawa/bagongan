@@ -49247,5 +49247,319 @@
       "halal bihalal"
     ],
     "variant_count": 1
+  },
+  {
+    "indonesia": "selamat pagi",
+    "ngoko": "sugeng esuk",
+    "ngoko_alus": "sugeng enjing",
+    "krama": "wilujeng enjing",
+    "krama_inggil": "sugeng enjing",
+    "all_ngoko": [
+      "sugeng esuk",
+      "sugeng enjing"
+    ],
+    "all_ngoko_alus": [
+      "sugeng enjing"
+    ],
+    "all_krama": [
+      "wilujeng enjing",
+      "sugeng enjing"
+    ],
+    "all_krama_inggil": [
+      "sugeng enjing"
+    ],
+    "variant_count": 2
+  },
+  {
+    "indonesia": "selamat siang",
+    "ngoko": "sugeng awan",
+    "ngoko_alus": "sugeng siang",
+    "krama": "wilujeng siang",
+    "krama_inggil": "sugeng siang",
+    "all_ngoko": [
+      "sugeng awan",
+      "sugeng siang"
+    ],
+    "all_ngoko_alus": [
+      "sugeng siang"
+    ],
+    "all_krama": [
+      "wilujeng siang"
+    ],
+    "all_krama_inggil": [
+      "sugeng siang"
+    ],
+    "variant_count": 2
+  },
+  {
+    "indonesia": "selamat sore",
+    "ngoko": "sugeng sore",
+    "ngoko_alus": "sugeng sonten",
+    "krama": "wilujeng sonten",
+    "krama_inggil": "sugeng sonten",
+    "all_ngoko": [
+      "sugeng sore",
+      "sugeng sonten"
+    ],
+    "all_ngoko_alus": [
+      "sugeng sonten"
+    ],
+    "all_krama": [
+      "wilujeng sonten",
+      "sugeng sonten"
+    ],
+    "all_krama_inggil": [
+      "sugeng sonten"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "selamat malam",
+    "ngoko": "sugeng bengi",
+    "ngoko_alus": "sugeng dalu",
+    "krama": "wilujeng dalu",
+    "krama_inggil": "sugeng dalu",
+    "all_ngoko": [
+      "sugeng bengi",
+      "sugeng dalu"
+    ],
+    "all_ngoko_alus": [
+      "sugeng dalu"
+    ],
+    "all_krama": [
+      "wilujeng dalu",
+      "sugeng dalu"
+    ],
+    "all_krama_inggil": [
+      "sugeng dalu"
+    ],
+    "variant_count": 2
+  },
+  {
+    "indonesia": "apa kabar",
+    "ngoko": "piye kabare",
+    "ngoko_alus": "pripun kabare",
+    "krama": "pripun kabare",
+    "krama_inggil": "kados pundi wartosipun",
+    "all_ngoko": [
+      "piye kabare",
+      "piyekabare"
+    ],
+    "all_ngoko_alus": [
+      "pripun kabare",
+      "piye kabare"
+    ],
+    "all_krama": [
+      "pripun kabare",
+      "kados pundi"
+    ],
+    "all_krama_inggil": [
+      "kados pundi wartosipun",
+      "pripun wartosipun"
+    ],
+    "variant_count": 2
+  },
+  {
+    "indonesia": "tidak bisa",
+    "ngoko": "ora iso",
+    "ngoko_alus": "ora saged",
+    "krama": "mboten saged",
+    "krama_inggil": "mboten saged",
+    "all_ngoko": [
+      "ora iso",
+      "ora bisa"
+    ],
+    "all_ngoko_alus": [
+      "ora saged",
+      "mboten saged"
+    ],
+    "all_krama": [
+      "mboten saged"
+    ],
+    "all_krama_inggil": [
+      "mboten saged"
+    ],
+    "variant_count": 2
+  },
+  {
+    "indonesia": "dengan hormat",
+    "ngoko": "karo bekti",
+    "ngoko_alus": "karo bektos",
+    "krama": "kalih bektos",
+    "krama_inggil": "kaliyan bektos",
+    "all_ngoko": [
+      "karo bekti"
+    ],
+    "all_ngoko_alus": [
+      "karo bektos"
+    ],
+    "all_krama": [
+      "kalih bektos",
+      "kaliyan bektos"
+    ],
+    "all_krama_inggil": [
+      "kaliyan bektos"
+    ],
+    "variant_count": 2
+  },
+  {
+    "indonesia": "selamat datang",
+    "ngoko": "sugeng teka",
+    "ngoko_alus": "sugeng rawuh",
+    "krama": "wilujeng rawuh",
+    "krama_inggil": "sugeng rawuh",
+    "all_ngoko": [
+      "sugeng teka"
+    ],
+    "all_ngoko_alus": [
+      "sugeng rawuh"
+    ],
+    "all_krama": [
+      "wilujeng rawuh"
+    ],
+    "all_krama_inggil": [
+      "sugeng rawuh"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "selamat jalan",
+    "ngoko": "sugeng lunga",
+    "ngoko_alus": "sugeng tindak",
+    "krama": "wilujeng tindak",
+    "krama_inggil": "sugeng tindak",
+    "all_ngoko": [
+      "sugeng lunga"
+    ],
+    "all_ngoko_alus": [
+      "sugeng tindak"
+    ],
+    "all_krama": [
+      "wilujeng tindak"
+    ],
+    "all_krama_inggil": [
+      "sugeng tindak"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "selamat ulang tahun",
+    "ngoko": "sugeng ambal warsa",
+    "ngoko_alus": "sugeng ambal warsa",
+    "krama": "wilujeng ambal warsa",
+    "krama_inggil": "sugeng ambal warsa",
+    "all_ngoko": [
+      "sugeng ambal warsa"
+    ],
+    "all_ngoko_alus": [
+      "sugeng ambal warsa"
+    ],
+    "all_krama": [
+      "wilujeng ambal warsa"
+    ],
+    "all_krama_inggil": [
+      "sugeng ambal warsa"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "mohon maaf",
+    "ngoko": "nyuwun ngapura",
+    "ngoko_alus": "nyuwun pangapura",
+    "krama": "nyuwun pangapunten",
+    "krama_inggil": "nyuwun pangapunten",
+    "all_ngoko": [
+      "nyuwun ngapura"
+    ],
+    "all_ngoko_alus": [
+      "nyuwun pangapura"
+    ],
+    "all_krama": [
+      "nyuwun pangapunten"
+    ],
+    "all_krama_inggil": [
+      "nyuwun pangapunten"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "kebijakan pemerintah",
+    "ngoko": "kawicaksanane pamarentah",
+    "ngoko_alus": "kawicaksanane pamarentah",
+    "krama": "kawicaksananipun pamarentah",
+    "krama_inggil": "kawicaksananipun pamarentah",
+    "all_ngoko": [
+      "kawicaksanane pamarentah"
+    ],
+    "all_ngoko_alus": [
+      "kawicaksanane pamarentah"
+    ],
+    "all_krama": [
+      "kawicaksananipun pamarentah"
+    ],
+    "all_krama_inggil": [
+      "kawicaksananipun pamarentah"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "rapat koordinasi",
+    "ngoko": "rapat koordinasi",
+    "ngoko_alus": "rapat koordinasi",
+    "krama": "rapat koordinasi",
+    "krama_inggil": "rapat koordinasi",
+    "all_ngoko": [
+      "rapat koordinasi"
+    ],
+    "all_ngoko_alus": [
+      "rapat koordinasi"
+    ],
+    "all_krama": [
+      "rapat koordinasi"
+    ],
+    "all_krama_inggil": [
+      "rapat koordinasi"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "berita acara",
+    "ngoko": "warta acara",
+    "ngoko_alus": "warta acara",
+    "krama": "wartos acara",
+    "krama_inggil": "wartos acara",
+    "all_ngoko": [
+      "warta acara"
+    ],
+    "all_ngoko_alus": [
+      "warta acara"
+    ],
+    "all_krama": [
+      "wartos acara"
+    ],
+    "all_krama_inggil": [
+      "wartos acara"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "pelaku kejahatan",
+    "ngoko": "penggawe ala",
+    "ngoko_alus": "penggawe ala",
+    "krama": "pelaku kejahatan",
+    "krama_inggil": "pelaku kejahatan",
+    "all_ngoko": [
+      "penggawe ala"
+    ],
+    "all_ngoko_alus": [
+      "penggawe ala"
+    ],
+    "all_krama": [
+      "pelaku kejahatan"
+    ],
+    "all_krama_inggil": [
+      "pelaku kejahatan"
+    ],
+    "variant_count": 1
   }
 ]
