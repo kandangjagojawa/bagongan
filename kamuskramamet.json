@@ -47700,5 +47700,1552 @@
       "utang"
     ],
     "variant_count": 1
+  },
+  {
+    "indonesia": "sakit hati",
+    "ngoko": "lara ati",
+    "ngoko_alus": "sakit manah",
+    "krama": "sakit manah",
+    "krama_inggil": "gerah penggalih",
+    "all_ngoko": [
+      "lara ati"
+    ],
+    "all_ngoko_alus": [
+      "sakit manah"
+    ],
+    "all_krama": [
+      "sakit manah"
+    ],
+    "all_krama_inggil": [
+      "gerah penggalih"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "patah hati",
+    "ngoko": "tugel ati",
+    "ngoko_alus": "tugel manah",
+    "krama": "tugel manah",
+    "krama_inggil": "tugel penggalih",
+    "all_ngoko": [
+      "tugel ati"
+    ],
+    "all_ngoko_alus": [
+      "tugel manah"
+    ],
+    "all_krama": [
+      "tugel manah"
+    ],
+    "all_krama_inggil": [
+      "tugel penggalih"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "besar hati",
+    "ngoko": "gedhe ati",
+    "ngoko_alus": "ageng manah",
+    "krama": "ageng manah",
+    "krama_inggil": "ageng penggalih",
+    "all_ngoko": [
+      "gedhe ati"
+    ],
+    "all_ngoko_alus": [
+      "ageng manah"
+    ],
+    "all_krama": [
+      "ageng manah"
+    ],
+    "all_krama_inggil": [
+      "ageng penggalih"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "kecil hati",
+    "ngoko": "cilik ati",
+    "ngoko_alus": "alit manah",
+    "krama": "alit manah",
+    "krama_inggil": "alit penggalih",
+    "all_ngoko": [
+      "cilik ati"
+    ],
+    "all_ngoko_alus": [
+      "alit manah"
+    ],
+    "all_krama": [
+      "alit manah"
+    ],
+    "all_krama_inggil": [
+      "alit penggalih"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "rendah hati",
+    "ngoko": "andhap asor",
+    "ngoko_alus": "andhap asor",
+    "krama": "andhap asor",
+    "krama_inggil": "andhap asor",
+    "all_ngoko": [
+      "andhap asor"
+    ],
+    "all_ngoko_alus": [
+      "andhap asor"
+    ],
+    "all_krama": [
+      "andhap asor"
+    ],
+    "all_krama_inggil": [
+      "andhap asor"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "tinggi hati",
+    "ngoko": "gumedhe",
+    "ngoko_alus": "gumedhe",
+    "krama": "gumedhe",
+    "krama_inggil": "gumedhe",
+    "all_ngoko": [
+      "gumedhe"
+    ],
+    "all_ngoko_alus": [
+      "gumedhe"
+    ],
+    "all_krama": [
+      "gumedhe"
+    ],
+    "all_krama_inggil": [
+      "gumedhe"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "baik hati",
+    "ngoko": "becik ati",
+    "ngoko_alus": "sae manah",
+    "krama": "sae manah",
+    "krama_inggil": "sae penggalih",
+    "all_ngoko": [
+      "becik ati"
+    ],
+    "all_ngoko_alus": [
+      "sae manah"
+    ],
+    "all_krama": [
+      "sae manah"
+    ],
+    "all_krama_inggil": [
+      "sae penggalih"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "murah hati",
+    "ngoko": "loman",
+    "ngoko_alus": "loman",
+    "krama": "mirah manah",
+    "krama_inggil": "mirah penggalih",
+    "all_ngoko": [
+      "loman"
+    ],
+    "all_ngoko_alus": [
+      "loman"
+    ],
+    "all_krama": [
+      "mirah manah"
+    ],
+    "all_krama_inggil": [
+      "mirah penggalih"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "keras hati",
+    "ngoko": "atos ati",
+    "ngoko_alus": "atos manah",
+    "krama": "atos manah",
+    "krama_inggil": "atos penggalih",
+    "all_ngoko": [
+      "atos ati"
+    ],
+    "all_ngoko_alus": [
+      "atos manah"
+    ],
+    "all_krama": [
+      "atos manah"
+    ],
+    "all_krama_inggil": [
+      "atos penggalih"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "panas hati",
+    "ngoko": "panas ati",
+    "ngoko_alus": "panas manah",
+    "krama": "panas manah",
+    "krama_inggil": "panas penggalih",
+    "all_ngoko": [
+      "panas ati"
+    ],
+    "all_ngoko_alus": [
+      "panas manah"
+    ],
+    "all_krama": [
+      "panas manah"
+    ],
+    "all_krama_inggil": [
+      "panas penggalih"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "lapang dada",
+    "ngoko": "jembar dhadha",
+    "ngoko_alus": "wiyar manah",
+    "krama": "wiyar manah",
+    "krama_inggil": "wiyar penggalih",
+    "all_ngoko": [
+      "jembar dhadha"
+    ],
+    "all_ngoko_alus": [
+      "wiyar manah"
+    ],
+    "all_krama": [
+      "wiyar manah"
+    ],
+    "all_krama_inggil": [
+      "wiyar penggalih"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "sakit perut",
+    "ngoko": "lara weteng",
+    "ngoko_alus": "sakit weteng",
+    "krama": "sakit weteng",
+    "krama_inggil": "gerah weteng",
+    "all_ngoko": [
+      "lara weteng"
+    ],
+    "all_ngoko_alus": [
+      "sakit weteng"
+    ],
+    "all_krama": [
+      "sakit weteng"
+    ],
+    "all_krama_inggil": [
+      "gerah weteng"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "rumah sakit",
+    "ngoko": "omah lara",
+    "ngoko_alus": "griya sakit",
+    "krama": "griya sakit",
+    "krama_inggil": "dalem gerah",
+    "all_ngoko": [
+      "omah lara"
+    ],
+    "all_ngoko_alus": [
+      "griya sakit"
+    ],
+    "all_krama": [
+      "griya sakit"
+    ],
+    "all_krama_inggil": [
+      "dalem gerah"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "rumah makan",
+    "ngoko": "omah mangan",
+    "ngoko_alus": "griya nedha",
+    "krama": "griya nedha",
+    "krama_inggil": "dalem dhahar",
+    "all_ngoko": [
+      "omah mangan"
+    ],
+    "all_ngoko_alus": [
+      "griya nedha"
+    ],
+    "all_krama": [
+      "griya nedha"
+    ],
+    "all_krama_inggil": [
+      "dalem dhahar"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "rumah sakit jiwa",
+    "ngoko": "omah lara edan",
+    "ngoko_alus": "griya sakit edan",
+    "krama": "griya sakit edan",
+    "krama_inggil": "dalem gerah edan",
+    "all_ngoko": [
+      "omah lara edan"
+    ],
+    "all_ngoko_alus": [
+      "griya sakit edan"
+    ],
+    "all_krama": [
+      "griya sakit edan"
+    ],
+    "all_krama_inggil": [
+      "dalem gerah edan"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "kamar mandi",
+    "ngoko": "jedhing",
+    "ngoko_alus": "pakiwan",
+    "krama": "pakiwan",
+    "krama_inggil": "pakiwan",
+    "all_ngoko": [
+      "jedhing"
+    ],
+    "all_ngoko_alus": [
+      "pakiwan"
+    ],
+    "all_krama": [
+      "pakiwan"
+    ],
+    "all_krama_inggil": [
+      "pakiwan"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "kamar tidur",
+    "ngoko": "kamar turu",
+    "ngoko_alus": "kamar sare",
+    "krama": "kamar sare",
+    "krama_inggil": "kamar sare",
+    "all_ngoko": [
+      "kamar turu"
+    ],
+    "all_ngoko_alus": [
+      "kamar sare"
+    ],
+    "all_krama": [
+      "kamar sare"
+    ],
+    "all_krama_inggil": [
+      "kamar sare"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "kamar kecil",
+    "ngoko": "kakus",
+    "ngoko_alus": "kakus",
+    "krama": "kakus",
+    "krama_inggil": "kakus",
+    "all_ngoko": [
+      "kakus"
+    ],
+    "all_ngoko_alus": [
+      "kakus"
+    ],
+    "all_krama": [
+      "kakus"
+    ],
+    "all_krama_inggil": [
+      "kakus"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "meja makan",
+    "ngoko": "mejo mangan",
+    "ngoko_alus": "mejo nedha",
+    "krama": "mejo nedha",
+    "krama_inggil": "mejo dhahar",
+    "all_ngoko": [
+      "mejo mangan"
+    ],
+    "all_ngoko_alus": [
+      "mejo nedha"
+    ],
+    "all_krama": [
+      "mejo nedha"
+    ],
+    "all_krama_inggil": [
+      "mejo dhahar"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "meja tulis",
+    "ngoko": "mejo tulis",
+    "ngoko_alus": "mejo serat",
+    "krama": "mejo serat",
+    "krama_inggil": "mejo serat",
+    "all_ngoko": [
+      "mejo tulis"
+    ],
+    "all_ngoko_alus": [
+      "mejo serat"
+    ],
+    "all_krama": [
+      "mejo serat"
+    ],
+    "all_krama_inggil": [
+      "mejo serat"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "kursi roda",
+    "ngoko": "kursi roda",
+    "ngoko_alus": "kursi roda",
+    "krama": "kursi roda",
+    "krama_inggil": "kursi roda",
+    "all_ngoko": [
+      "kursi roda"
+    ],
+    "all_ngoko_alus": [
+      "kursi roda"
+    ],
+    "all_krama": [
+      "kursi roda"
+    ],
+    "all_krama_inggil": [
+      "kursi roda"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "pintu masuk",
+    "ngoko": "lawang mlebu",
+    "ngoko_alus": "lawang mlebet",
+    "krama": "lawang mlebet",
+    "krama_inggil": "lawang mlebet",
+    "all_ngoko": [
+      "lawang mlebu"
+    ],
+    "all_ngoko_alus": [
+      "lawang mlebet"
+    ],
+    "all_krama": [
+      "lawang mlebet"
+    ],
+    "all_krama_inggil": [
+      "lawang mlebet"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "pintu keluar",
+    "ngoko": "lawang metu",
+    "ngoko_alus": "lawang medal",
+    "krama": "lawang medal",
+    "krama_inggil": "lawang medal",
+    "all_ngoko": [
+      "lawang metu"
+    ],
+    "all_ngoko_alus": [
+      "lawang medal"
+    ],
+    "all_krama": [
+      "lawang medal"
+    ],
+    "all_krama_inggil": [
+      "lawang medal"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "kaca mata",
+    "ngoko": "kaca mata",
+    "ngoko_alus": "kaca tingal",
+    "krama": "kaca tingal",
+    "krama_inggil": "kaca tingal",
+    "all_ngoko": [
+      "kaca mata",
+      "kaca tingal"
+    ],
+    "all_ngoko_alus": [
+      "kaca tingal"
+    ],
+    "all_krama": [
+      "kaca tingal"
+    ],
+    "all_krama_inggil": [
+      "kaca tingal"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "kereta api",
+    "ngoko": "sepur",
+    "ngoko_alus": "sepur",
+    "krama": "sepur",
+    "krama_inggil": "sepur",
+    "all_ngoko": [
+      "sepur"
+    ],
+    "all_ngoko_alus": [
+      "sepur"
+    ],
+    "all_krama": [
+      "sepur"
+    ],
+    "all_krama_inggil": [
+      "sepur"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "kapal terbang",
+    "ngoko": "montor mabur",
+    "ngoko_alus": "montor mabur",
+    "krama": "montor mabur",
+    "krama_inggil": "montor mabur",
+    "all_ngoko": [
+      "montor mabur"
+    ],
+    "all_ngoko_alus": [
+      "montor mabur"
+    ],
+    "all_krama": [
+      "montor mabur"
+    ],
+    "all_krama_inggil": [
+      "montor mabur"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "sepeda motor",
+    "ngoko": "montor",
+    "ngoko_alus": "montor",
+    "krama": "montor",
+    "krama_inggil": "montor",
+    "all_ngoko": [
+      "montor"
+    ],
+    "all_ngoko_alus": [
+      "montor"
+    ],
+    "all_krama": [
+      "montor"
+    ],
+    "all_krama_inggil": [
+      "montor"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "mobil polisi",
+    "ngoko": "montor polisi",
+    "ngoko_alus": "montor polisi",
+    "krama": "montor polisi",
+    "krama_inggil": "montor polisi",
+    "all_ngoko": [
+      "montor polisi"
+    ],
+    "all_ngoko_alus": [
+      "montor polisi"
+    ],
+    "all_krama": [
+      "montor polisi"
+    ],
+    "all_krama_inggil": [
+      "montor polisi"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "air mata",
+    "ngoko": "eluh",
+    "ngoko_alus": "eluh",
+    "krama": "waspa",
+    "krama_inggil": "waspa",
+    "all_ngoko": [
+      "eluh",
+      "luh"
+    ],
+    "all_ngoko_alus": [
+      "eluh"
+    ],
+    "all_krama": [
+      "waspa"
+    ],
+    "all_krama_inggil": [
+      "waspa"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "cuci tangan",
+    "ngoko": "wijik",
+    "ngoko_alus": "wijik",
+    "krama": "wijik",
+    "krama_inggil": "wijik",
+    "all_ngoko": [
+      "wijik"
+    ],
+    "all_ngoko_alus": [
+      "wijik"
+    ],
+    "all_krama": [
+      "wijik"
+    ],
+    "all_krama_inggil": [
+      "wijik"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "terima kasih",
+    "ngoko": "matur nuwun",
+    "ngoko_alus": "matur nuwun",
+    "krama": "matur nuwun",
+    "krama_inggil": "matur nuwun",
+    "all_ngoko": [
+      "matur nuwun",
+      "suwun"
+    ],
+    "all_ngoko_alus": [
+      "matur nuwun"
+    ],
+    "all_krama": [
+      "matur nuwun"
+    ],
+    "all_krama_inggil": [
+      "matur nuwun"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "terima kasih banyak",
+    "ngoko": "matur nuwun sanget",
+    "ngoko_alus": "matur nuwun sanget",
+    "krama": "matur nuwun sanget",
+    "krama_inggil": "matur nuwun sanget",
+    "all_ngoko": [
+      "matur nuwun sanget"
+    ],
+    "all_ngoko_alus": [
+      "matur nuwun sanget"
+    ],
+    "all_krama": [
+      "matur nuwun sanget"
+    ],
+    "all_krama_inggil": [
+      "matur nuwun sanget"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "minta maaf",
+    "ngoko": "nyuwun ngapura",
+    "ngoko_alus": "nyuwun pangapunten",
+    "krama": "nyuwun pangapunten",
+    "krama_inggil": "nyuwun pangapunten",
+    "all_ngoko": [
+      "nyuwun ngapura"
+    ],
+    "all_ngoko_alus": [
+      "nyuwun pangapunten"
+    ],
+    "all_krama": [
+      "nyuwun pangapunten"
+    ],
+    "all_krama_inggil": [
+      "nyuwun pangapunten"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "minta tolong",
+    "ngoko": "nyuwun tulung",
+    "ngoko_alus": "nyuwun tulung",
+    "krama": "nyuwun tulung",
+    "krama_inggil": "nyuwun tulung",
+    "all_ngoko": [
+      "nyuwun tulung"
+    ],
+    "all_ngoko_alus": [
+      "nyuwun tulung"
+    ],
+    "all_krama": [
+      "nyuwun tulung"
+    ],
+    "all_krama_inggil": [
+      "nyuwun tulung"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "minta izin",
+    "ngoko": "nyuwun palilah",
+    "ngoko_alus": "nyuwun palilah",
+    "krama": "nyuwun palilah",
+    "krama_inggil": "nyuwun palilah",
+    "all_ngoko": [
+      "nyuwun palilah"
+    ],
+    "all_ngoko_alus": [
+      "nyuwun palilah"
+    ],
+    "all_krama": [
+      "nyuwun palilah"
+    ],
+    "all_krama_inggil": [
+      "nyuwun palilah"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "jatuh cinta",
+    "ngoko": "gandrung",
+    "ngoko_alus": "gandrung",
+    "krama": "gandrung",
+    "krama_inggil": "gandrung",
+    "all_ngoko": [
+      "gandrung",
+      "kesengsem",
+      "tresna"
+    ],
+    "all_ngoko_alus": [
+      "gandrung"
+    ],
+    "all_krama": [
+      "gandrung"
+    ],
+    "all_krama_inggil": [
+      "gandrung"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "jatuh hati",
+    "ngoko": "kesengsem",
+    "ngoko_alus": "kesengsem",
+    "krama": "kesengsem",
+    "krama_inggil": "kesengsem",
+    "all_ngoko": [
+      "kesengsem"
+    ],
+    "all_ngoko_alus": [
+      "kesengsem"
+    ],
+    "all_krama": [
+      "kesengsem"
+    ],
+    "all_krama_inggil": [
+      "kesengsem"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "putus asa",
+    "ngoko": "pedhot pangarep-arep",
+    "ngoko_alus": "pedhot pangajeng-ajeng",
+    "krama": "pedhot pangajeng-ajeng",
+    "krama_inggil": "pedhot pangajeng-ajeng",
+    "all_ngoko": [
+      "pedhot pangarep-arep"
+    ],
+    "all_ngoko_alus": [
+      "pedhot pangajeng-ajeng"
+    ],
+    "all_krama": [
+      "pedhot pangajeng-ajeng"
+    ],
+    "all_krama_inggil": [
+      "pedhot pangajeng-ajeng"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "patah semangat",
+    "ngoko": "pedhot semangat",
+    "ngoko_alus": "pedhot semangat",
+    "krama": "pedhot semangat",
+    "krama_inggil": "pedhot semangat",
+    "all_ngoko": [
+      "pedhot semangat"
+    ],
+    "all_ngoko_alus": [
+      "pedhot semangat"
+    ],
+    "all_krama": [
+      "pedhot semangat"
+    ],
+    "all_krama_inggil": [
+      "pedhot semangat"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "tutup mulut",
+    "ngoko": "bungkem",
+    "ngoko_alus": "bungkem",
+    "krama": "bungkem",
+    "krama_inggil": "bungkem",
+    "all_ngoko": [
+      "bungkem"
+    ],
+    "all_ngoko_alus": [
+      "bungkem"
+    ],
+    "all_krama": [
+      "bungkem"
+    ],
+    "all_krama_inggil": [
+      "bungkem"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "buka puasa",
+    "ngoko": "buka pasa",
+    "ngoko_alus": "buka pasa",
+    "krama": "buka pasa",
+    "krama_inggil": "buka pasa",
+    "all_ngoko": [
+      "buka pasa"
+    ],
+    "all_ngoko_alus": [
+      "buka pasa"
+    ],
+    "all_krama": [
+      "buka pasa"
+    ],
+    "all_krama_inggil": [
+      "buka pasa"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "hari raya",
+    "ngoko": "riyaya",
+    "ngoko_alus": "riyaya",
+    "krama": "riyaya",
+    "krama_inggil": "riyaya",
+    "all_ngoko": [
+      "riyaya",
+      "bada",
+      "lebaran"
+    ],
+    "all_ngoko_alus": [
+      "riyaya"
+    ],
+    "all_krama": [
+      "riyaya"
+    ],
+    "all_krama_inggil": [
+      "riyaya"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "lebar dada",
+    "ngoko": "jembar dhadha",
+    "ngoko_alus": "wiyar dhadha",
+    "krama": "wiyar dhadha",
+    "krama_inggil": "wiyar dhadha",
+    "all_ngoko": [
+      "jembar dhadha"
+    ],
+    "all_ngoko_alus": [
+      "wiyar dhadha"
+    ],
+    "all_krama": [
+      "wiyar dhadha"
+    ],
+    "all_krama_inggil": [
+      "wiyar dhadha"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "anak buah",
+    "ngoko": "anak buah",
+    "ngoko_alus": "anak buah",
+    "krama": "abdi",
+    "krama_inggil": "abdi",
+    "all_ngoko": [
+      "anak buah"
+    ],
+    "all_ngoko_alus": [
+      "anak buah"
+    ],
+    "all_krama": [
+      "abdi"
+    ],
+    "all_krama_inggil": [
+      "abdi"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "kepala desa",
+    "ngoko": "lurah",
+    "ngoko_alus": "lurah",
+    "krama": "lurah",
+    "krama_inggil": "lurah",
+    "all_ngoko": [
+      "lurah"
+    ],
+    "all_ngoko_alus": [
+      "lurah"
+    ],
+    "all_krama": [
+      "lurah"
+    ],
+    "all_krama_inggil": [
+      "lurah"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "kepala dusun",
+    "ngoko": "kamituwa",
+    "ngoko_alus": "kamituwa",
+    "krama": "kamituwa",
+    "krama_inggil": "kamituwa",
+    "all_ngoko": [
+      "kamituwa"
+    ],
+    "all_ngoko_alus": [
+      "kamituwa"
+    ],
+    "all_krama": [
+      "kamituwa"
+    ],
+    "all_krama_inggil": [
+      "kamituwa"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "orang tua",
+    "ngoko": "wong tuwa",
+    "ngoko_alus": "tiyang sepuh",
+    "krama": "tiyang sepuh",
+    "krama_inggil": "tiyang sepuh",
+    "all_ngoko": [
+      "wong tuwa"
+    ],
+    "all_ngoko_alus": [
+      "tiyang sepuh"
+    ],
+    "all_krama": [
+      "tiyang sepuh"
+    ],
+    "all_krama_inggil": [
+      "tiyang sepuh"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "orang lain",
+    "ngoko": "wong liya",
+    "ngoko_alus": "tiyang sanes",
+    "krama": "tiyang sanes",
+    "krama_inggil": "tiyang sanes",
+    "all_ngoko": [
+      "wong liya"
+    ],
+    "all_ngoko_alus": [
+      "tiyang sanes"
+    ],
+    "all_krama": [
+      "tiyang sanes"
+    ],
+    "all_krama_inggil": [
+      "tiyang sanes"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "bapak ibu",
+    "ngoko": "bapak ibu",
+    "ngoko_alus": "bapak ibu",
+    "krama": "bapak ibu",
+    "krama_inggil": "bapak ibu",
+    "all_ngoko": [
+      "bapak ibu"
+    ],
+    "all_ngoko_alus": [
+      "bapak ibu"
+    ],
+    "all_krama": [
+      "bapak ibu"
+    ],
+    "all_krama_inggil": [
+      "bapak ibu"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "ibu bapak",
+    "ngoko": "ibu bapak",
+    "ngoko_alus": "ibu bapak",
+    "krama": "ibu bapak",
+    "krama_inggil": "ibu bapak",
+    "all_ngoko": [
+      "ibu bapak"
+    ],
+    "all_ngoko_alus": [
+      "ibu bapak"
+    ],
+    "all_krama": [
+      "ibu bapak"
+    ],
+    "all_krama_inggil": [
+      "ibu bapak"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "makan siang",
+    "ngoko": "mangan awan",
+    "ngoko_alus": "nedha siang",
+    "krama": "nedha siang",
+    "krama_inggil": "dhahar siang",
+    "all_ngoko": [
+      "mangan awan"
+    ],
+    "all_ngoko_alus": [
+      "nedha siang"
+    ],
+    "all_krama": [
+      "nedha siang"
+    ],
+    "all_krama_inggil": [
+      "dhahar siang"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "makan malam",
+    "ngoko": "mangan bengi",
+    "ngoko_alus": "nedha dalu",
+    "krama": "nedha dalu",
+    "krama_inggil": "dhahar dalu",
+    "all_ngoko": [
+      "mangan bengi"
+    ],
+    "all_ngoko_alus": [
+      "nedha dalu"
+    ],
+    "all_krama": [
+      "nedha dalu"
+    ],
+    "all_krama_inggil": [
+      "dhahar dalu"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "makan pagi",
+    "ngoko": "sarapan",
+    "ngoko_alus": "sarapan",
+    "krama": "sarapan",
+    "krama_inggil": "sarapan",
+    "all_ngoko": [
+      "sarapan"
+    ],
+    "all_ngoko_alus": [
+      "sarapan"
+    ],
+    "all_krama": [
+      "sarapan"
+    ],
+    "all_krama_inggil": [
+      "sarapan"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "cuci muka",
+    "ngoko": "raup",
+    "ngoko_alus": "raup",
+    "krama": "raup",
+    "krama_inggil": "raup",
+    "all_ngoko": [
+      "raup"
+    ],
+    "all_ngoko_alus": [
+      "raup"
+    ],
+    "all_krama": [
+      "raup"
+    ],
+    "all_krama_inggil": [
+      "raup"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "potong rambut",
+    "ngoko": "cukur",
+    "ngoko_alus": "cukur",
+    "krama": "cukur",
+    "krama_inggil": "cukur",
+    "all_ngoko": [
+      "cukur"
+    ],
+    "all_ngoko_alus": [
+      "cukur"
+    ],
+    "all_krama": [
+      "cukur"
+    ],
+    "all_krama_inggil": [
+      "cukur"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "sakit kepala",
+    "ngoko": "ngelu",
+    "ngoko_alus": "ngelu",
+    "krama": "sakit sirah",
+    "krama_inggil": "gerah sirah",
+    "all_ngoko": [
+      "ngelu"
+    ],
+    "all_ngoko_alus": [
+      "ngelu"
+    ],
+    "all_krama": [
+      "sakit sirah"
+    ],
+    "all_krama_inggil": [
+      "gerah sirah"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "sakit gigi",
+    "ngoko": "lara untu",
+    "ngoko_alus": "sakit waos",
+    "krama": "sakit waos",
+    "krama_inggil": "gerah waos",
+    "all_ngoko": [
+      "lara untu"
+    ],
+    "all_ngoko_alus": [
+      "sakit waos"
+    ],
+    "all_krama": [
+      "sakit waos"
+    ],
+    "all_krama_inggil": [
+      "gerah waos"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "demam tinggi",
+    "ngoko": "panas dhuwur",
+    "ngoko_alus": "panas inggil",
+    "krama": "panas inggil",
+    "krama_inggil": "panas inggil",
+    "all_ngoko": [
+      "panas dhuwur"
+    ],
+    "all_ngoko_alus": [
+      "panas inggil"
+    ],
+    "all_krama": [
+      "panas inggil"
+    ],
+    "all_krama_inggil": [
+      "panas inggil"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "darah tinggi",
+    "ngoko": "darah dhuwur",
+    "ngoko_alus": "rah inggil",
+    "krama": "rah inggil",
+    "krama_inggil": "rah inggil",
+    "all_ngoko": [
+      "darah dhuwur"
+    ],
+    "all_ngoko_alus": [
+      "rah inggil"
+    ],
+    "all_krama": [
+      "rah inggil"
+    ],
+    "all_krama_inggil": [
+      "rah inggil"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "jantung hati",
+    "ngoko": "jantung ati",
+    "ngoko_alus": "jantung manah",
+    "krama": "jantung manah",
+    "krama_inggil": "jantung penggalih",
+    "all_ngoko": [
+      "jantung ati"
+    ],
+    "all_ngoko_alus": [
+      "jantung manah"
+    ],
+    "all_krama": [
+      "jantung manah"
+    ],
+    "all_krama_inggil": [
+      "jantung penggalih"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "buah hati",
+    "ngoko": "sih-asihan",
+    "ngoko_alus": "sih-asihan",
+    "krama": "putra kinasih",
+    "krama_inggil": "putra kinasih",
+    "all_ngoko": [
+      "sih-asihan"
+    ],
+    "all_ngoko_alus": [
+      "sih-asihan"
+    ],
+    "all_krama": [
+      "putra kinasih"
+    ],
+    "all_krama_inggil": [
+      "putra kinasih"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "tulang punggung",
+    "ngoko": "balung geger",
+    "ngoko_alus": "balung geger",
+    "krama": "balung geger",
+    "krama_inggil": "balung geger",
+    "all_ngoko": [
+      "balung geger"
+    ],
+    "all_ngoko_alus": [
+      "balung geger"
+    ],
+    "all_krama": [
+      "balung geger"
+    ],
+    "all_krama_inggil": [
+      "balung geger"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "tangan kanan",
+    "ngoko": "tangan tengen",
+    "ngoko_alus": "asta tengen",
+    "krama": "asta tengen",
+    "krama_inggil": "asta tengen",
+    "all_ngoko": [
+      "tangan tengen"
+    ],
+    "all_ngoko_alus": [
+      "asta tengen"
+    ],
+    "all_krama": [
+      "asta tengen"
+    ],
+    "all_krama_inggil": [
+      "asta tengen"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "tangan kiri",
+    "ngoko": "tangan kiwa",
+    "ngoko_alus": "asta kiwa",
+    "krama": "asta kiwa",
+    "krama_inggil": "asta kiwa",
+    "all_ngoko": [
+      "tangan kiwa"
+    ],
+    "all_ngoko_alus": [
+      "asta kiwa"
+    ],
+    "all_krama": [
+      "asta kiwa"
+    ],
+    "all_krama_inggil": [
+      "asta kiwa"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "mata kaki",
+    "ngoko": "kemiri",
+    "ngoko_alus": "kemiri",
+    "krama": "kemiri",
+    "krama_inggil": "kemiri",
+    "all_ngoko": [
+      "kemiri"
+    ],
+    "all_ngoko_alus": [
+      "kemiri"
+    ],
+    "all_krama": [
+      "kemiri"
+    ],
+    "all_krama_inggil": [
+      "kemiri"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "garis miring",
+    "ngoko": "garis miring",
+    "ngoko_alus": "garis miring",
+    "krama": "garis miring",
+    "krama_inggil": "garis miring",
+    "all_ngoko": [
+      "garis miring"
+    ],
+    "all_ngoko_alus": [
+      "garis miring"
+    ],
+    "all_krama": [
+      "garis miring"
+    ],
+    "all_krama_inggil": [
+      "garis miring"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "tanda tangan",
+    "ngoko": "tapak asma",
+    "ngoko_alus": "tapak asma",
+    "krama": "tapak asma",
+    "krama_inggil": "tapak asma",
+    "all_ngoko": [
+      "tapak asma"
+    ],
+    "all_ngoko_alus": [
+      "tapak asma"
+    ],
+    "all_krama": [
+      "tapak asma"
+    ],
+    "all_krama_inggil": [
+      "tapak asma"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "uang muka",
+    "ngoko": "uang muka",
+    "ngoko_alus": "uang muka",
+    "krama": "panjar",
+    "krama_inggil": "panjar",
+    "all_ngoko": [
+      "uang muka"
+    ],
+    "all_ngoko_alus": [
+      "uang muka"
+    ],
+    "all_krama": [
+      "panjar"
+    ],
+    "all_krama_inggil": [
+      "panjar"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "harga mati",
+    "ngoko": "rega mati",
+    "ngoko_alus": "rega mati",
+    "krama": "rega mati",
+    "krama_inggil": "rega mati",
+    "all_ngoko": [
+      "rega mati"
+    ],
+    "all_ngoko_alus": [
+      "rega mati"
+    ],
+    "all_krama": [
+      "rega mati"
+    ],
+    "all_krama_inggil": [
+      "rega mati"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "pasar malam",
+    "ngoko": "pasar malem",
+    "ngoko_alus": "peken dalu",
+    "krama": "peken dalu",
+    "krama_inggil": "peken dalu",
+    "all_ngoko": [
+      "pasar malem"
+    ],
+    "all_ngoko_alus": [
+      "peken dalu"
+    ],
+    "all_krama": [
+      "peken dalu"
+    ],
+    "all_krama_inggil": [
+      "peken dalu"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "jalan kaki",
+    "ngoko": "mlaku",
+    "ngoko_alus": "mlampah",
+    "krama": "mlampah",
+    "krama_inggil": "mlampah",
+    "all_ngoko": [
+      "mlaku"
+    ],
+    "all_ngoko_alus": [
+      "mlampah"
+    ],
+    "all_krama": [
+      "mlampah"
+    ],
+    "all_krama_inggil": [
+      "mlampah"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "naik haji",
+    "ngoko": "munggah kaji",
+    "ngoko_alus": "minggah kaji",
+    "krama": "minggah kaji",
+    "krama_inggil": "minggah kaji",
+    "all_ngoko": [
+      "munggah kaji"
+    ],
+    "all_ngoko_alus": [
+      "minggah kaji"
+    ],
+    "all_krama": [
+      "minggah kaji"
+    ],
+    "all_krama_inggil": [
+      "minggah kaji"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "pulang kampung",
+    "ngoko": "muleh kampung",
+    "ngoko_alus": "mantuk dhusun",
+    "krama": "mantuk dhusun",
+    "krama_inggil": "mantuk dhusun",
+    "all_ngoko": [
+      "muleh kampung"
+    ],
+    "all_ngoko_alus": [
+      "mantuk dhusun"
+    ],
+    "all_krama": [
+      "mantuk dhusun"
+    ],
+    "all_krama_inggil": [
+      "mantuk dhusun"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "gotong royong",
+    "ngoko": "gotong royong",
+    "ngoko_alus": "gotong royong",
+    "krama": "gotong royong",
+    "krama_inggil": "gotong royong",
+    "all_ngoko": [
+      "gotong royong"
+    ],
+    "all_ngoko_alus": [
+      "gotong royong"
+    ],
+    "all_krama": [
+      "gotong royong"
+    ],
+    "all_krama_inggil": [
+      "gotong royong"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "kerja bakti",
+    "ngoko": "kerja bakti",
+    "ngoko_alus": "kerja bakti",
+    "krama": "nyambut damel bebadan",
+    "krama_inggil": "nyambut damel bebadan",
+    "all_ngoko": [
+      "kerja bakti"
+    ],
+    "all_ngoko_alus": [
+      "kerja bakti"
+    ],
+    "all_krama": [
+      "nyambut damel bebadan"
+    ],
+    "all_krama_inggil": [
+      "nyambut damel bebadan"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "silaturahmi",
+    "ngoko": "silahturahmi",
+    "ngoko_alus": "silahturahmi",
+    "krama": "silahturahmi",
+    "krama_inggil": "silahturahmi",
+    "all_ngoko": [
+      "silahturahmi"
+    ],
+    "all_ngoko_alus": [
+      "silahturahmi"
+    ],
+    "all_krama": [
+      "silahturahmi"
+    ],
+    "all_krama_inggil": [
+      "silahturahmi"
+    ],
+    "variant_count": 1
+  },
+  {
+    "indonesia": "halal bihalal",
+    "ngoko": "halal bihalal",
+    "ngoko_alus": "halal bihalal",
+    "krama": "halal bihalal",
+    "krama_inggil": "halal bihalal",
+    "all_ngoko": [
+      "halal bihalal"
+    ],
+    "all_ngoko_alus": [
+      "halal bihalal"
+    ],
+    "all_krama": [
+      "halal bihalal"
+    ],
+    "all_krama_inggil": [
+      "halal bihalal"
+    ],
+    "variant_count": 1
   }
 ]
