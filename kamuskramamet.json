@@ -26242,26 +26242,6 @@
     "variant_count": 1
   },
   {
-    "indonesia": "gotong royong",
-    "ngoko": "gotong royong",
-    "ngoko_alus": "gotong royong",
-    "krama": "gotong royong",
-    "krama_inggil": "gotong royong",
-    "all_ngoko": [
-      "gotong royong"
-    ],
-    "all_ngoko_alus": [
-      "gotong royong"
-    ],
-    "all_krama": [
-      "gotong royong"
-    ],
-    "all_krama_inggil": [
-      "gotong royong"
-    ],
-    "variant_count": 1
-  },
-  {
     "indonesia": "bermusyawarah",
     "ngoko": "rembugan",
     "ngoko_alus": "rembagan",
@@ -26382,26 +26362,6 @@
     "variant_count": 1
   },
   {
-    "indonesia": "rumah sakit",
-    "ngoko": "rumah sakit",
-    "ngoko_alus": "griya sakit",
-    "krama": "griya sakit",
-    "krama_inggil": "griya sakit",
-    "all_ngoko": [
-      "rumah sakit"
-    ],
-    "all_ngoko_alus": [
-      "griya sakit"
-    ],
-    "all_krama": [
-      "griya sakit"
-    ],
-    "all_krama_inggil": [
-      "griya sakit"
-    ],
-    "variant_count": 1
-  },
-  {
     "indonesia": "ujian",
     "ngoko": "ujian",
     "ngoko_alus": "ujian",
@@ -26518,26 +26478,6 @@
     ],
     "all_krama_inggil": [
       "awisan"
-    ],
-    "variant_count": 1
-  },
-  {
-    "indonesia": "terima kasih",
-    "ngoko": "matur nuwun",
-    "ngoko_alus": "matur nuwun",
-    "krama": "matur nuwun",
-    "krama_inggil": "matur nuwun",
-    "all_ngoko": [
-      "matur nuwun"
-    ],
-    "all_ngoko_alus": [
-      "matur nuwun"
-    ],
-    "all_krama": [
-      "matur nuwun"
-    ],
-    "all_krama_inggil": [
-      "matur nuwun"
     ],
     "variant_count": 1
   },
@@ -44858,26 +44798,6 @@
     ],
     "all_krama_inggil": [
       "dereng"
-    ],
-    "variant_count": 1
-  },
-  {
-    "indonesia": "[bagongan] tidak ada",
-    "ngoko": "botens wenten",
-    "ngoko_alus": "botens wenten",
-    "krama": "botens wenten",
-    "krama_inggil": "botens wenten",
-    "all_ngoko": [
-      "botens wenten"
-    ],
-    "all_ngoko_alus": [
-      "botens wenten"
-    ],
-    "all_krama": [
-      "botens wenten"
-    ],
-    "all_krama_inggil": [
-      "botens wenten"
     ],
     "variant_count": 1
   },
